@@ -1,0 +1,382 @@
+/**
+***	Static Stylesheet for Beesden Websites
+**/
+
+/* Generic Reset */
+* {box-sizing:border-box; -moz-box-sizing:border-box; list-style:none; margin:0; padding:0; }
+.container > section {display:block; margin:auto; width:1000px }
+.article .image {display:inline-block; margin:auto}
+.article .image > img {display:block; margin:auto; max-height:140px; max-width:140px }
+
+/* Form styles */
+.label{line-height:20px;padding:6px 0}
+.button {cursor:pointer; display:inline-block; text-align:center; -webkit-user-select:none; white-space:nowrap }
+.input.number{text-align:center}
+.input, .button {font:11px/18px Tahoma,Geneva,sans-serif }
+
+/* Header styles */
+.header .account {float:right; margin:0 0 13px; position:relative; bottom:1px }
+.header .account > li {float:left; overflow:hidden }
+.header .account > li > a {display:block;}
+.header .searchForm {float:right; clear:right;}
+.header .searchForm .input {line-height:15px; margin:3px 0; padding:4px 10px; width:250px }
+.header .searchForm .input:focus {outline:none }
+.header .searchForm .button {background:none; border:none }
+.header .account .basket {box-shadow: -2px 2px 4px rgba(0,0,0,0.15); opacity:0; position:absolute; right:0; visibility:hidden; width:360px; z-index:500 }
+.header .account .basket h1, .header .account .basket .row, .header .account .basket .action {margin-left:10px; margin-right:10px }
+.header .account .basket .items {max-height:245px; overflow-y:auto}
+.header .account .basket .button {width:100% }
+.header .account li:hover .basket, .header .account .preview .basket {opacity:1;  transition:opacity 0.4s; visibility:visible; }
+
+/* Menu styles */
+.menu {z-index:200 }
+.menu li a {display:block;}
+.menu ol > li {display:inline-block;}
+.menu ol > li:hover ul{height:auto; opacity:1; transition: opacity 0.25s}
+.menu ul {height:0; min-width:170px; opacity:0; overflow:hidden; position:absolute; text-align:left; z-index:500; }
+
+/* Layout styles */
+.article .grid, .article .table {margin:0 5px 1em; padding:15px 0 0; position:relative }
+.article .grid > li {display:inline-block; padding:0 10px 20px; vertical-align:top; width:185px }
+.article .grid > li > a {display:inline-block; position:relative }
+.article .table > li {display:inline-block; padding:0 10px 20px; vertical-align:top; width:33.3333% }
+
+/* Message Styles */
+.article .message {font-weight:600; margin:1.5em auto; padding:10px; text-align:center; width:80%}
+.article .accountMessage{background:#f9f9f3; border:2px solid #9c9; color:#474}
+
+/* Promotional Category Styles */
+.article .promotion {overflow:hidden; position:relative }
+.article .promotion ul {left:0; white-space:nowrap; width:100% ;}
+.article .promotion li {padding-bottom:10px; text-align:center }
+.article .promotion span {display:block }
+.article .promotion .button {font-size:2.2em; padding:0 10px 3px; line-height:27px; position:absolute; top:135px; z-index:5 }
+.article .promotion .left {left:5px }
+.article .promotion .right {right:5px }
+.article .content .promotion {width:100% }
+
+/* Department Styles */
+.article .groups li {text-align:center; text-transform:uppercase }
+.article .groups .title {display:block; margin:0 0 15px }
+
+/* Category Styles */
+.article .category li {height:230px; transition: height 0.5s}
+.article .category li > a {display:block; height:210px; padding:10px 0; text-align:center }
+.article .category .title {display:block; font-weight:600 }
+.article .category .price {display:block }
+.article .category .highlight {height: 600px}
+.article .category .highlight > a {margin:0 0 10px }
+.article .category .highlight > a:after {border-left: 15px solid transparent; border-right: 15px solid transparent; content:""; position:absolute; bottom:-11px; left:25px; z-index:100 }
+.article .category .gridLoader {display:none; padding:0 10px; position:absolute; left:0; width:100% }
+.article .category .highlight .gridLoader {display:block}
+.article .category .gridLoader .product {height:368px; overflow-y:auto }
+
+/* Product Styles */
+.article .product{float:left; width:100%; padding:20px 15px}
+.article .product .images{float:left; max-width:460px}
+.article .product .images a{display:block; margin:0 10px 10px 0; position:relative; overflow:hidden}
+.article .product .images .large{display:inline-block}
+.article .product .images .large a{height:290px; width:290px;}
+.article .product .images .large .preview{max-height:280px; max-width:280px;}
+.article .product .images .small{display:inline-block}
+.article .product .images .small a{height:140px; width:140px;}
+.article .product .images .small .preview{max-height:130px; max-width:130px;}
+.article .product .images .preview{display:block; margin:auto; position:absolute; top:0; left:0; right:0; bottom:0;}
+.article .product .images .zoomImage {cursor:crosshair; opacity:0; transition: opacity 1s; position:absolute; top:0; left:0; z-index:5 }
+.article .product form {padding:0 0 0 10px; overflow:hidden }
+.article .productSection h1 {margin:0 0 0.5em}
+.article .productSection .variants{overflow:hidden; width:100%}
+.article .productSection .variants .variant{font-size:1.2em; margin:1em 1em 1em 0; text-transform:uppercase}
+.article .productSection .variants .varVariant{overflow:hidden; line-height:17px; width:100%}
+.article .productSection .variants .varVariant label{float:left; font-size:1.1em; font-weight:600; margin:5px 15px 5px 0; text-transform:uppercase}
+.article .productSection .variants .varVariant input{margin:0 5px 2px 0; vertical-align:bottom}
+.article .productSection .quantity .number{margin:0 0 0 10px; width:60px}
+.article .productSection .buttons{margin:1.5em 0 0}
+.article .productSection .button {width:50% }
+
+/* Album Styles */
+.article .album a{margin:auto; height:160px; position: relative}
+.article .album .image {display: block; margin: auto;position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
+#albumWrap {display:none; position:absolute; left:0; top:0; height:100%; width:100%; z-index:1000}
+#albumWrap .close {background:url('/assets/styles/images/styles.png') 0 -30px  no-repeat; cursor:pointer; position:absolute; top:0; right:0; width:46px; height:42px; opacity:0.8}
+#albumWrap .close:hover {opacity:1}
+#albumCont {max-height:80%; max-width:80%; margin:auto; position:absolute; left:0; right:0; top:0; bottom:50px; transition:0.8s; height:100px; width:100px;}
+#albumCont img {box-shadow:0 0 15px 1px rgba(0,0,0,0.4); margin:auto; position:absolute; left:0; right:0; top:0; bottom:0;  max-width:100%; max-height:100%}
+#albumWrap .overlay {background:rgba(0,0,0,0.5) url('/assets/styles/images/loader.gif') center center no-repeat; height:100%;}
+#albumThumbs {position:fixed; bottom:0; left:0; right:0; margin:0 auto 15px; text-align:center; width:60%}
+#albumThumbs li {display:inline-block;}
+#albumThumbs img {border:1px solid #111; max-height:55px; opacity:0.4}
+#albumThumbs .current img {opacity:1}
+
+/* Article Styles */
+.article .articles li, .article .newsArticle {margin-bottom:1em; overflow:hidden;}
+.article .articles .title {display:block; font-size:1.4em;}
+.article .articles .image, .article .newsArticle .image {float:right; margin:0 0 10px 10px}
+.article .newsArticle .date{margin:0}
+
+/* Contact Form Styles */
+.article .contact .button {margin-left:120px; width:240px}
+.article .contactMap {width:100%; height:340px}
+
+/* Pagination Styles */
+#updateContent{position:relative}
+#overlay{background:rgba(255,255,255,0.8) url('/assets/styles/images/loader.gif') center 160px no-repeat; top: 0; margin:auto; opacity:0; height:0; width:100%; position:absolute; transition:opacity 0.5s}
+.article .summaryContainer {margin-top:15px; margin-bottom:5px; overflow:hidden}
+.article .summaryContainer .pagination{float:left; margin:0 10px 10px 0;}
+.article .summaryContainer .pagination li {float:left; line-height:26px; text-align:center}
+.article .summaryContainer .pagination span, .article .summaryContainer .pagination a, .article .summaryContainer .pagination em {display:block; padding:0 10px;}
+.article .summaryContainer .sortOrder {float:right; margin:0 0 10px 10px;}
+.article .summaryContainer .sortOrder .sort{height:28px; padding:3px 5px}
+.article .summaryContainer .sortOrder .button {line-height:26px; margin:0 0 0 3px; padding:0 10px}
+.article .summaryContainer .summary {clear:left; float:left; line-height:26px; margin:0 10px 10px 0}
+
+/* Page Form Styles */
+.article .form {clear:both; max-width:730px; margin:20px auto  }
+.article .form ol > li {clear:both; display:block; margin:0 auto 10px; width:360px }
+.article .form ol .title {float:left; font-weight:600; padding:5px 35px; text-align:center; text-transform:uppercase; width:auto }
+.article label{cursor:pointer}
+.article .form .label {float:left; padding-right:20px; text-align:right; width:120px }
+.article .form .input {width:240px }
+.article .form .select{width:360px}
+.article .form .section {clear:both; margin:0 0 20px; overflow:hidden }
+.article .formSelect{clear:none; cursor:pointer; float:left; line-height:20px; position:relative}
+.article .formSelect input {display:none}
+.article .formSelect input ~ label {padding:0 0 0 25px;}
+.article .formSelect label:before{background:url('/assets/styles/images/styles.png') -120px 0 no-repeat;content:'';display: block;position: absolute;left: 0;top: 0;height:20px;width:20px}
+.article .formSelect input:checked + label:before{background-position:-140px 0;}
+
+/* Advanced Search Styles */
+.article .advancedSearch{ padding:20px 0 0}
+.article .advancedSearch .button{margin-left:120px}
+
+/* Account Section Styles */
+.article .accountLogin {float:left; margin:0 0 15px; width:50% }
+.article .accountLogin h2{margin-bottom:2em}
+.article .accountLogin ol {margin:auto; width:320px}
+.article .accountLogin li {margin:0 0 10px; overflow:hidden}
+.article .accountLogin li a {float:right; font-style:italic; padding:0 5px }
+.article .accountLogin .input {width:200px }
+.article .accountLogin .label {float:left; width:120px }
+.article .accountLogin .button {margin:20px 0 0 120px; width:200px }
+.article .accountLinks{margin-bottom:2em}
+.article .accountLinks li{display:inline-block; line-height:35px; margin:0 0.25% 0.5%; text-align:center; width:24.5%}
+.article .accountLinks li a{display:block}
+.article .addressList {margin-bottom:2.5em}
+.article .addressList li div{display:block; min-height:200px; position:relative;}
+.article .addressList li span{display:block}
+.article .addressList li .update{position:absolute; left:15px; bottom:15px}
+.article .addressList li .remove{position:absolute; right:15px; bottom:15px}
+.article .addressList li .button{background:none;border:none;padding:0;}
+.article .accountOrders{border-collapse:collapse; margin-bottom:3em; text-align:center; width:100%}
+.article .accountOrders td{padding:6px 10px}
+.article .accountOrders .button{padding:3px 12px}
+.article .orderDetail {border:1px solid #ccc; border-bottom:none; line-height:30px; margin-top:2em;}
+.article .orderDetail li{display:block; border-bottom:1px solid #ccc;}
+.article .orderDetail strong{background:#f0f0f0; border-right:1px solid #ccc; display:inline-block; width:140px; margin:0 15px 0 0; padding:0 10px; text-align:right;}
+.article .orderAddress li div{background:#f5f5f5; border:1px solid #ddd; display:block; min-height:150px; position:relative; padding:15px}
+.article .orderAddress li h2{margin:0 0 1em}
+.article .orderAddress li span{display:block}
+.article .viewOrder{margin:1em 0 3em; overflow:hidden}
+.article .account .single{display:block}
+.article .account .button {margin:0 auto 3em; width:50% }
+
+/* Checkout Styles */
+.article .checkout .basket h2, .article .checkout .basket .row {margin:0; padding:10px}
+.article .checkout .formSelect{margin:0 20px 20px 0; padding:0}
+.article .checkout .basket .address{margin:10px 15px}
+.article .checkout .button {width:50% }
+
+/* (Mini)Basket Styles */
+.basket ul {clear:both }
+.basket .row {overflow:hidden; margin:0 20px; position:relative }
+.basket .image {float:left; margin:0 10px 0 0; text-align:center; width:100px; height:100px }
+.basket .image img {max-width:98px; max-height:98px }
+.basket .information span {display:block }
+.basket .name {margin:5px 0 0 }
+.basket .name em{display:block}
+.basket .code {font-size:0.9em }
+.basket .price {margin:6px 0 0 }
+.basket .lineInfo {float:right; }
+.basket .lineInfo .quantity {height:80px; }
+.basket .lineInfo .input {float:left; text-align:center; width:65px; margin: 6px 6px 3px 0 }
+.basket .lineInfo .remove {border:none; cursor:pointer; background:url('/assets/styles/images/styles.png') no-repeat 0 0; float:right; margin: 9px 0 0 10px; width:24px; height:24px; white-space:nowrap; text-indent:100% }
+.basket .lineInfo .update {background:none; border:none; cursor:pointer;  font-size:0.8em; float:left; clear:left; text-transform:lowercase; text-decoration:underline; }
+.basket .lineInfo span.number {display:block; line-height:24px; margin:5px 0 50px 15px; text-align:right}
+.basket .totals {float:right; line-height:20px; }
+.basket .total {float:right; line-height:20px; font-size:1.1em; clear: both }
+.basket .totals .title {padding:0 85px 0 20px }
+.basket .totals .strong {font-size:1.4em }
+.basket .address{clear:none;float:left; margin:10px 20px}
+.basket .address strong{display:block; margin: 0 0 6px; }
+.basket .warning {background:#f2e6e6; border:1px solid #c99; color:#9a3e3e; margin:0 0 20px; padding:10px; text-align:center }
+.basket .action {margin:0 20px; padding:20px 0 }
+.basket .button {margin:0; width:50% }
+
+/* CMS Default Styles */
+.editable h1, .editable h2, .editable h3, .editable p, .editable blockquote, .editable code{display:block; margin:0 15px 1em}
+.editable ul, .editable ol{margin:1em 0 1em 35px}
+.editable ol{list-style:decimal}
+.editable ul{list-style:disc}
+.editable b, .editable strong{font-weight:600}
+.editable i, .editable em{font-style:italic}
+.editable blockquote {font-family: Georgia, serif;font-size: 13px;font-style: italic;padding:0 0 0 30px;line-height: 1.45;position: relative}
+.editable blockquote:before {display: block;content: "\201C";font-size: 50px;position: absolute;left: 0;top: -15px;color: #7a7a7a;}
+.editable blockquote cite {color: #999;font-size: 11px;display: block;margin-top: 5px;}
+.editable blockquote cite:before {content: "\2014 \2009";}
+.editable code{background:#f9f9f9; color:#33a; border:1px dashed #aaa; padding:10px; font-family:Consolas, monospace}
+.editable big{font-size:1.4em}
+.editable small{font-size:0.8em}
+
+/* Social share icons */
+.article #socialShare {clear:both; display:none; margin:0 15px; overflow:hidden; padding:15px 0 10px }
+.article #socialShare ul {float:right }
+.article #socialShare li {float:left; margin:0 0 0 10px }
+
+/* Footer Styles */
+.footer dl {float:left; font-size:0.9em; width:25%; padding:5px 25px 20px }
+.footer dt {margin:10px 0 5px }
+.footer dd {margin:0 0 3px; line-height:1.6em; padding:2px 0 2px 18px; position:relative }
+.footer dd span{display:block}
+
+/**
+***	Custom Styles Stylesheet for Beesden Websites
+**/
+
+/* Page Defaults */
+body {background:#f3f1ed; color:#555; font:11px/1.8em 'Open Sans','Tahoma','Geneva',sans-serif; min-width:300px }
+.fixed {padding-top:105px}
+.fixed .header {position:fixed; margin:0; top:0; box-shadow:0 0 5px rgba(0,0,0,0.4); z-index:500}
+
+/* Basic Site Styles */
+.wrapper {display:flex; flex-wrap: wrap }
+.wrapper, .container {width:100% }
+.container > section {display:block; margin:auto; width:937px }
+h1,h2 {color:#3cb43c; border-bottom:1px solid #ccc; font-weight:400; padding:0 0 0.5em 0; text-transform:uppercase }
+h1,h2,.element {margin:1em 15px 0.5em }
+h1 {font-size:1.4em; margin-top: 1.5em }
+h2 {font-size:1.2em }
+p {margin:1em 0}
+ul,ol {list-style:none }
+a:link, a:visited, .link {color:#069; text-decoration:none }
+a:hover, a:focus, .link:hover, .link:focus {color:#09f }
+
+/* Fonts */
+@font-face {
+	font-family: 'Open Sans'; src: url('/assets/client/fonts/OpenSans-Light.eot'); src: url('/assets/fonts/OpenSans-Light.ttf') format('truetype'); font-weight: 300; font-style: normal }
+@font-face {
+	font-family: 'Open Sans'; src: url('/assets/client/fonts/OpenSans-Regular.eot'); src: url('/assets/fonts/OpenSans-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal }
+@font-face {
+	font-family: 'Open Sans'; src: url('/assets/client/fonts/OpenSans-Semibold.eot'); src: url('/assets/fonts/OpenSans-Semibold.ttf') format('truetype'); font-weight: 600; font-style: normal }
+
+/* Form styles */
+.input {padding:6px; background:#fafafa; border:1px solid #ddd; border-top-color:#b5b5b5; color:#555 }
+.button {border:1px solid #ddc; padding:6px 15px; text-transform:lowercase}
+.button.advance {background:linear-gradient(to bottom, #81a8cb, #4477a1); border-color:#81a8cb; color:#fff }
+.button.advance:hover {background:#4477a1 }
+.button.return {background:linear-gradient(to bottom, #ddd, #bbb); border-color:#ddd; color:#333 }
+.button.return:hover {background:#ccc }
+
+/* Header styles */
+.header {background:#fff; border:1px solid #ddc; border-left:none; border-right:none; margin:15px 0 0; order:1 }
+.header section {height:88px; padding:0 15px; position:relative}
+.header .logo {background:url('/assets/styles/images/styles.png') 0 -77px no-repeat; display:inline-block; margin:11px 0 0; text-indent:-100%; width:212px; height:66px }
+.header .account {border-left:1px solid #ddc; position:relative; bottom:1px }
+.header .account > li {float:left; background:#f3f1ed; border:1px solid #ddc; border-top:none; border-left:none}
+.header .account > li > a:link, .header .account > li > a:visited {color:#555; font-weight:600; padding:3px 9px 6px }
+.header .account > li > a:hover, .header .account > li > a:focus {text-decoration:underline }
+.header .searchForm {border:1px solid #ddc; position:absolute; right:15px; bottom:11px}
+.header .searchForm .input {background:none; border:none; border-right:1px solid #ddc}
+.header .account .basket {background:#fff; border:1px solid #ddc}
+
+/* Menu styles */
+.menu {margin:0 0 15px; order:2}
+.menu ol {border-left:1px solid #ddc}
+.menu li a {padding:0 15px }
+.menu ol > li {border:1px solid #ddc; border-top:none; border-left:none; line-height:35px }
+.menu ol > li > a {font-weight:600 }
+.menu ol > li > a:link, nav ol > li > a:visited {background:#fff; color:#2b822b }
+.menu ol > li:hover > a, .menu ol > li > a:hover, nav ol > li > a:focus {background:#3cb43c; color:#fff }
+.menu ul {border-top:1px solid #ddc}
+.menu ul > li {border:1px solid #ddc; border-top:none }
+.menu ul > li > a:link, nav ul > li > a:visited {background:#f4f4f4; color:#555 }
+.menu ul > li > a:hover,.menu ul > li > a:hover, nav ul > li > a:focus {background:#fff; color:#000 }
+
+/* Layout styles */
+.article {order:3 }
+.article > section {background:#fff; border:1px solid #ddc; margin-bottom:15px; overflow:hidden}
+.article .album, .article .category {border:1px dashed #ddc; border-left:none; border-right:none}
+
+/* Promotional Category Styles */
+.article .image {border:1px solid #ddc; padding:3px}
+.article .promotion .title, .article .groups .title, .article .category .title {font-weight:600 }
+.article .groups a {border-bottom:1px solid #ccc }
+
+.article .category .highlight > a {background:#f4f4f4}
+.article .category li > a:link, article .category li > a:visited {background:#fff; border:1px solid #eee }
+.article .category li > a:hover, article .category li > a:focus {border-color:#ddc }
+.article .category .highlight > a:after {border-bottom: 15px solid #ddc}
+.article .category .gridLoader .product {background:#f4f4f4; border:1px solid #ddc}
+
+/* Product Styles */
+.article .productSection .price {display:block; font-size:1.3em; font-weight:600; color:#888; margin:0 0 0.5em}
+
+/* Article Styles */
+.article .articles {border-top:4px double #eee; padding:1em 0 0}
+.article .articles li, .article .newsArticle {border-bottom:4px double #eee; padding:0 0 1em}
+.article .articles small {color:#888}
+.article .articles img, .article .newsArticle .image {padding:2px; border:2px solid #eee}
+.article .newsArticle .date {color:#888}
+
+/* Pagination Styles */
+.article .summaryContainer .pagination {border-left:1px solid #ddc}
+.article .summaryContainer .pagination li {border:1px solid #ddc; border-left:none}
+.article .summaryContainer .pagination span {background:#f4f4f4; color:#888}
+.article .summaryContainer .pagination em {color:#888}
+
+/* Account */
+.article .addressList li div {background:#f4f4f4; border:1px solid #eee; padding:15px}
+.article .accountOrders { border:1px solid #ccc; border-bottom:none}
+.article .accountOrders tr {border-bottom:1px solid #ddd}
+.article .accountOrders tr:nth-child(even) {background:#f4f4f4}
+.article .accountOrders th {background:#696; color:#fff; font-weight:600; padding:6px 10px }
+
+/* Form Styles */
+.article .form ol {background:#f4f4f4; border:1px solid #ddd; padding:0 0 10px }
+.article .formSelect { color:#369; font-weight:600; border-bottom:none}
+.article .contact ol .title {background:#469; color:#fff}
+.article .advancedSearch ol .title {background:#469; color:#fff}
+.article .account ol .title {background:#696; color:#fff}
+.article .checkout ol .title {background:#b43c3c; color:#fff}
+
+/* (Mini)Basket Styles */
+.basket .row {border-bottom:1px solid #ccc; padding:10px 0}
+.basket .name {font-weight:600}
+.basket .price, .basket .total {color:#469; font-weight:600}
+.basket .totals .title {font-weight:600}
+.basket .address strong {border-bottom:1px solid #eee; padding:0 0 3px; font-size:1.2em}
+
+/* CMS Banner Styles */
+.article .banner {margin:0; position:relative; overflow: hidden}
+.article .banner .slides {height:300px; background:#f4f4f4; width:100%; margin:0; position:relative }
+.article .banner .slides li {display:inline-block; opacity:0}
+.article .banner .slides img {position:absolute; top:0; left:0 }
+.article .banner .slide_nav {margin:0; position:absolute; padding:20px; bottom:0; right:0 }
+.article .banner .slide_nav li {border-radius:21px; box-shadow:inset 2px 2px 2px rgba(0,0,0,0.3); cursor:pointer; float:left; height:20px; margin:0 0 0 10px; width:20px; line-height:20px; overflow:hidden; text-indent:-100%; background:#f4f4f4}
+.article .banner .slide_nav li.selected {background:#3cb43c }
+
+/* Social share icons */
+.article #socialShare {border-top:1px dashed #ddc}
+
+/* Footer Styles */
+.footer {margin:15px 0 0; border-top:1px solid #ddc; order:5 }
+.footer > section {display:flex; flex-wrap: wrap }
+.footer dt {color:#555; font-weight:600; text-transform:uppercase}
+.footer dd:before {background:url('/assets/styles/images/styles.png') -192px 0 no-repeat; content:''; width:8px; height:8px; display:block; position:absolute; top:0; left: 0; padding:0 6px 0 0; margin:5px 0 0 }
+.footer, .footer a:link, .footer a:visited {color:#888 }
+.footer a:hover, .footer a:focus {color:#222 }
+
+/* Printer Styles */
+@media print {
+	.button,.header, .menu, .footer{display:none}
+	.article section{width:100%; border:none}
+}

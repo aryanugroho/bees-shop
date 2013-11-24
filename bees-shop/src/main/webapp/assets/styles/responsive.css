@@ -1,0 +1,95 @@
+/**
+***	Response Stylesheet for Beesden Websites
+**/
+@media all and (min-width: 1125px) {
+	.container > section {width:1122px }
+ }
+@media all and (min-width: 940px) and (max-width: 1124px) {
+	.container > section {width:937px }
+ }
+@media all and (max-width: 939px) {
+	.article .product .images{max-width:300px}
+	.article .product .images .small a {float:left}
+ }
+@media all and (min-width: 760px) and (max-width: 949px) {
+	.container > section {width:752px }
+ }
+@media all and (min-width: 620px) and (max-width: 759px) {
+	.container > section {width:100% }
+	.header .searchForm .input{width:200px}
+	.article .grid li {width:33.333% }
+ }
+@media all and (max-width: 600px) {
+	.header{margin-bottom:15px}
+	.header .searchForm .input{width:180px}
+	.menu {margin:0; order:4 }
+	.menu ol {border:1px solid #ddc; border-top:none }
+	.menu ul {display:none; height:auto; opacity:1; position:static }
+	.menu ol > li, .menu ul > li {display:block; padding:0; border:none; border-top:1px solid #ddc; }
+	.menu li a {line-height:45px; text-align:center }
+	.article .product {padding: 0}
+	.article .product .images{float:none; margin:auto}
+	.article .product .images .large {margin:4%; width:92%}
+	.article .product .images .large a {height:280px; margin: 0; width:100%}
+	.article .product .images .small {width:100%}
+	.article .product .images .small a {margin:0 4% 4%; width:42%}
+	.article .product .images .image {width:95%}
+	.article .productSection {margin:0 4% 10px}
+	.article .product form{clear:both;padding:0}	
+	.article .accountLogin{width:100%}
+	.article .table > li{width:50%}
+	.footer{margin-top:15px}
+	.footer dl {width:50% }
+	.footer .sitemap, .footer .groups {display:none }
+ }
+ @media all and (max-width:590px) {
+ 	.header .searchForm{display:none}
+ 	.header .account > li > a {width:42px;height:42px;padding:9px 6px 3px;overflow:hidden;white-space:nowrap}
+ 	.header .account > li > a span {background:url('/assets/styles/images/styles.png') no-repeat;width:30px;height:30px;overflow:hidden;white-space:nowrap;text-indent:100%;display:block}
+ 	.header .account .viewAccount span {background-position:-30px 0}
+ 	.header .account .viewSearch span {background-position:-60px 0}
+ 	.header .account .viewBasket span {background-position:-90px 0}
+ }
+@media all and (min-width: 500px) and (max-width: 619px) {
+	.container > section {width:100% }
+	.article .grid li {width:50% }
+ }
+@media all and (max-width: 499px) {
+	h1,h2,.element {margin:1em 10px }
+	.basket .row, .basket .action {margin:0 10px}
+	.container > section {width:100% }
+	.article > section, .article .form .section{border-left:none;border-right:none}
+	.article .grid > li, .article .table > li {padding:0 5px 10px; width:100% }
+	.article .album > li{width:50%}
+	.article .category li {height:120px;}	
+	.article .category li > a {height:110px; padding:4px; text-align:left }	
+	.article .category span.image {float:left; margin:0 15px 0 0; height:100px; width:100px }
+	.article .category span.image img {max-height:90px; max-width:90px }
+	.article .category .title {padding-top:30px }
+	.article .category .gridLoader {padding:0 5px }
+	.article .accountLinks li{width:49%}
+	.footer dl {padding: 5px 10px 10px}
+}
+@media all and (max-width: 399px) {
+	.header section{padding:0}
+	.header .logo {background-position:-71px -31px; margin:23px 10px 0; height:44px; width:139px}
+	.header .account .basket {width:280px}
+	.article .articles img, .article .newsArticle img {max-width:140px}
+	.basket .lineInfo .input {clear:both; margin:15px 0 0}
+	.article .product {padding: 0}
+	.article .product .images .large {margin:4%; width:92%}
+	.article .product .images .large a {height:280px; margin: 0; width:100%}
+	.article .product .images .small {width:100%}
+	.article .product .images .small a {margin:0 4% 4%}
+	.article .product .images .image {width:95%}
+	.article .productSection {margin:0 4% 10px}
+	.article .accountLogin h2 {margin-bottom:10px;}
+	.article .accountLogin ol {margin:0 10px 30px; width:auto}
+	.article .accountLogin .input, .article .accountLogin .button, .article .contact .button {margin:0; width:100%}
+	.article .accountLinks li {margin:0 0 5px; width:100%}
+	.article .checkout .formSelect {margin:0 10px 20px}
+	.article .form ol > li {padding:0 10px; width:auto}
+	.article .form ol .title {padding:5px 15px 5px 10px}
+	.article .form .label {width:auto}
+	.article .form .input {width:100%}
+}

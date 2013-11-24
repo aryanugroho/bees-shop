@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="store" template="/WEB-INF/jsp/layoutStore.jsp">
+		<put-attribute name="content" value="" />
+		<put-attribute name="pageType" value="" />
+	</definition>
+	<definition name="admin" template="/WEB-INF/jsp/layoutAdmin.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	<definition name="admin.login" template="/WEB-INF/jsp/admin/login.jsp" />
+	
+	<!--  Store Pages  -->
+	<definition name="article" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeArticle.jsp" />
+	</definition>
+	<definition name="category" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeCategory.jsp" />
+	</definition>
+	<definition name="search" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeSearch.jsp" />
+	</definition>
+	<definition name="product" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeProduct.jsp" />
+	</definition>
+	<definition name="album" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeAlbum.jsp" />
+	</definition>
+	<definition name="group" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storeGroup.jsp" />
+	</definition>
+	<definition name="webpage" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/storePage.jsp" />
+	</definition>
+	
+	<!--  Account Pages -->
+	<definition name="account.login" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/login.jsp" />
+	</definition>
+	<definition name="account.home" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/home.jsp" />
+	</definition>
+	<definition name="account.options" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/options.jsp" />
+	</definition>
+	<definition name="account.addresses" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/addresses.jsp" />
+	</definition>
+	<definition name="account.address" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/address.jsp" />
+	</definition>
+	<definition name="account.orders" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/orders.jsp" />
+	</definition>
+	<definition name="account.order" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/account/order.jsp" />
+	</definition>
+	
+	<!--  Checkout Pages -->
+	<definition name="checkout.basket" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/checkout/basket.jsp" />
+	</definition>
+	<definition name="checkout.delivery" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/checkout/delivery.jsp" />
+	</definition>
+	<definition name="checkout.payment" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/checkout/payment.jsp" />
+	</definition>
+	<definition name="checkout.confirmation" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/checkout/confirmation.jsp" />
+	</definition>
+	
+	<!--  Ajax Templates -->
+	<definition name="ajax.album" template="/WEB-INF/jsp/storeAlbum.jsp" />
+	<definition name="ajax.category" template="/WEB-INF/jsp/storeCategory.jsp" />
+	<definition name="ajax.product" template="/WEB-INF/jsp/storeProduct.jsp" />
+	<definition name="ajax.search" template="/WEB-INF/jsp/storeSearch.jsp" />
+	<definition name="ajax.webpage" template="/WEB-INF/jsp/storePage.jsp" />
+	<definition name="ajax.basket" template="/WEB-INF/jsp/checkout/basket.jsp" />
+	
+	<!--  Admin Pages  -->	
+	<definition name="admin.home" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/home.jsp" />
+	</definition>
+	<definition name="admin.adminHome" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/adminHome.jsp" />
+	</definition>
+	<definition name="admin.adminList" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/adminList.jsp" />
+	</definition>
+	<definition name="admin.configList" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/configList.jsp" />
+	</definition>
+	<definition name="admin.formAddress" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formAddress.jsp" />
+	</definition>
+	<definition name="admin.formAdvertPanel" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formAdvertPanel.jsp" />
+	</definition>
+	<definition name="admin.formArticle" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formArticle.jsp" />
+	</definition>
+	<definition name="admin.formCategory" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formCategory.jsp" />
+	</definition>
+	<definition name="admin.formConfig" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formConfig.jsp" />
+	</definition>
+	<definition name="admin.formProduct" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formProduct.jsp" />
+	</definition>
+	<definition name="admin.formVariant" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formVariant.jsp" />
+	</definition>
+	<definition name="admin.formEnquiry" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formEnquiry.jsp" />
+	</definition>
+	<definition name="admin.formAlbum" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formAlbum.jsp" />
+	</definition>
+	<definition name="admin.formGroup" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formGroup.jsp" />
+	</definition>
+	<definition name="admin.formMenu" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formMenu.jsp" />
+	</definition>
+	<definition name="admin.formPage" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formPage.jsp" />
+	</definition>
+	<definition name="admin.formPromo" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formPromo.jsp" />
+	</definition>
+	<definition name="admin.formUser" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/formUser.jsp" />
+	</definition>
+
+</tiles-definitions>

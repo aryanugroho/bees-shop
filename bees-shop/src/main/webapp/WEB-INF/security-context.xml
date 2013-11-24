@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">		
+
+	<security:http pattern="/admin/**" auto-config="true" use-expressions="true" access-denied-page="/admin/login" >
+		<security:intercept-url pattern="/admin/login" access="permitAll"/>
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')"/>
+		
+		<security:form-login login-page="/admin/login" login-processing-url="/admin/login.do" authentication-failure-url="/admin/login" default-target-url="/admin/home"/>
+		<security:logout invalidate-session="true" logout-success-url="/admin/login" logout-url="/admin/logout"/>
+	</security:http>	
+
+	<security:http auto-config="true" use-expressions="true" access-denied-page="/account/login" >
+		<security:intercept-url pattern="/account/login" access="permitAll"/>
+		<security:intercept-url pattern="/account/register" access="permitAll"/>
+		<security:intercept-url pattern="/account/**" access="hasRole('ROLE_CUSTOMER')"/>
+		<security:intercept-url pattern="/checkout/basket" access="permitAll"/>
+		<security:intercept-url pattern="/checkout/basket/**" access="permitAll"/>
+		<security:intercept-url pattern="/checkout/login" access="permitAll"/>
+		<security:intercept-url pattern="/checkout/**" access="hasRole('ROLE_CUSTOMER')"/>
+		
+		<security:form-login login-page="/account/login" login-processing-url="/account/login.do" authentication-failure-url="/account/login" default-target-url="/account/home"/>
+		<security:logout invalidate-session="true" logout-success-url="/account/login" logout-url="/account/logout"/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customerLoginService">
+			<security:password-encoder ref="passwordEncoder"/>
+		</security:authentication-provider>
+		<security:authentication-provider user-service-ref="adminLoginService">
+			<security:password-encoder ref="passwordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="adminLoginService" class="org.beesden.shop.service.AdminLoginService"/>
+	<bean id="customerLoginService" class="org.beesden.shop.service.CustomerLoginService"/>
+	
+</beans>
