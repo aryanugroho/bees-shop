@@ -11,7 +11,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.*;
-import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name = "bees_customer")

@@ -15,9 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
 @Table(name = "bees_product")
 public class Product extends ModelContent {
@@ -41,7 +38,7 @@ public class Product extends ModelContent {
 	@Column(name = "preOrderDate")
 	private Date preOrderDate;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="product")
+	@OneToMany(mappedBy="product", fetch = FetchType.EAGER, cascade=CascadeType.ALL)  
 	private List<Variant> variants;
 	
 	// Getters and Setters

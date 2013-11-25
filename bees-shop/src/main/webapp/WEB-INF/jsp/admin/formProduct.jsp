@@ -30,7 +30,7 @@
 
 	<dl class="dropList">
 		<dt>Product Variants</dt>
-		<c:forEach items="${adminForm.variants}" var="variant">
+		<c:forEach items="${product.variants}" var="variant">
 			<dd>
 				<a class="title" href="/admin/variant?name=${variant.name}">${variant.heading}</a> - 
 				<fmt:formatNumber value="${variant.price}" currencySymbol="&pound;" type="currency"/> | 

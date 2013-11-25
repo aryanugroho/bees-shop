@@ -1,17 +1,13 @@
 package org.beesden.shop.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.*;
 
 @Entity
 @Table(name = "bees_variant")
@@ -22,7 +18,7 @@ public class Variant extends ModelContent {
 	@Column(name = "price")
 	private Double price;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "productId")
 	private Product product;
 	

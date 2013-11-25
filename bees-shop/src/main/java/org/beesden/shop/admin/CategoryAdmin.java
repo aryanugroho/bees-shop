@@ -2,12 +2,14 @@ package org.beesden.shop.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.beesden.shop.model.Category;
+import org.beesden.utils.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,8 +28,13 @@ public class CategoryAdmin extends Admin {
 		// Get new or existing category if requested
 		Category category = new Category();
 		if (request.getParameter("id") != null) {
-			String dbQuery = categoryService.getQuery(null, request.getParameter("id"), null, null);
+			String dbQuery = categoryService.getQuery( request.getParameter("id"), null, null, null);
 			category = categoryService.findOne(dbQuery);
+			dbQuery = productService.getQueryPaged("categories", request.getParameter("id"), 0, "heading");
+			// category.setProducts(productService.findAll(dbQuery));;
+			// System.out.println(category.getProducts());
+			// System.out.println(category.getProducts());
+			// category.setProducts(productService.findAll(dbQuery));
 		}
 		
 		// Update model
@@ -71,8 +78,32 @@ public class CategoryAdmin extends Admin {
 			model = fetchPanelData(model, 1, 0, 0, 0);
 			model = adminTemplate(model, request, "admin", "variant");
 			return "admin.formVariant";
-		} else {		
-			
+		} else {	
+
+			// Set category parents
+			if (category.getCategoryParents() != null) {
+				Set<Category> categories = new HashSet<Category>();
+				for (String categoryId : category.getCategoryParents().split(",")) {
+					if (Utils.isNumeric(categoryId)) {
+						String dbQuery = categoryService.getQuery(categoryId, null, 0, null);
+						categories.add(categoryService.findOne(dbQuery));
+					}
+				}
+				category.setParents(categories);
+			} 
+
+			// Set category children
+			if (category.getCategoryChildren() != null) {
+				Set<Category> categories = new HashSet<Category>();
+				for (String categoryId : category.getCategoryChildren().split(",")) {
+					if (Utils.isNumeric(categoryId)) {
+						String dbQuery = categoryService.getQuery(categoryId, null, 0, null);
+						categories.add(categoryService.findOne(dbQuery));
+					}
+				}
+				category.setChildren(categories);
+			}	
+						
 			// Get promotional category
 			if (category.getPromotionId() != null) {
 				String dbQuery = categoryService.getQuery(category.getPromotionId().toString(), null, 0, null);

@@ -92,14 +92,11 @@ public class Service<T> {
 		return dbSearch;
 	}
 	
-	public String getQueryJoin(String dbQuery, String link, String id, Integer status, String sort) {
-		String dbSearch = "  LEFT OUTER JOIN p." + link + " c " + dbQuery +  " AND " + getStatus("c", status);
-		if (id != null && !id.isEmpty()) {
-			dbSearch += " AND c.id = " + id;
-		}
+	public String getQueryPaged(String link, String id, Integer status, String sort) {
+		String dbQuery = " WHERE p." +  link + ".id = " + id +  " AND " + getStatus("p" , status);
 		if (sort != null && !sort.isEmpty()) {
-			dbSearch += " ORDER BY " + sort;
+			dbQuery += " ORDER BY p." + sort;
 		}
-		return dbSearch;
+		return dbQuery;
 	}
 }

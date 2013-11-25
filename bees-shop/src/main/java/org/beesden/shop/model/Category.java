@@ -1,28 +1,38 @@
 package org.beesden.shop.model;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "bees_category")
 public class Category extends ModelContent {
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	@ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categories")
 	private List<Product> products;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-	private List<Category> children;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "parentId"), inverseJoinColumns = @JoinColumn(name = "childId"))
+	private Set<Category> children;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Category parent;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "childId"), inverseJoinColumns = @JoinColumn(name = "parentId"))
+	private Set<Category> parents;
+
+	@Transient
+	private String categoryParents;
+
+	@Transient
+	private String categoryChildren;
 
 	@Column(name = "sortOrder")
 	private String sortOrder;
@@ -45,20 +55,36 @@ public class Category extends ModelContent {
 		this.sortOrder = sortOrder;
 	}
 
-	public Category getParent() {
-		return parent;
+	public Set<Category> getParents() {
+		return parents;
 	}
 
-	public void setParents(Category parent) {
-		this.parent = parent;
+	public void setParents(Set<Category> parents) {
+		this.parents = parents;
 	}
 
-	public List<Category> getChildren() {
+	public Set<Category> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<Category> children) {
+	public void setChildren(Set<Category> children) {
 		this.children = children;
+	}
+
+	public String getCategoryParents() {
+		return categoryParents;
+	}
+
+	public void setCategoryParents(String categoryParents) {
+		this.categoryParents = categoryParents;
+	}
+
+	public String getCategoryChildren() {
+		return categoryChildren;
+	}
+
+	public void setCategoryChildren(String categoryChildren) {
+		this.categoryChildren = categoryChildren;
 	}
 
 }

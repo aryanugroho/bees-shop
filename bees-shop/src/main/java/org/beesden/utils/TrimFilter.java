@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 public class TrimFilter implements Filter {
 
-	static final String[] START_TRIM_AFTER = { "<html", "</textarea", "</pre" };
-	static final String[] STOP_TRIM_AFTER = { "</html", "<textarea", "<pre" };
+	static final String[] START_TRIM_AFTER = { "<html" };
+	static final String[] STOP_TRIM_AFTER = { "</html" };
 
 	private static PrintWriter createTrimWriter(final HttpServletResponse response) throws IOException {
 		return new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"), true) {

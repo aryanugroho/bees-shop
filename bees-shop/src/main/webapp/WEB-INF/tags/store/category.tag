@@ -10,7 +10,7 @@
 
 <ul class="grid category" id="category">
 
-	<c:forEach var="product" items="${content.products}" varStatus="status">
+	<c:forEach var="product" items="${object.products}" varStatus="status">
 
 	<li>
 		<a class="ajax" href="/product/${util:url(product.name)}">

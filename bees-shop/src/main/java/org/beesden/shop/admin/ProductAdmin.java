@@ -89,7 +89,6 @@ public class ProductAdmin extends Admin {
 					}
 				}
 				product.setCategories(categories);
-				System.out.println(product.getCategories());
 			}
 			
 			// Get promotional category
