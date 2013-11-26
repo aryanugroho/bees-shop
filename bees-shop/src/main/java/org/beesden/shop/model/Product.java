@@ -22,7 +22,7 @@ public class Product extends ModelContent {
 	@Column(name = "availability")
 	private Integer availability;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "bees_category_product", joinColumns = @JoinColumn(name = "productId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
 	private Set<Category> categories;
 
@@ -38,9 +38,9 @@ public class Product extends ModelContent {
 	@Column(name = "preOrderDate")
 	private Date preOrderDate;
 
-	@OneToMany(mappedBy="product", fetch = FetchType.EAGER, cascade=CascadeType.ALL)  
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Variant> variants;
-	
+
 	// Getters and Setters
 
 	public Integer getAvailability() {

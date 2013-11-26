@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
+<%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 
 <admin:content name="category">	
 
@@ -38,15 +40,19 @@
 				<option value="${sort}" <c:if test="${category.sortOrder == sort}"> selected="selected"</c:if>>${sort}</option>
 			</c:forTokens>
 		</admin:input>
-		<%--
+
 		<dd id="category-products">
-			<c:forEach var="product" items="${category.products}">
-				${product }
-				<c:forEach var="ss" items="${product}"><hr />${ss.name}</c:forEach>
-				<div class="status-${product}">${product}</div>
-			</c:forEach>
+			<ul>
+				<c:forEach var="product" items="${category.products}">
+					<c:set var="product" value="${product[0]}" />
+					<li class="status=${product.status}">
+						<span class="image"><img src="/assets/client/product/small/${util:url(product.name)}.jpg" alt="${product.heading}" /></span>
+						<span class="title">${product.name}</span>
+						<span class="price">From <fmt:formatNumber value="${product.minPrice}" currencySymbol="&pound;" type="currency"/></span>
+					</li>
+				</c:forEach>
+			</ul>
 		</dd>
-		--%>
 	</dl>
 
 </admin:content>

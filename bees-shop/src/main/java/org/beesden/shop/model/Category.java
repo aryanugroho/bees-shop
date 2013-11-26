@@ -17,8 +17,11 @@ import javax.persistence.Transient;
 @Table(name = "bees_category")
 public class Category extends ModelContent {
 
-	@ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categories")
-	private List<Product> products;
+	@Transient
+	private String categoryChildren;
+
+	@Transient
+	private String categoryParents;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "parentId"), inverseJoinColumns = @JoinColumn(name = "childId"))
@@ -28,16 +31,29 @@ public class Category extends ModelContent {
 	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "childId"), inverseJoinColumns = @JoinColumn(name = "parentId"))
 	private Set<Category> parents;
 
-	@Transient
-	private String categoryParents;
-
-	@Transient
-	private String categoryChildren;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categories")
+	private List<Product> products;
 
 	@Column(name = "sortOrder")
 	private String sortOrder;
-	
+
 	// Getters and Setters
+
+	public String getCategoryChildren() {
+		return categoryChildren;
+	}
+
+	public String getCategoryParents() {
+		return categoryParents;
+	}
+
+	public Set<Category> getChildren() {
+		return children;
+	}
+
+	public Set<Category> getParents() {
+		return parents;
+	}
 
 	public List<Product> getProducts() {
 		return products;
@@ -47,44 +63,28 @@ public class Category extends ModelContent {
 		return sortOrder;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public void setSortOrder(String sortOrder) {
-		this.sortOrder = sortOrder;
-	}
-
-	public Set<Category> getParents() {
-		return parents;
-	}
-
-	public void setParents(Set<Category> parents) {
-		this.parents = parents;
-	}
-
-	public Set<Category> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<Category> children) {
-		this.children = children;
-	}
-
-	public String getCategoryParents() {
-		return categoryParents;
+	public void setCategoryChildren(String categoryChildren) {
+		this.categoryChildren = categoryChildren;
 	}
 
 	public void setCategoryParents(String categoryParents) {
 		this.categoryParents = categoryParents;
 	}
 
-	public String getCategoryChildren() {
-		return categoryChildren;
+	public void setChildren(Set<Category> children) {
+		this.children = children;
 	}
 
-	public void setCategoryChildren(String categoryChildren) {
-		this.categoryChildren = categoryChildren;
+	public void setParents(Set<Category> parents) {
+		this.parents = parents;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 }

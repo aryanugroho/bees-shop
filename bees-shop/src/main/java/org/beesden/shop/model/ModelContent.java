@@ -22,19 +22,19 @@ public abstract class ModelContent extends ModelDefault {
 	@Column(name = "heading", length = 150)
 	private String heading;
 
+	@Transient
+	private Integer promotionId;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "promotionId")
 	private Category promotionList;
-	
-	@Transient
-	private Integer promotionId;
 
 	@Column(name = "seoDescription", length = 180)
 	private String seoDescription;
 
 	@Column(name = "seoTitle", length = 80)
 	private String seoTitle;
-	
+
 	// Getters and Setters
 
 	public String getCustomStyles() {
@@ -47,6 +47,10 @@ public abstract class ModelContent extends ModelDefault {
 
 	public String getHeading() {
 		return heading;
+	}
+
+	public Integer getPromotionId() {
+		return promotionId;
 	}
 
 	public Category getPromotionList() {
@@ -73,6 +77,10 @@ public abstract class ModelContent extends ModelDefault {
 		this.heading = heading;
 	}
 
+	public void setPromotionId(Integer promotionId) {
+		this.promotionId = promotionId;
+	}
+
 	public void setPromotionList(Category promotionList) {
 		this.promotionList = promotionList;
 	}
@@ -83,13 +91,5 @@ public abstract class ModelContent extends ModelDefault {
 
 	public void setSeoTitle(String seoTitle) {
 		this.seoTitle = seoTitle;
-	}
-
-	public Integer getPromotionId() {
-		return promotionId;
-	}
-
-	public void setPromotionId(Integer promotionId) {
-		this.promotionId = promotionId;
 	}
 }

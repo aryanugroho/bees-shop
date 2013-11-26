@@ -16,10 +16,6 @@ public class Utils {
 		return s;
 	}
 
-	public static String replaceAll(String string, String pattern, String replacement) {
-         return string.replaceAll(pattern, replacement);
-     }
-
 	public static String cleanUrlQuery(String s) {
 		s = "REPLACE(name,' ','-') = '" + cleanUrl(s).replaceAll("&amp;", "&") + "'";
 		return s;
@@ -53,5 +49,9 @@ public class Utils {
 			return false;
 		}
 		return true;
+	}
+
+	public static String replaceAll(String string, String pattern, String replacement) {
+		return string.replaceAll(pattern, replacement);
 	}
 }

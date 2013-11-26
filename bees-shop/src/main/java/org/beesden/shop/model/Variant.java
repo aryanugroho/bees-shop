@@ -21,14 +21,14 @@ public class Variant extends ModelContent {
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	private Product product;
-	
+
 	@Transient
 	private Integer productId;
 
 	@NotNull
 	@Column(name = "stock", columnDefinition = "int default -1")
 	private Integer stock;
-	
+
 	// Getters and Setters
 
 	public Double getPrice() {
@@ -37,6 +37,10 @@ public class Variant extends ModelContent {
 
 	public Product getProduct() {
 		return product;
+	}
+
+	public Integer getProductId() {
+		return productId;
 	}
 
 	public Integer getStock() {
@@ -51,15 +55,11 @@ public class Variant extends ModelContent {
 		this.product = product;
 	}
 
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
 	public void setProductId(Integer productId) {
 		this.productId = productId;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 }

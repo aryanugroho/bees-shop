@@ -8,7 +8,7 @@
 <c:url var="url_List" value="/admin/${page.url}List" />
 
 <form method="POST" action="${url_List}" class="left-items">
-	<h1>${page.type} Set</h1>
+	<h1>${page.type} List</h1>
 	
 	<ul class="items">
 		<c:forEach var="u" items="${itemList}">

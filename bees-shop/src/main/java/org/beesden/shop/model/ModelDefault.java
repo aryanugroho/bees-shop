@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
 @MappedSuperclass
 public class ModelDefault {
 
-	@Column(name = "dateCreated")
-	private Date dateCreated;
-
 	@Column(name = "createdBy")
 	private String createdBy;
+
+	@Column(name = "dateCreated")
+	private Date dateCreated;
 
 	@Id
 	@Column(name = "ID")
@@ -27,22 +27,22 @@ public class ModelDefault {
 
 	@Column(name = "lastEditedBy")
 	private String lastEditedBy;
-	
+
 	@Column(name = "name")
 	private String name;
 
 	@NotNull
 	@Column(name = "status")
 	private Integer status;
-	
-	// Getters and Setters
 
-	public Date getDateCreated() {
-		return dateCreated;
-	}
+	// Getters and Setters
 
 	public String getCreatedBy() {
 		return createdBy;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
 	}
 
 	public Integer getId() {
@@ -65,12 +65,12 @@ public class ModelDefault {
 		return status;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public void setId(Integer id) {

@@ -10,7 +10,7 @@ public class Page extends ModelContent {
 
 	@Column(name = "contactPanel", columnDefinition = "BIT", length = 1)
 	private Boolean contactPanel;
-	
+
 	// Getters and Setters
 
 	public Boolean getContactPanel() {

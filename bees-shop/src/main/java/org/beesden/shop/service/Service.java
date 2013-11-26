@@ -32,16 +32,39 @@ public class Service<T> {
 		return (Integer) query.uniqueResult();
 	}
 
+	public List<T> findAll(String dbQuery) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM " + tableName + " p " + dbQuery);
+		return query.list();
+	}
+
 	public T findOne(String dbQuery) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("FROM " + tableName + " p " + dbQuery);
 		return (T) query.setMaxResults(1).uniqueResult();
 	}
 
-	public List<T> findAll(String dbQuery) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM " + tableName + " p " + dbQuery);
-		return query.list();
+	public String getQuery(String id, String name, Integer status, String sort) {
+		// Generate dbQuery string
+		String dbSearch = " WHERE " + getStatus("p", status);
+		if (id != null && !id.isEmpty()) {
+			dbSearch += " AND p.id = " + id;
+		}
+		if (name != null && !name.isEmpty()) {
+			dbSearch += " AND p.name = '" + name + "'";
+		}
+		if (sort != null && !sort.isEmpty()) {
+			dbSearch += " ORDER BY p." + sort;
+		}
+		return dbSearch;
+	}
+
+	public String getQueryPaged(String link, String id, Integer status, String sort) {
+		String dbQuery = " LEFT JOIN p." + link + " c WHERE c.id = " + id + " AND " + getStatus("p", status);
+		if (sort != null && !sort.isEmpty()) {
+			dbQuery += " ORDER BY p." + sort;
+		}
+		return dbQuery;
 	}
 
 	protected String getStatus(String s, Integer status) {
@@ -52,9 +75,9 @@ public class Service<T> {
 		} else if (status > 0) {
 			s = s + " = " + status;
 		} else {
-			s =  s + " > 0";
+			s = s + " > 0";
 		}
-		return " (" + s + ")" ;
+		return " (" + s + ")";
 	}
 
 	public void objectCreate(T o) {
@@ -75,28 +98,5 @@ public class Service<T> {
 		Session session = sessionFactory.getCurrentSession();
 		session.merge(o);
 		session.flush();
-	}
-
-	public String getQuery(String id, String name, Integer status, String sort) {
-		// Generate dbQuery string
-		String dbSearch = " WHERE " + getStatus("p", status);
-		if (id != null && !id.isEmpty()) {
-			dbSearch += " AND p.id = " + id;
-		}
-		if (name != null && !name.isEmpty()) {
-			dbSearch += " AND p.name = '" + name + "'";
-		}
-		if (sort != null && !sort.isEmpty()) {
-			dbSearch += " ORDER BY p." + sort;
-		}
-		return dbSearch;
-	}
-	
-	public String getQueryPaged(String link, String id, Integer status, String sort) {
-		String dbQuery = " WHERE p." +  link + ".id = " + id +  " AND " + getStatus("p" , status);
-		if (sort != null && !sort.isEmpty()) {
-			dbQuery += " ORDER BY p." + sort;
-		}
-		return dbQuery;
 	}
 }

@@ -37,20 +37,10 @@
 			</ul>
 		</li>
 		
-		<li class="orders">
-			<a href="#"><span>Online Sales</span></a>
-			<ul>	
-				<li><a href="/admin/orders">Orders</a></li>
-				<li><a href="/admin/customerList">Customers</a></li>
-				<li><a href="/admin/addressList">Site Enquiries</a></li>
-			</ul>
-		</li>
-		
 		<li class="configuration">
 			<a href="#"><span>System Settings</span></a>
 			<ul>			
 				<li><a href="/admin/configList">System Config</a></li>					
-				<li><a href="/admin/deliveryList">Delivery Charges</a></li>	
 				<li><a href="/admin/userList">User Manager</a></li>
 			</ul>
 		</li>

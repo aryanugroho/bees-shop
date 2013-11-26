@@ -17,5 +17,5 @@ public class DashboardAdmin extends Admin {
 		model = adminTemplate(model, request, "admin", "dashboard");
 		return "admin.adminHome";
 	}
-	
+
 }

@@ -19,88 +19,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/admin")
 public class PageAdmin extends Admin {
 
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
-	public String pageSingle(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show page form");
-		
-		// Get new or existing page if requested
-		Page page = new Page();
-		if (request.getParameter("id") != null) {
-			String dbQuery = pageService.getQuery(request.getParameter("id"), null, null, null);
-			page = pageService.findOne(dbQuery);
-		}
-		
-		// Update model
-		model = fetchPanelData(model, 1, 0, 0, 0);
-		model = adminTemplate(model, request, "admin", "page");
-		model.addAttribute("page", page);
-		return "admin.formPage";
-	}	
-
 	@RequestMapping(value = "/pageList", method = RequestMethod.GET)
 	public String pageList(ModelMap model, HttpServletRequest request) {
 		logger.info("Received request to show list of pages");
-		
+
 		// Check if list requires sorting and archived
 		String archive = request.getParameter("archived");
 		String sort = request.getParameter("sort");
 		if (sort == null) {
 			sort = "id";
 		}
-		
+
 		// Get page list from database
 		List<Page> itemList = new ArrayList<Page>();
 		String dbQuery = pageService.getQuery(null, null, archive != null ? null : 0, sort);
 		itemList = pageService.findAll(dbQuery);
-		
+
 		// Update model
 		model = adminTemplate(model, request, "admin", "page");
 		model.addAttribute("itemList", itemList);
 		return "admin.adminList";
-	}
-	
-	@RequestMapping(value = "/page", method = RequestMethod.POST)
-	public String pageSingleUpdate(HttpServletRequest request, ModelMap model, @Valid @ModelAttribute("page") Page page, BindingResult result) {
-		logger.info("Submitting requested page");
-
-		String message = "An error has occured whislt updating that page";
-		
-		// Return form if not valid
-		if (result.hasErrors()) {
-			logger.warn("Form submission contains " + result.getErrorCount() + " errors");
-			model = fetchPanelData(model, 1, 0, 0, 0);
-			model = adminTemplate(model, request, "admin", "variant");
-			return "admin.formVariant";
-		} else {
-			
-			// Get promotional category
-			if (page.getPromotionId() != null) {
-				String dbQuery = categoryService.getQuery(page.getPromotionId().toString(), null, 0, null);
-				page.setPromotionList(categoryService.findOne(dbQuery));
-			}		
-		
-			// Add / Update page
-			if (page.getId() == null) {
-				page.setCreatedBy(fetchAdminUser().getName());
-				page.setDateCreated(new Date());
-				pageService.objectCreate(page);
-				message = page.getName() + " created";
-			} else {
-				page.setLastEditedBy(fetchAdminUser().getName());
-				page.setLastEdited(new Date());
-				pageService.objectUpdate(page);
-				message = page.getName() + " updated";
-			}
-			logger.info(message);
-			request.getSession().setAttribute("message", message);
-	
-			// Redirect to page list page
-			String redirect = request.getParameter("return");
-			if (redirect == null) {
-				redirect = "/admin/pageList";
-			}
-			return "redirect:" + redirect;
-		}
 	}
 
 	@RequestMapping(value = "/pageList", method = RequestMethod.POST)
@@ -129,6 +67,68 @@ public class PageAdmin extends Admin {
 			redirect = "/admin/pageList";
 		}
 		return "redirect:" + redirect;
+	}
+
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public String pageSingle(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show page form");
+
+		// Get new or existing page if requested
+		Page page = new Page();
+		if (request.getParameter("id") != null) {
+			String dbQuery = pageService.getQuery(request.getParameter("id"), null, null, null);
+			page = pageService.findOne(dbQuery);
+		}
+
+		// Update model
+		model = fetchPanelData(model, 1, 0, 0, 0);
+		model = adminTemplate(model, request, "admin", "page");
+		model.addAttribute("page", page);
+		return "admin.formPage";
+	}
+
+	@RequestMapping(value = "/page", method = RequestMethod.POST)
+	public String pageSingleUpdate(HttpServletRequest request, ModelMap model, @Valid @ModelAttribute("page") Page page, BindingResult result) {
+		logger.info("Submitting requested page");
+
+		String message = "An error has occured whislt updating that page";
+
+		// Return form if not valid
+		if (result.hasErrors()) {
+			logger.warn("Form submission contains " + result.getErrorCount() + " errors");
+			model = fetchPanelData(model, 1, 0, 0, 0);
+			model = adminTemplate(model, request, "admin", "variant");
+			return "admin.formVariant";
+		} else {
+
+			// Get promotional category
+			if (page.getPromotionId() != null) {
+				String dbQuery = categoryService.getQuery(page.getPromotionId().toString(), null, 0, null);
+				page.setPromotionList(categoryService.findOne(dbQuery));
+			}
+
+			// Add / Update page
+			if (page.getId() == null) {
+				page.setCreatedBy(fetchAdminUser().getName());
+				page.setDateCreated(new Date());
+				pageService.objectCreate(page);
+				message = page.getName() + " created";
+			} else {
+				page.setLastEditedBy(fetchAdminUser().getName());
+				page.setLastEdited(new Date());
+				pageService.objectUpdate(page);
+				message = page.getName() + " updated";
+			}
+			logger.info(message);
+			request.getSession().setAttribute("message", message);
+
+			// Redirect to page list page
+			String redirect = request.getParameter("return");
+			if (redirect == null) {
+				redirect = "/admin/pageList";
+			}
+			return "redirect:" + redirect;
+		}
 	}
 
 }

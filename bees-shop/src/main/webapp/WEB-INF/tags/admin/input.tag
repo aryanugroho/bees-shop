@@ -44,7 +44,7 @@
 				
 				<%-- Checkbox --%>
 				<c:when test="${type == 'checkbox'}">
-					<form:checkbox cssClass="${type}" path="${name}" value="${value}" />
+					<form:checkbox cssClass="${type}" path="${name}" value="${empty value ? true : value}" />
 				</c:when>
 				
 				<%-- Normal text inputs --%>
