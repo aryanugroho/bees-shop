@@ -7,7 +7,6 @@
 
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
-<%@ taglib prefix="panel" tagdir="/WEB-INF/tags/panels" %>
 
 <c:choose>
 <c:when test="${content.status == 1}">
@@ -21,7 +20,14 @@
 	</c:if>
 
 	<div class="pageProducts" id="updateContent">
-		<panel:category object="${category}" />
+		<c:choose>
+			<c:when test="${content.layout == 'dept'}">
+				<store:department object="${content}" />
+			</c:when>
+			<c:otherwise>
+				<store:category object="${content}" />			
+			</c:otherwise>
+		</c:choose>
 		<div id="overlay" class="overlay"></div>
 	</div>
 

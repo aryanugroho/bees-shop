@@ -22,7 +22,7 @@ public class Product extends ModelContent {
 	@Column(name = "availability")
 	private Integer availability;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bees_category_product", joinColumns = @JoinColumn(name = "productId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
 	private Set<Category> categories;
 

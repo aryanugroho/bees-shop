@@ -69,7 +69,7 @@
 
 	<c:if test="${summary}">
 		<span class="summary">
-			<fmt:message key="bees.pagination.summary.${!empty sortKey ? sortKey : 'generic'}.${pagination.size > 1 ? 'results' : 'empty'}${pagination.pages > 1 ? 'paginate' : ''}">
+			<fmt:message key="bees.pagination.summary.${pagination.size > 1 ? 'results' : 'empty'}${pagination.pages > 1 ? '.paginate' : ''}">
 				<fmt:param value="${pagination.page}" />
 				<fmt:param value="${pagination.pages}" />
 				<fmt:param value="${pagination.first}" />

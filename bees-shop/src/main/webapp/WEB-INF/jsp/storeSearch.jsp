@@ -4,19 +4,17 @@
 
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
-<c:set var="count" value="${fn:length(content.products)}" />
-
 <h1>Search Results</h1>
 	
 <p class="element">
 <c:choose>
-	<c:when test="${count > 0}">
-		<fmt:message key="bees.storesearch.results${count == 1 ? '' : '.multiple'}">
-			<fmt:param>${count}</fmt:param>
+	<c:when test="${pagination.size > 0}">
+		<fmt:message key="bees.storesearch.results${pagination.size == 1 ? '' : '.multiple'}">
+			<fmt:param>${pagination.size}</fmt:param>
 			<fmt:param>${param.keywords}</fmt:param>
 		</fmt:message>
 		<div class="pageProducts" id="updateContent">
-			<store:category object="${category}" />
+			<store:category object="${content}" />
 			<div id="overlay" class="overlay"></div>
 		</div>
 	</c:when>

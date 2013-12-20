@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 
-<%@ attribute name="object" type="org.beesden.model.Product" required="true" %>
+<%@ attribute name="object" type="org.beesden.shop.model.Product" required="true" %>
 
 <div class="product" id="product">
 		
@@ -33,8 +32,9 @@
 		<c:if test="${!empty object.heading}"><h1>${object.heading}</h1></c:if>
 		
 		<span class="price">
-			<fmt:message key="bees.product.from">
+			<fmt:message key="bees.product.${object.minPrice < object.maxPrice ? 'from' : 'price' }">
 				<fmt:param><fmt:formatNumber value="${object.minPrice}" currencySymbol="&pound;" type="currency"/></fmt:param>
+				<fmt:param><fmt:formatNumber value="${object.maxPrice}" currencySymbol="&pound;" type="currency"/></fmt:param>
 			</fmt:message>
 		</span>
 		
@@ -51,21 +51,6 @@
 		<div class="variants">
 			<c:forEach var="variant" items="${object.variants}" varStatus="s">
 				<c:choose>
-					<c:when test="${!empty variant.variants}">
-						<h2 class="formSelect variant" data-select="variant-${s.index}">							
-							<input type="radio" name="unused" id="unused-${s.index}" />
-							<label for="unused-${s.index}">${variant.name}...</label>
-						</h2>
-						<div class="varVariant variant-${s.index}">
-							<c:forEach var="varVariant" items="${variant.variants}" varStatus="t">
-								<fmt:formatNumber var="variantPrice" value="${varVariant.price}" currencySymbol="&pound;" type="currency"/>
-								<label for="variant-${s.index}-${t.index}">
-									<input type="radio" name="variantId" id="variant-${s.index}-${t.index}" value="${varVariant.id}" />
-									${varVariant.name} - ${variantPrice}
-								</label>
-							</c:forEach>
-						</div>
-					</c:when>
 					<c:when test="${fn:length(object.variants) == 1}">
 						<input type="hidden" name="variantId" value="${variant.id}" />
 					</c:when>

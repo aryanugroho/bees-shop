@@ -1,6 +1,7 @@
 package org.beesden.shop.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,10 +27,10 @@ public class Service<T> {
 		this.tableName = tableName;
 	}
 
-	public Integer count(String dbQuery) {
+	public Long count(String dbQuery) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("SELECT COUNT(*) FROM " + tableName + " p " + dbQuery);
-		return (Integer) query.uniqueResult();
+		return (Long) query.uniqueResult();
 	}
 
 	public List<T> findAll(String dbQuery) {
@@ -44,6 +45,12 @@ public class Service<T> {
 		return (T) query.setMaxResults(1).uniqueResult();
 	}
 
+	public List<T> findPaged(String dbQuery, Map<String, Integer> pagination) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM " + tableName + " p " + dbQuery);
+		return query.setFirstResult(pagination.get("first") - 1).setMaxResults(pagination.get("results") - 1).list();
+	}
+
 	public String getQuery(String id, String name, Integer status, String sort) {
 		// Generate dbQuery string
 		String dbSearch = " WHERE " + getStatus("p", status);
@@ -54,15 +61,15 @@ public class Service<T> {
 			dbSearch += " AND p.name = '" + name + "'";
 		}
 		if (sort != null && !sort.isEmpty()) {
-			dbSearch += " ORDER BY p." + sort;
+			dbSearch += " ORDER BY p." + sort.replaceAll("_", " ");
 		}
 		return dbSearch;
 	}
 
 	public String getQueryPaged(String link, String id, Integer status, String sort) {
-		String dbQuery = " LEFT JOIN p." + link + " c WHERE c.id = " + id + " AND " + getStatus("p", status);
+		String dbQuery = "  JOIN p." + link + " c WHERE c.id = " + id + " AND " + getStatus("p", status);
 		if (sort != null && !sort.isEmpty()) {
-			dbQuery += " ORDER BY p." + sort;
+			dbQuery += " ORDER BY p." + sort.replaceAll("_", " ");
 		}
 		return dbQuery;
 	}

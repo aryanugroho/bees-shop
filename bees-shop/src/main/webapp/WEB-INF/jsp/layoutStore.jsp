@@ -6,9 +6,6 @@
 
 <head> 
 	<link rel="stylesheet" type="text/css" href="/assets/styles/styles.css" />
-	<c:if test="${config.enableResponsive}">
-		<link rel="stylesheet" type="text/css" href="/assets/styles/responsive.css" />		
-	</c:if>
 	<link rel="shortcut icon" href="/assets/favicon.ico">
 
 	<script src="/assets/scripts/scripts.js"></script>
@@ -21,10 +18,10 @@
 
 <body>
 
-<div id="main" class="wrapper <c:if test="${!empty pageType}">${pageType}</c:if>">
+<div id="main" class="wrapper <c:if test="${!empty pageType}">${pageType} ${pageType}-${content.name}</c:if>">
 
 	<jsp:include page="template/header.jsp" />
-	<%--<jsp:include page="template/menu.jsp" />--%>
+	<jsp:include page="template/menu.jsp" />
 
 	<article class="article container">
 		<section>

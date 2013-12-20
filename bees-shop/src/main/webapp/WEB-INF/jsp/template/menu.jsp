@@ -6,10 +6,11 @@
 <nav class="menu container">
 	<section>
 		<ol>
-			<li><a href="/"><fmt:message key="bees.home.title" /></a></li>	
-			<c:forEach var="parent" items="${menuItems}" varStatus="status">	
-				<c:if test="${parent.type == 1}">
-					<store:menu menuItem="${parent}" maxLevel="${config.enableDropDown}" type="li" />
+			<c:forEach var="parent" items="${menu}" varStatus="status">	
+				<c:if test="${parent.status == 1 && parent.name == 'Top Navigation'}">
+					<c:forEach var="child" items="${parent.children}" varStatus="status">	
+						<store:menu menuItem="${child}" maxLevel="${config.enableDropDown}" type="li" />
+					</c:forEach>
 				</c:if>
 			</c:forEach>
 		</ol>

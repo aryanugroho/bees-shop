@@ -3,6 +3,7 @@ package org.beesden.shop.view;
 import org.apache.log4j.Logger;
 import org.beesden.shop.service.CategoryService;
 import org.beesden.shop.service.ConfigService;
+import org.beesden.shop.service.MenuService;
 import org.beesden.shop.service.PageService;
 import org.beesden.shop.service.ProductService;
 import org.beesden.shop.service.VariantService;
@@ -17,6 +18,9 @@ public class ViewServices {
 
 	@Autowired
 	public ConfigService configService;
+
+	@Autowired
+	public MenuService menuService;
 
 	@Autowired
 	public PageService pageService;

@@ -3,8 +3,7 @@
 <c:set var="seoTitle">
 	<c:choose>
 		<c:when test="${!empty content.seoTitle}">${content.seoTitle}</c:when>
-		<c:when test="${!empty pageTitle}">${pageTitle} ${config.seoTitle}</c:when>
-		<c:otherwise>${content.name} ${config.seoTitle}</c:otherwise>
+		<c:otherwise>${content.heading} ${config.seoTitle}</c:otherwise>
 	</c:choose>
 </c:set>
 <title>${seoTitle}</title>

@@ -1,8 +1,14 @@
 package org.beesden.shop.view;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Page;
+import org.beesden.shop.model.Product;
+import org.beesden.shop.service.MailService;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,106 +17,109 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/")
-public class ContentView extends Pagination {
+public class ContentView extends View {
+
+	@RequestMapping(value = { "/category/{name}" }, method = RequestMethod.GET)
+	public String showCategory(@PathVariable("name") String name, HttpServletRequest request, ModelMap model) {
+		logger.info("Category request: " + name);
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		String dbQuery = categoryService.getQuery(null, name, 1, null);
+		Category category = categoryService.findOne(dbQuery);
+		if (category != null) {
+			// Get paged category products
+			String sort = category.getSortOrder();
+			sort = request.getParameter("sort") == null ? sort == null || sort.isEmpty() ? "id" : sort : request.getParameter("sort");
+			dbQuery = categoryService.getQueryPaged("categories", category.getId().toString(), 1, sort);
+			Map<String, Integer> pagination = getPagination(request, productService.count(dbQuery).intValue(), (Integer) config.get("categoryDefaultSize"));
+			category.setProducts(productService.findPaged(dbQuery, pagination));
+			// Add category and pagination to model
+			model.addAttribute("content", category);
+			model.addAttribute("pagination", pagination);
+			model = setTitle(model, "content-category", category.getName());
+			model = getPromos(model, category.getPromotionList());
+		}
+		return isAjax(model, request, "category", config, start);
+	}
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String showPage(HttpServletRequest request, ModelMap model) {
-		// Show home page
+		// Redirect to home page
 		return showPage("", request, model);
 	}
 
 	@RequestMapping(value = { "/{name}" }, method = RequestMethod.GET)
 	public String showPage(@PathVariable("name") String name, HttpServletRequest request, ModelMap model) {
 		logger.info("Page request: " + (name.equals("") ? "default home page" : name));
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
 		String dbQuery = pageService.getQuery(null, name, 1, null);
 		Page page = pageService.findOne(dbQuery);
 		if (page != null) {
+			// Add page to model
 			model.addAttribute("content", page);
 			model = setTitle(model, "content-page", page.getName());
+			model = getPromos(model, page.getPromotionList());
 		}
-		model = storeTemplate(model, request);
-		return "webpage";
-	}/**
-
-	@RequestMapping(value = { "/category/{name}" }, method = RequestMethod.GET)
-	public String showPgCategory(@PathVariable("name") String name, HttpServletRequest request, ModelMap model) {
-		logger.info("Category request: " + name);
-		Category category = categoryService.get(name, 1);
-		model = pagedCategory(request, model, category);
-
-		String ajaxRequest = request.getParameter("ajax");
-		if (ajaxRequest == null || !ajaxRequest.equals("true")) {
-			model = storeTemplate(model, request);
-			return "category";
-		} else {
-			model = basicTemplate(model, request, true);
-			return "ajax.category";
-		}
-	}
-
-	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String showPgSearchResults(HttpServletRequest request, ModelMap model) {
-		logger.info("Get Search Results page");
-		Category category = new Category();
-		model = pagedSearch(request, model, category, request.getParameter("keywords"));
-
-		String ajaxRequest = request.getParameter("ajax");
-		if (ajaxRequest == null || !ajaxRequest.equals("true")) {
-			model = storeTemplate(model, request);
-			return "search";
-		} else {
-			model = basicTemplate(model, request, true);
-			return "ajax.search";
-		}
+		return isAjax(model, request, "webpage", config, start);
 	}
 
 	@RequestMapping(value = { "/product/{name}" }, method = RequestMethod.GET)
 	public String showProduct(@PathVariable("name") String name, HttpServletRequest request, ModelMap model) {
 		logger.info("Product request: " + name);
-		Product product = productService.get(name, 1);
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		String dbQuery = productService.getQuery(null, name, 1, null);
+		Product product = productService.findOne(dbQuery);
 		if (product != null) {
+			// Add category and pagination to model
 			model.addAttribute("content", product);
 			model = setTitle(model, "content-product", product.getName());
+			model = getPromos(model, product.getPromotionList());
 		}
-		model.addAttribute("basketItem", new BasketItem());
+		return isAjax(model, request, "product", config, start);
+	}
 
-		String ajaxRequest = request.getParameter("ajax");
-		if (ajaxRequest == null || !ajaxRequest.equals("true")) {
-			model = storeTemplate(model, request);
-			return "product";
-		} else {
-			model = basicTemplate(model, request, true);
-			return "ajax.product";
+	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
+	public String showSearch(HttpServletRequest request, ModelMap model) {
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		String keywords = request.getParameter("keywords");
+		logger.info("Search request: " + keywords);
+		Category category = new Category();
+		if (category != null) {
+			// Get paged category products
+			String sort = request.getParameter("sort") == null ? "id" : request.getParameter("sort");
+			String dbQuery = productService.getQuerySearch(keywords, sort);
+			Map<String, Integer> pagination = getPagination(request, productService.count(dbQuery).intValue(), (Integer) config.get("categoryDefaultSize"));
+			category.setProducts(productService.findPaged(dbQuery, pagination));
+			// Add category and pagination to model
+			model.addAttribute("content", category);
+			model.addAttribute("pagination", pagination);
+			model = setTitle(model, "content-search", "Search Results");
+			;
 		}
+		return isAjax(model, request, "search", config, start);
 	}
 
 	@RequestMapping(value = { "/enquiry/submit" }, method = RequestMethod.POST)
-	public String submitEnquiry(@ModelAttribute("contactForm") Enquiry submit, HttpServletRequest request, ModelMap model) {
+	public String submitEnquiry(HttpServletRequest request, ModelMap model) {
 		logger.info("Enquiry form submitted");
-		String redirect = "/";
-		if (request.getParameter("redirect") != null) {
-			redirect = request.getParameter("redirect");
-		}
-		if (submit != null) {
-			submit.setDate(new Date());
-			enquiryService.objectCreate(submit);
-			String subject = "New website enquiry";
-			String message = submit.getMessage();
-			if (message == null) {
-				message = "No message provided";
-			}
-			ClassPathXmlApplicationContext context = null;
-			try {
-				context = new ClassPathXmlApplicationContext("../email-context.xml");
-				MailService mailService = (MailService) context.getBean("mailService");
-				mailService.sendMail(subject, message);
-			} finally {
-				if (context != null) {
-					context.close();
-				}
+		Map<String, Object> config = getConfig(request);
+		// Get enquiry message and create email body
+		String subject = "New website enquiry";
+		String message = "<strong>Name</strong>: " + request.getParameter("name") + "<br /><strong>Email</strong>: " + request.getParameter("email") + "<br /><strong>Tel</strong>: " + request.getParameter("telephone") + "<br /><strong>Message</strong>: " + request.getParameter("message");
+		// Send mail
+		ClassPathXmlApplicationContext context = null;
+		try {
+			context = new ClassPathXmlApplicationContext("./email-context.xml");
+			MailService mailService = (MailService) context.getBean("mailService");
+			mailService.sendMail(config, subject, message);
+		} finally {
+			if (context != null) {
+				context.close();
 			}
 		}
-		return "redirect:" + redirect;
+		return "redirect:/";
 	}
-	*/
 }

@@ -13,7 +13,7 @@ import org.beesden.shop.model.Product;
 import org.beesden.shop.model.User;
 import org.beesden.shop.model.Variant;
 import org.beesden.shop.service.UserService;
-import org.beesden.shop.view.Pagination;
+import org.beesden.shop.view.ViewServices;
 import org.beesden.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,7 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-public class Admin extends Pagination {
+public class Admin extends ViewServices {
 
 	@Autowired
 	public UserService userService;

@@ -40,6 +40,11 @@
 				<option value="${sort}" <c:if test="${category.sortOrder == sort}"> selected="selected"</c:if>>${sort}</option>
 			</c:forTokens>
 		</admin:input>
+		<admin:input name="layout" type="select">
+			<c:forTokens var="layout" items="list,dept" delims=",">
+				<option value="${layout}" <c:if test="${category.layout == layout}"> selected="selected"</c:if>>${layout}</option>
+			</c:forTokens>
+		</admin:input>
 
 		<dd id="category-products">
 			<ul>

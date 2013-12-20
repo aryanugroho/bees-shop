@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,7 +26,11 @@ public class Category extends ModelContent {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "parentId"), inverseJoinColumns = @JoinColumn(name = "childId"))
+	@OrderBy("heading")
 	private Set<Category> children;
+
+	@Column(name = "layout")
+	private String layout;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bees_category_hierarchy", joinColumns = @JoinColumn(name = "childId"), inverseJoinColumns = @JoinColumn(name = "parentId"))
@@ -51,6 +56,10 @@ public class Category extends ModelContent {
 		return children;
 	}
 
+	public String getLayout() {
+		return layout;
+	}
+
 	public Set<Category> getParents() {
 		return parents;
 	}
@@ -73,6 +82,10 @@ public class Category extends ModelContent {
 
 	public void setChildren(Set<Category> children) {
 		this.children = children;
+	}
+
+	public void setLayout(String layout) {
+		this.layout = layout;
 	}
 
 	public void setParents(Set<Category> parents) {

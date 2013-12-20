@@ -15,7 +15,7 @@
 			<div class="pageContTop editable">${content.description}</div>
 		</c:if>
 	
-		<c:if test="${content.contactPanel >= 1}">
+		<c:if test="${content.contactPanel}">
 			<div class="pageContact"><store:contact /></div>
 		</c:if>
 	
