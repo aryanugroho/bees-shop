@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
 public abstract class ModelContent extends ModelDefault {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "customStyles", columnDefinition = "TEXT")
 	private String customStyles;

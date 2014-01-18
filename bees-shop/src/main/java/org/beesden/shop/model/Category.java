@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "bees_category")
 public class Category extends ModelContent {
+	private static final long serialVersionUID = 1L;
 
 	@Transient
 	private String categoryChildren;

@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Table(name = "bees_address")
 public class Address extends ModelContact {
+	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
 	@Column(name = "country", length = 3)

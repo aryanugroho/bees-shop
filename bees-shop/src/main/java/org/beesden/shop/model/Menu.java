@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bees_menu")
 public class Menu extends ModelDefault {
+	private static final long serialVersionUID = 1L;
 
 	@OneToOne
 	@JoinColumn(name = "categoryId")

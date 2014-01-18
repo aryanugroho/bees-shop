@@ -9,6 +9,8 @@
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 <%@ taglib prefix="panel" tagdir="/WEB-INF/tags/panels" %>
 
+<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
 
 <html lang="en">

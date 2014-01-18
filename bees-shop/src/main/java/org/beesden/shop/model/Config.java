@@ -7,6 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bees_config")
 public class Config extends ModelDefault {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;

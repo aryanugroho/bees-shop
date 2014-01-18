@@ -5,7 +5,7 @@
 
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
-<c:if test="${quickView}">	
+<c:if test="${param.ajax}">	
 	<c:set var="basketSize" value="0" />	
 	<c:forEach items="${basket.items}" var="item">
 		<c:set var="basketSize" value="${basketSize + item.quantity}" />
@@ -13,7 +13,7 @@
 	<a href="/checkout/basket" title="View basket" class="viewBasket"><span><fmt:message key="bees.basket.link" /> (${basketSize})</span></a>
 </c:if>
 
-<form:form class="basket" id="${quickView ? 'minibasket' : 'basket'}" action="/checkout/basket/update" method="POST" modelAttribute="basket">
+<form:form class="basket" id="${param.ajax ? 'minibasket' : 'basket'}" action="/checkout/basket/update" method="POST" modelAttribute="basket">
 
 <h1><fmt:message key="bees.basket.title" /></h1>
 	
@@ -31,7 +31,7 @@
 	</c:if>
 	<li>
 		<c:choose>
-			<c:when test="${!quickView}">
+			<c:when test="${!param.ajax}">
 				<a class="button return" href="/"><fmt:message key="bees.basket.return" /></a>
 				<c:if test="${fn:length(basket.items) != 0 && basket.subTotal >= config.minOrderValue}">
 					<a class="button advance" href="/checkout/delivery"><fmt:message key="bees.basket.checkout" /></a>
@@ -45,6 +45,6 @@
 </ul>
 </form:form>
 
-<c:if test="${!quickView && !empty promos}">	
-	<jsp:include page="/jsp/template/promotions.jsp" />
+<c:if test="${!param.ajax && !empty promotions}">	
+	<jsp:include page="../template/promotions.jsp" />
 </c:if>

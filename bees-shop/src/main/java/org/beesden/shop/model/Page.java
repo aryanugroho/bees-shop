@@ -7,6 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bees_page")
 public class Page extends ModelContent {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "contactPanel", columnDefinition = "BIT", length = 1)
 	private Boolean contactPanel;

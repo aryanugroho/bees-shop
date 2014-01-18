@@ -7,14 +7,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.beesden.shop.model.Basket;
 import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Config;
 import org.beesden.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class View extends ViewServices {
+
+	@Autowired
+	protected Basket basket;
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getConfig(HttpServletRequest request) {
@@ -76,16 +81,16 @@ public class View extends ViewServices {
 	public String isAjax(ModelMap model, HttpServletRequest request, String redirect, Map<String, Object> config, long time) {
 		// Use ajax layout if requested
 		Boolean ajaxRequest = request.getParameter("ajax") != null && request.getParameter("ajax").equals("true");
+		redirect = ajaxRequest ? "ajax." + redirect : redirect;
+		model.addAttribute("layout", redirect);
 		logger.info("Response time: " + (System.currentTimeMillis() - time) + "ms");
 		if (!ajaxRequest) {
 			model = templateStore(model, request, config);
-			logger.info("Layout: " + redirect + "\n----------");
-			return redirect;
 		} else {
 			model = templateAjax(model, request, config);
-			logger.info("Layout : ajax." + redirect + "\n----------");
-			return "ajax." + redirect;
 		}
+		logger.info("Layout : " + redirect + "\n----------");
+		return redirect;
 	}
 
 	public ModelMap setTitle(ModelMap model, String pageType, String pageTitle) {
@@ -97,6 +102,8 @@ public class View extends ViewServices {
 
 	public ModelMap templateAjax(ModelMap model, HttpServletRequest request, Map<String, Object> config) {
 		model.addAttribute("config", config);
+		// Add basket to page
+		model.addAttribute("basket", basket);
 		return model;
 	}
 

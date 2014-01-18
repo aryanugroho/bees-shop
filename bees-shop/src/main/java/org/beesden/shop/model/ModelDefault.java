@@ -1,5 +1,6 @@
 package org.beesden.shop.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
-public class ModelDefault {
+public class ModelDefault implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "createdBy")
 	private String createdBy;

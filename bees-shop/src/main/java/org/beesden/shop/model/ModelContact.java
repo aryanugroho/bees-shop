@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Table(name = "bees_address")
 public class ModelContact extends ModelDefault {
+	private static final long serialVersionUID = 1L;
 
 	@Email
 	@Size(min = 2, max = 35)

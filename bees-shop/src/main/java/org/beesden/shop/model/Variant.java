@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "bees_variant")
 public class Variant extends ModelContent {
+	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	@Min(0)

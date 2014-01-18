@@ -7,6 +7,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bees_user")
 public class User extends ModelDefault {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "authority")
 	private Integer authority;

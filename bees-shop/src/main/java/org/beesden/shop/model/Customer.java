@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Table(name = "bees_customer")
 public class Customer extends ModelContact {
+	private static final long serialVersionUID = 1L;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@OrderBy("id")

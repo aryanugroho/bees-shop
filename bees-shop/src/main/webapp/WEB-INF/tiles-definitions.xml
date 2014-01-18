@@ -35,6 +35,13 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/storePage.jsp" />
 	</definition>
 	
+	<!--  Ajax Store Pages -->
+	<definition name="ajax.album" template="/WEB-INF/jsp/storeAlbum.jsp" />
+	<definition name="ajax.category" template="/WEB-INF/jsp/storeCategory.jsp" />
+	<definition name="ajax.product" template="/WEB-INF/jsp/storeProduct.jsp" />
+	<definition name="ajax.search" template="/WEB-INF/jsp/storeSearch.jsp" />
+	<definition name="ajax.webpage" template="/WEB-INF/jsp/storePage.jsp" />
+	
 	<!--  Account Pages -->
 	<definition name="account.login" extends="store">
 		<put-attribute name="content" value="/WEB-INF/jsp/account/login.jsp" />
@@ -72,13 +79,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/checkout/confirmation.jsp" />
 	</definition>
 	
-	<!--  Ajax Templates -->
-	<definition name="ajax.album" template="/WEB-INF/jsp/storeAlbum.jsp" />
-	<definition name="ajax.category" template="/WEB-INF/jsp/storeCategory.jsp" />
-	<definition name="ajax.product" template="/WEB-INF/jsp/storeProduct.jsp" />
-	<definition name="ajax.search" template="/WEB-INF/jsp/storeSearch.jsp" />
-	<definition name="ajax.webpage" template="/WEB-INF/jsp/storePage.jsp" />
-	<definition name="ajax.basket" template="/WEB-INF/jsp/checkout/basket.jsp" />
+	<!--  Ajax Checkout Pages -->
+	<definition name="ajax.checkout.basket" template="/WEB-INF/jsp/checkout/basket.jsp" />
 	
 	<!--  Admin Pages  -->	
 	<definition name="admin.home" extends="admin">

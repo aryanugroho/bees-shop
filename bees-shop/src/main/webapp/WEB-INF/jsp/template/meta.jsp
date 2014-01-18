@@ -1,9 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="seoTitle">
 	<c:choose>
 		<c:when test="${!empty content.seoTitle}">${content.seoTitle}</c:when>
-		<c:otherwise>${content.heading} ${config.seoTitle}</c:otherwise>
+		<c:when test="${!empty content.heading}">${content.heading} ${config.seoTitle}</c:when>
+		<c:otherwise><fmt:message key="bees.meta.${layout}" /> ${config.seoTitle}</c:otherwise>
 	</c:choose>
 </c:set>
 <title>${seoTitle}</title>

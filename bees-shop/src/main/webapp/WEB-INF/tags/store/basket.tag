@@ -6,7 +6,7 @@
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
-<%@ attribute name="basket" type="org.beesden.model.Order" required="true" %>
+<%@ attribute name="basket" type="org.beesden.shop.model.Basket" required="true" %>
 <%@ attribute name="editable" type="java.lang.Boolean" %>
 <%@ attribute name="summary" type="java.lang.Boolean" %>
 
@@ -30,9 +30,6 @@
 </c:if>
 
 <ul class="items">
-	<c:if test="${fn:length(basket.items) == 0}">
-		<li class="row empty"><fmt:message key="bees.basket.payment.details" /></li>
-	</c:if>
 	
 	<c:forEach var="item" items="${basket.items}" varStatus="status">	
 		<li class="row">
@@ -51,11 +48,11 @@
 				<span class="total"><fmt:formatNumber value="${item.price * item.quantity}" currencySymbol="&pound;" type="currency"/></span>
 			</div>
 						
-			<a class="image" href="/product/${util:url(item.product.name)}">
-				<img src="/assets/client/product/small/${util:url(item.product.name)}.jpg" alt="${object.heading}" />
+			<a class="image" href="/product/${util:url(item.variant.product.name)}">
+				<img src="/assets/client/product/small/${util:url(item.variant.product.name)}.jpg" alt="${object.heading}" />
 			</a>
 			<div class="information">
-				<span class="name">${item.product.heading}</span>
+				<span class="name">${item.variant.product.heading}</span>
 				<span class="variant">${item.variant.heading}</span>
 				<span class="price"><fmt:formatNumber value="${item.price}" currencySymbol="&pound;" type="currency"/></span>
 			</div>

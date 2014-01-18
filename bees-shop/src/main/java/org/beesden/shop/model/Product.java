@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "bees_product")
 public class Product extends ModelContent {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "availability")
 	private Integer availability;

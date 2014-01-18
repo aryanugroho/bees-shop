@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.beesden.shop.model.BasketItem;
 import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Page;
 import org.beesden.shop.model.Product;
@@ -72,22 +73,24 @@ public class ContentView extends View {
 		String dbQuery = productService.getQuery(null, name, 1, null);
 		Product product = productService.findOne(dbQuery);
 		if (product != null) {
-			// Add category and pagination to model
+			// Add product to model
 			model.addAttribute("content", product);
 			model = setTitle(model, "content-product", product.getName());
 			model = getPromos(model, product.getPromotionList());
+			// Add basket item to allow form submission
+			model.addAttribute("basketItem", new BasketItem());
 		}
 		return isAjax(model, request, "product", config, start);
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String showSearch(HttpServletRequest request, ModelMap model) {
-		Long start = System.currentTimeMillis();
-		Map<String, Object> config = getConfig(request);
 		String keywords = request.getParameter("keywords");
 		logger.info("Search request: " + keywords);
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
 		Category category = new Category();
-		if (category != null) {
+		if (category != null && keywords != null) {
 			// Get paged category products
 			String sort = request.getParameter("sort") == null ? "id" : request.getParameter("sort");
 			String dbQuery = productService.getQuerySearch(keywords, sort);
@@ -97,7 +100,6 @@ public class ContentView extends View {
 			model.addAttribute("content", category);
 			model.addAttribute("pagination", pagination);
 			model = setTitle(model, "content-search", "Search Results");
-			;
 		}
 		return isAjax(model, request, "search", config, start);
 	}
