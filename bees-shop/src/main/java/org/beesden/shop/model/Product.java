@@ -39,6 +39,9 @@ public class Product extends ModelContent {
 	@Column(name = "preOrderDate")
 	private Date preOrderDate;
 
+	@Column(name = "productCode", unique = true)
+	private String productCode;
+
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Variant> variants;
 
@@ -82,6 +85,10 @@ public class Product extends ModelContent {
 		return preOrderDate;
 	}
 
+	public String getProductCode() {
+		return productCode;
+	}
+
 	public List<Variant> getVariants() {
 		return variants;
 	}
@@ -108,6 +115,10 @@ public class Product extends ModelContent {
 
 	public void setPreOrderDate(Date preOrderDate) {
 		this.preOrderDate = preOrderDate;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
 	}
 
 	public void setVariants(List<Variant> variants) {

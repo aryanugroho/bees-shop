@@ -1,6 +1,7 @@
 package org.beesden.shop.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.beesden.shop.model.Basket;
 import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Config;
+import org.beesden.shop.model.Customer;
 import org.beesden.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +27,25 @@ public class View extends ViewServices {
 
 	@Autowired
 	protected Basket basket;
+
+	public void customerAuth(Customer customer) {
+		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
+		authList.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customer.getEmail(), customer.getPassword(), authList);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+	}
+
+	public Customer fetchCustomer() {
+		// Get customer information if logged in
+		Customer customer = new Customer();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.isAuthenticated()) {
+			String dbQuery = customerService.getQuery(null, auth.getName(), 1, null);
+			customer = customerService.findOne(dbQuery);
+		}
+		return customer;
+	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getConfig(HttpServletRequest request) {
@@ -87,10 +113,19 @@ public class View extends ViewServices {
 		if (!ajaxRequest) {
 			model = templateStore(model, request, config);
 		} else {
+			model.addAttribute("layout", redirect);
 			model = templateAjax(model, request, config);
 		}
 		logger.info("Layout : " + redirect + "\n----------");
 		return redirect;
+	}
+
+	public String isCheckout(ModelMap model, HttpServletRequest request, String redirect, Map<String, Object> config, long time) {
+		// Prevent going anywhere in the checkout with an empty basket
+		if (basket.getItems() == null || basket.getItems().size() < 1) {
+			redirect = "redirect: checkout.basket";
+		}
+		return isAjax(model, request, redirect, config, time);
 	}
 
 	public ModelMap setTitle(ModelMap model, String pageType, String pageTitle) {
@@ -113,6 +148,8 @@ public class View extends ViewServices {
 		// Get site menus
 		String dbQuery = menuService.getQuery(null, null, 1, "position");
 		model.addAttribute("menu", menuService.findAll(dbQuery));
+		// Get customer information if logged in
+		model.addAttribute("customer", fetchCustomer());
 		// Add any system messages
 		model.addAttribute("messages", request.getSession().getAttribute("messages"));
 		request.getSession().setAttribute("messages", null);

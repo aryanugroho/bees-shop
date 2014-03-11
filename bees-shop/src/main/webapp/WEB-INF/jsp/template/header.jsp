@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<header class="header container">	
+<%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
+
+<header class="header container">
 	<section>
 		<a class="logo" title="Home" href="/">${config.companyName}</a>
 		
@@ -12,22 +14,41 @@
 			</c:forEach>
 		</c:if>
 		
-		<c:if test="${config.enableAccount}">
-			<ul class="account">
-				<li><a class="viewAccount" href="/account/home"><span><fmt:message key="bees.header.my.account" /></span></a></li>
-				<li><a class="viewSearch" href="/search"><span><fmt:message key="bees.header.search" /></span></a></li>
-				<c:if test="${config.paymentStatus}">
-					<li id="basketLink"><a class="viewBasket" href="/checkout/basket"><span><fmt:message key="bees.header.my.basket" /> (${basketSize})</span></a></li>
-				</c:if>
-			</ul>
-		</c:if>
+		<ul class="account">
+			<li class="menuLink"><label class="menuToggle" for="menuToggle"><span><fmt:message key="bees.header.menu" /></span></label>
+			<c:if test="${config.enableAccount}">
+				<li class="accountLink"><a href="/account/home"><span><fmt:message key="bees.header.my.account" /></span></a></li>
+			</c:if>			
+			<c:if test="${config.enableSearch}">
+				<li class="searchLink"><a href="/search"><span><fmt:message key="bees.header.search" /></span></a></li>
+			</c:if>
+			<c:if test="${config.paymentStatus}">
+				<li class="basketLink" id="basketLink"><a class="viewBasket" href="/checkout/basket"><span><fmt:message key="bees.header.my.basket" /> (${basketSize})</span></a></li>
+			</c:if>
+		</ul>
 		
-		<c:if test="${config.enableSearch}">
-			<form action="/search" class="searchForm" id="searchForm">
-				<input class="input" name="keywords" value="${param.keywords}" type="text" />
-				<input class="button" type="submit" value="Search" />
-			</form>
-		</c:if>
-		
+		<input class="menuToggle" type="checkbox" id="menuToggle" name="menuToggle" />
+
+		<nav class="menu">	
+			<label class="menuToggle" for="menuToggle"><fmt:message key="bees.header.menu.hide" /></label>	
+			<c:if test="${config.enableSearch}">
+				<form action="/search" class="searchForm" id="searchForm">
+					<fieldset>
+						<legend><fmt:message key="bees.header.search" /></legend>
+						<store:input name="keywords" type="search" />
+					</fieldset>
+					<button class="button"><fmt:message key="bees.header.search" /></button>
+				</form>
+			</c:if>
+			<ol>
+				<c:forEach var="parent" items="${menu}" varStatus="status">	
+					<c:if test="${parent.status == 1 && parent.name == 'Top Navigation'}">
+						<c:forEach var="child" items="${parent.children}" varStatus="status">	
+							<store:menu menuItem="${child}" maxLevel="${config.enableDropDown}" type="li" />
+						</c:forEach>
+					</c:if>
+				</c:forEach>
+			</ol>
+		</nav>
 	</section>
 </header>

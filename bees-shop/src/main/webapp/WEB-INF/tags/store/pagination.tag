@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
+
 <%@ attribute name="pagination" type="java.util.HashMap" required="true" %>
 <%@ attribute name="sortKey" required="false" %>
 <%@ attribute name="summary" type="java.lang.Boolean" required="false" %>
 
-<div class="element summaryContainer">
+<div class="element resultsContainer">
 
 	<c:if test="${pagination.pages > 1}">
 	
@@ -57,13 +59,19 @@
 			<c:if test="${!empty param.page}"><input type="hidden" name="page" value="${param.page}" /></c:if>
 			<c:if test="${!empty param.results}"><input type="hidden" name="results" value="${param.results}" /></c:if>
 			<c:if test="${!empty param.keywords}"><input type="hidden" name="keywords" value="${param.keywords}" /></c:if>
-			<select class="input sort" name="sort">
-				<option value=""><fmt:message key="bees.pagination.sort" /></option>			
-				<c:forEach var="sort" items="${config.sortOrders[sortKey]}">
-					<option ${param.sort == sort.value ? 'selected="selected" ' : ''}value="${sort.value}">${sort.key}</option>
-				</c:forEach>
-			</select>	 
-			<input class="button return" type="submit" value="&raquo;" />
+			
+			<fieldset>
+				<legend><fmt:message key="bees.pagination.sort" /></legend>
+				<ol>
+					<store:input name="sort" type="select">
+						<option value=""><fmt:message key="bees.pagination.sort" /></option>			
+						<c:forEach var="sort" items="${config.sortOrders[sortKey]}">
+							<option ${param.sort == sort.value ? 'selected="selected" ' : ''}value="${sort.value}">${sort.key}</option>
+						</c:forEach>
+					</store:input>
+				</ol>
+			</fieldset>	 
+			<button class="button return jsHide">&raquo;</button>
 		</form>
 	</c:if>
 

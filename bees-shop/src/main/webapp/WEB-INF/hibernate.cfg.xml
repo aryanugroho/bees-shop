@@ -5,8 +5,8 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="show_sql">false</property>
-		<property name="hbm2ddl.auto">create</property>
-		<property name="hbm2ddl.import_files">/import.sql</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.import_files">/test-data.sql</property>
 	</session-factory>
 
 </hibernate-configuration>

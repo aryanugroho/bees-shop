@@ -2,24 +2,21 @@ package org.beesden.shop.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "bees_address")
 public class Address extends ModelContact {
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
 	@Column(name = "country", length = 3)
 	private String country;
 
-	@Range(max = 150)
-	@Column(name = "county", length = 150)
-	private String county;
+	@ManyToOne
+	@JoinColumn(name = "customerId")
+	private Customer customer;
 
 	@Column(name = "geoLat")
 	private Double geoLat;
@@ -27,25 +24,23 @@ public class Address extends ModelContact {
 	@Column(name = "geoLng")
 	private Double geoLng;
 
-	@Range(min = 2, max = 150)
 	@Column(name = "line1", length = 150)
 	private String line1;
 
-	@Range(max = 150)
 	@Column(name = "line2", length = 150)
 	private String line2;
 
-	@Range(max = 150)
 	@Column(name = "line3", length = 150)
 	private String line3;
 
-	@Range(max = 15)
-	@Column(name = "postcode", length = 15)
-	private String postcode;
+	@Column(name = "locality", length = 150)
+	private String locality;
 
-	@Size(min = 2, max = 150)
-	@Column(name = "town", length = 150)
-	private String town;
+	@Column(name = "postalCode", length = 15)
+	private String postalCode;
+
+	@Column(name = "region", length = 150)
+	private String region;
 
 	// Getters and Setters
 
@@ -53,8 +48,8 @@ public class Address extends ModelContact {
 		return country;
 	}
 
-	public String getCounty() {
-		return county;
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public Double getGeoLat() {
@@ -77,20 +72,24 @@ public class Address extends ModelContact {
 		return line3;
 	}
 
-	public String getPostcode() {
-		return postcode;
+	public String getLocality() {
+		return locality;
 	}
 
-	public String getTown() {
-		return town;
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public String getRegion() {
+		return region;
 	}
 
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
-	public void setCounty(String county) {
-		this.county = county;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public void setGeoLat(Double geoLat) {
@@ -113,11 +112,15 @@ public class Address extends ModelContact {
 		this.line3 = line3;
 	}
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
 
-	public void setTown(String town) {
-		this.town = town;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 }

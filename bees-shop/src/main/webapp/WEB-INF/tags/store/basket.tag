@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
@@ -34,27 +33,40 @@
 	<c:forEach var="item" items="${basket.items}" varStatus="status">	
 		<li class="row">
 		
-			<div class="lineInfo">
-				<div class="quantity">
-					<c:choose>
-						<c:when test="${editable}">
-							<form:button type="remove" name="remove-${status.index}" class="remove"><fmt:message key="bees.basket.remove" /></form:button>
-							<form:input data-value="${item.quantity}" class="input number" type="number" min="0" step="1" path="items[${status.index}].quantity" />
-							<form:button type="update" name="update" class="link update"><fmt:message key="bees.basket.update" /></form:button>
-						</c:when>
-						<c:otherwise><span class="number"><fmt:message key="bees.basket.quantity" /> ${item.quantity}</span></c:otherwise>
-					</c:choose>
-				</div>
-				<span class="total"><fmt:formatNumber value="${item.price * item.quantity}" currencySymbol="&pound;" type="currency"/></span>
+			<div class="itemInfo">
+				<span class="total">
+					<fmt:formatNumber value="${item.price * item.quantity}" currencySymbol="&pound;" type="currency"/>
+				</span>
+				<span><a class="remove" href="/checkout/basket/update?productId=${fn:toLowerCase(item.variant.name)}&quantity=0" class="remove link"><fmt:message key="bees.basket.remove" /></a></span>
 			</div>
 						
 			<a class="image" href="/product/${util:url(item.variant.product.name)}">
 				<img src="/assets/client/product/small/${util:url(item.variant.product.name)}.jpg" alt="${object.heading}" />
 			</a>
-			<div class="information">
-				<span class="name">${item.variant.product.heading}</span>
-				<span class="variant">${item.variant.heading}</span>
-				<span class="price"><fmt:formatNumber value="${item.price}" currencySymbol="&pound;" type="currency"/></span>
+			<div class="productInfo">
+				<a href="/product/${util:url(item.variant.product.name)}" class="name">${item.variant.heading}</a>
+				<span class="code">
+					<fmt:message key="bees.basket.code">
+						<fmt:param>${item.variant.name}</fmt:param>
+					</fmt:message>
+				</span>
+
+				<div class="quantity">
+					<c:if test="${editable}">
+						<a class="decrease" href="/checkout/basket/update?productId=${fn:toLowerCase(item.variant.name)}&quantity=${item.quantity - 1}">
+							<em><fmt:message key="bees.basket.quantity.decrease" /></em>
+						</a>
+					</c:if>
+					<c:if test="${!editable}">
+						<fmt:message key="bees.basket.quantity" />
+					</c:if>
+					<span class="${editable ? 'editable' : 'number'}">${item.quantity}</span>
+					<c:if test="${editable}">
+						<a class="increase" href="/checkout/basket/update?productId=${fn:toLowerCase(item.variant.name)}&quantity=${item.quantity + 1}">
+							<em><fmt:message key="bees.basket.quantity.increase" /></em>
+						</a>
+					</c:if>
+				</div>
 			</div>
 		</li>
 	</c:forEach>

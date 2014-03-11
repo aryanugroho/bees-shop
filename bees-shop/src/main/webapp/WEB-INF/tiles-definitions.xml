@@ -67,20 +67,32 @@
 	
 	<!--  Checkout Pages -->
 	<definition name="checkout.basket" extends="store">
-		<put-attribute name="content" value="/WEB-INF/jsp/checkout/basket.jsp" />
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/basket.jsp" />
 	</definition>
-	<definition name="checkout.delivery" extends="store">
-		<put-attribute name="content" value="/WEB-INF/jsp/checkout/delivery.jsp" />
+	<definition name="checkout" extends="store">
+		<put-attribute name="content" value="/WEB-INF/jsp/checkout/layout.jsp" />
 	</definition>
-	<definition name="checkout.payment" extends="store">
-		<put-attribute name="content" value="/WEB-INF/jsp/checkout/payment.jsp" />
+	<definition name="checkout.login" extends="checkout">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/login.jsp" />
 	</definition>
-	<definition name="checkout.confirmation" extends="store">
-		<put-attribute name="content" value="/WEB-INF/jsp/checkout/confirmation.jsp" />
+	<definition name="checkout.updatebasket" extends="checkout">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/basket.jsp" />
+	</definition>
+	<definition name="checkout.delivery" extends="checkout">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/delivery.jsp" />
+	</definition>
+	<definition name="checkout.payment" extends="checkout">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/payment.jsp" />
+	</definition>
+	<definition name="checkout.confirmation" extends="checkout">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/checkout/confirmation.jsp" />
 	</definition>
 	
 	<!--  Ajax Checkout Pages -->
 	<definition name="ajax.checkout.basket" template="/WEB-INF/jsp/checkout/basket.jsp" />
+	<definition name="ajax.checkout.updatebasket" template="/WEB-INF/jsp/checkout/updatebasket.jsp" />
+
+
 	
 	<!--  Admin Pages  -->	
 	<definition name="admin.home" extends="admin">

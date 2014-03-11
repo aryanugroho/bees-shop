@@ -11,4 +11,16 @@ public class AddressService extends Service<Address> {
 	public AddressService() {
 		super("Address");
 	}
+
+	public String getQueryCustomer(String addressId, String customerId, Integer status) {
+		// Generate dbQuery string
+		String dbSearch = " WHERE " + getStatus("p", status);
+		if (addressId != null && !addressId.isEmpty()) {
+			dbSearch += " AND p.id = " + addressId;
+		}
+		if (customerId != null && !customerId.isEmpty()) {
+			dbSearch += " AND p.customer.id = '" + customerId + "'";
+		}
+		return dbSearch;
+	}
 }

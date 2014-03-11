@@ -16,7 +16,7 @@ public class ProductService extends Service<Product> {
 		String dbQuery = " WHERE (";
 		String[] searches = keywords.split("[ _-]");
 		for (int i = 0; i < searches.length; i++) {
-			dbQuery += (i == 0 ? "" : " OR ") + "name LIKE '%" + searches[i] + "%'";
+			dbQuery += (i == 0 ? "" : " OR ") + "heading LIKE '%" + searches[i] + "%'";
 		}
 		dbQuery += ") AND " + getStatus("p", 1);
 		if (sort != null && !sort.isEmpty()) {

@@ -15,7 +15,7 @@
 		</c:if>
 		<li>
 			<a class="ajax" href="/product/${util:url(product.name)}">
-				<span class="image"><img src="/assets/client/product/small/${util:url(product.name)}.jpg" alt="${product.heading}" /></span>
+				<span class="image"><img src="http://www.jigsaw24.com/pws/client/images/catalogue/products/${util:url(product.name)}/medium/${util:url(product.name)}.jpg" alt="${product.heading}" /></span>
 				<c:if test="${product.availability=='2'}"><span class="offer"><fmt:message key="bees.product.special.offer" /></span></c:if>
 				<c:if test="${product.availability=='3'}"><span class="offer"><fmt:message key="bees.product.sold.out" /></span></c:if>
 				<span class="title">${product.heading}</span>

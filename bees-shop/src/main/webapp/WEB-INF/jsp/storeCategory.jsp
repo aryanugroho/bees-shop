@@ -10,25 +10,31 @@
 
 <c:choose>
 <c:when test="${content.status == 1}">
-
-	<c:if test="${!empty content.heading}">
-		<h1>${content.heading}</h1>
-	</c:if>
 	
-	<c:if test="${!empty content.description}">
-		<div class="element">${content.description}</div>
-	</c:if>
+	<store:filters category="${content}" />
 
-	<div class="pageProducts" id="updateContent">
-		<c:choose>
-			<c:when test="${content.layout == 'dept'}">
-				<store:department object="${content}" />
-			</c:when>
-			<c:otherwise>
-				<store:category object="${content}" />			
-			</c:otherwise>
-		</c:choose>
-		<div id="overlay" class="overlay"></div>
+	<div class="categoryResults">
+
+		<c:if test="${!empty content.heading}">
+			<h1>${content.heading}</h1>
+		</c:if>
+		
+		<c:if test="${!empty content.description}">
+			<div class="element">${content.description}</div>
+		</c:if>
+
+		<div class="pageProducts" id="updateContent">
+			<c:choose>
+				<c:when test="${content.layout == 'dept'}">
+					<store:department object="${content}" />
+				</c:when>
+				<c:otherwise>
+					<store:category object="${content}" />			
+				</c:otherwise>
+			</c:choose>
+			<div id="contentOverlay" class="contentOverlay"></div>
+		</div>
+
 	</div>
 
 </c:when>

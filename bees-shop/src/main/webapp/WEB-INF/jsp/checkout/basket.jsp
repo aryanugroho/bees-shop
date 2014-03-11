@@ -5,15 +5,19 @@
 
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
-<c:if test="${param.ajax}">	
+<c:if test="${param.minibasket}">	
 	<c:set var="basketSize" value="0" />	
 	<c:forEach items="${basket.items}" var="item">
 		<c:set var="basketSize" value="${basketSize + item.quantity}" />
 	</c:forEach>
-	<a href="/checkout/basket" title="View basket" class="viewBasket"><span><fmt:message key="bees.basket.link" /> (${basketSize})</span></a>
+	<a href="/checkout/basket" title="View basket" class="viewBasket">
+		<span><fmt:message key="bees.basket.link">
+			<fmt:param>${basketSize}</fmt:param>
+		</fmt:message></span>
+	</a>
 </c:if>
 
-<form:form class="basket" id="${param.ajax ? 'minibasket' : 'basket'}" action="/checkout/basket/update" method="POST" modelAttribute="basket">
+<div class="basket" id="${param.minibasket ? 'minibasket' : 'basket'}">
 
 <h1><fmt:message key="bees.basket.title" /></h1>
 	
@@ -21,30 +25,26 @@
 
 <ul class="action">
 	<c:if test="${fn:length(basket.items) < 1}">
-		<li class="warning"><fmt:message key="bees.basket.min.quantity" /></li>
+		<li class="alert alertWarning"><fmt:message key="bees.basket.min.quantity" /></li>
 	</c:if>
 	<c:if test="${fn:length(basket.items) > 0 && basket.subTotal < config.minOrderValue}">
-		<li class="warning">
+		<li class="alert alertWarning">
 			<fmt:message key="bees.basket.min.value">
 				<fmt:param><fmt:formatNumber value="${config.minOrderValue}" currencySymbol="&pound;" type="currency"/></fmt:param>
 			</fmt:message></li>
 	</c:if>
 	<li>
 		<c:choose>
-			<c:when test="${!param.ajax}">
-				<a class="button return" href="/"><fmt:message key="bees.basket.return" /></a>
-				<c:if test="${fn:length(basket.items) != 0 && basket.subTotal >= config.minOrderValue}">
-					<a class="button advance" href="/checkout/delivery"><fmt:message key="bees.basket.checkout" /></a>
-				</c:if>
+			<c:when test="${param.minibasket}">
+				<a class="button advance" href="/checkout/basket"><fmt:message key="bees.basket.view.basket" /></a>
 			</c:when>
-			<c:otherwise>
-				<a class="button return" href="/checkout/basket"><fmt:message key="bees.basket.view.basket" /></a>
+			<c:when test="${fn:length(basket.items) == 0 || basket.subTotal < config.minOrderValue}">
+				<a class="button return" href="/"><fmt:message key="bees.basket.return" /></a>
+			</c:when>
+			<c:otherwise>	
+				<a class="button advance" href="/checkout/delivery"><fmt:message key="bees.basket.checkout" /></a>
 			</c:otherwise>
 		</c:choose>
 	</li>
 </ul>
-</form:form>
-
-<c:if test="${!param.ajax && !empty promotions}">	
-	<jsp:include page="../template/promotions.jsp" />
-</c:if>
+</div>

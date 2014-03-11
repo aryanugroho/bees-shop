@@ -1,36 +1,27 @@
 package org.beesden.shop.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.persistence.MappedSuperclass;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Range;
 
-@Entity
-@Table(name = "bees_address")
-public class ModelContact extends ModelDefault {
+@MappedSuperclass
+public abstract class ModelContact extends ModelDefault {
 	private static final long serialVersionUID = 1L;
 
 	@Email
-	@Size(min = 2, max = 35)
 	@Column(name = "email", length = 35)
 	private String email;
 
-	@Size(min = 2, max = 150)
 	@Column(name = "firstname", length = 150)
 	private String firstname;
 
-	@Size(min = 2, max = 150)
 	@Column(name = "surname", length = 150)
 	private String surname;
 
-	@Range(min = 9, max = 35)
 	@Column(name = "telephone", length = 35)
 	private String telephone;
 
-	@Range(min = 2, max = 50)
 	@Column(name = "title", length = 50)
 	private String title;
 

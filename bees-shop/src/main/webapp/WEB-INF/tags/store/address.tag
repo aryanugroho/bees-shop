@@ -31,23 +31,23 @@
 			<c:set var="active" value="${true}" />
 		</c:if>
 		
-		<c:if test="${!empty address.town}">
+		<c:if test="${!empty address.locality}">
 			<c:if test="${!empty type}"><${type}></c:if>
-			${active && empty type ? ', ' : ''}${address.town}
+			${active && empty type ? ', ' : ''}${address.locality}
 			<c:if test="${!empty type}"></${type}></c:if>
 			<c:set var="active" value="${true}" />
 		</c:if>
 		
-		<c:if test="${!empty address.county}">
+		<c:if test="${!empty address.region}">
 			<c:if test="${!empty type}"><${type}></c:if>
-			${active && empty type ? ', ' : ''}${address.county}
+			${active && empty type ? ', ' : ''}${address.region}
 			<c:if test="${!empty type}"></${type}></c:if>
 			<c:set var="active" value="${true}" />
 		</c:if>
 		
-		<c:if test="${!empty address.postcode}">
+		<c:if test="${!empty address.postalCode}">
 			<c:if test="${!empty type}"><${type}></c:if>
-			${active && empty type ? ', ' : ''}${address.postcode}
+			${active && empty type ? ', ' : ''}${address.postalCode}
 			<c:if test="${!empty type}"></${type}></c:if>
 			<c:set var="active" value="${true}" />
 		</c:if>

@@ -4,7 +4,9 @@
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 
 <section class="promotion">
+	
 	<h2><fmt:message key="bees.promotions.title" /></h2>
+	
 	<ul class="grid">
 	
 	<c:forEach items="${promotions}" var="promo">		
@@ -24,4 +26,5 @@
 	</c:forEach>
 	
 	</ul>
+
 </section>
