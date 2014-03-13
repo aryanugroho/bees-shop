@@ -2,7 +2,6 @@ package org.beesden.shop.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +15,16 @@ public class Customer extends ModelContact {
 
 	private static final long serialVersionUID = -1238648891315061482L;
 
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
 	@OrderBy("id")
 	private Set<Address> addresses;
 
 	@Column(name = "password", length = 150)
 	private String password;
+
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	@OrderBy("id")
+	private Set<Tender> tenders;
 
 	// Getters and Setters
 
@@ -33,12 +36,20 @@ public class Customer extends ModelContact {
 		return password;
 	}
 
+	public Set<Tender> getTenders() {
+		return tenders;
+	}
+
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setTenders(Set<Tender> tenders) {
+		this.tenders = tenders;
 	}
 
 }

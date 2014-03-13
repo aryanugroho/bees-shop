@@ -1,0 +1,25 @@
+/* Pagination overlay */
+#updateContent{position:relative}
+#contentOverlay{background:#fff url('/assets/styles/images/loader.gif') center 160px no-repeat; height:0; top: 0; margin:auto; opacity:0; height:0; width:100%; position:absolute; transition:opacity 0.5s}
+#contentOverlay.reveal {opacity:0.8; height:100%;}
+
+.resultsContainer {margin:$bees-gutter-small 0; overflow:hidden;
+	
+	/* Result summary */
+	.summary {clear:left; float:left; line-height:26px; margin:0 10px 10px 0}
+
+	/* Pagination link styles */
+	.pagination{border-left:$bees-border-medium; float:left; list-style:none; margin:0 10px 10px 0; padding:0;
+		li {border:$bees-border-medium; border-left:none; float:left; line-height:29px; text-align:center}
+		span {background:$bees-brand-background; color:$bees-brand-default}
+		em {font-style:normal}
+		span, a, em {display:block; padding:0 10px;}
+	}
+
+	.sortOrder {float:right; margin:0 0 10px 10px;
+		fieldset, ol, li {margin:0; border-bottom:none;}
+		legend, label {display:none}
+		.input{width:auto}
+		.button {line-height:26px; margin:0 0 0 3px; padding:0 10px}
+	}
+}

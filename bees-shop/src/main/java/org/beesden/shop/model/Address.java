@@ -11,6 +11,18 @@ import javax.persistence.Table;
 public class Address extends ModelContact {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "address1", length = 150)
+	private String address1;
+
+	@Column(name = "address2", length = 150)
+	private String address2;
+
+	@Column(name = "address3", length = 150)
+	private String address3;
+
+	@Column(name = "city", length = 150)
+	private String city;
+
 	@Column(name = "country", length = 3)
 	private String country;
 
@@ -24,18 +36,6 @@ public class Address extends ModelContact {
 	@Column(name = "geoLng")
 	private Double geoLng;
 
-	@Column(name = "line1", length = 150)
-	private String line1;
-
-	@Column(name = "line2", length = 150)
-	private String line2;
-
-	@Column(name = "line3", length = 150)
-	private String line3;
-
-	@Column(name = "locality", length = 150)
-	private String locality;
-
 	@Column(name = "postalCode", length = 15)
 	private String postalCode;
 
@@ -43,6 +43,22 @@ public class Address extends ModelContact {
 	private String region;
 
 	// Getters and Setters
+
+	public String getAddress1() {
+		return address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public String getAddress3() {
+		return address3;
+	}
+
+	public String getCity() {
+		return city;
+	}
 
 	public String getCountry() {
 		return country;
@@ -60,28 +76,28 @@ public class Address extends ModelContact {
 		return geoLng;
 	}
 
-	public String getLine1() {
-		return line1;
-	}
-
-	public String getLine2() {
-		return line2;
-	}
-
-	public String getLine3() {
-		return line3;
-	}
-
-	public String getLocality() {
-		return locality;
-	}
-
 	public String getPostalCode() {
 		return postalCode;
 	}
 
 	public String getRegion() {
 		return region;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	public void setAddress3(String address3) {
+		this.address3 = address3;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public void setCountry(String country) {
@@ -98,22 +114,6 @@ public class Address extends ModelContact {
 
 	public void setGeoLng(Double geoLng) {
 		this.geoLng = geoLng;
-	}
-
-	public void setLine1(String line1) {
-		this.line1 = line1;
-	}
-
-	public void setLine2(String line2) {
-		this.line2 = line2;
-	}
-
-	public void setLine3(String line3) {
-		this.line3 = line3;
-	}
-
-	public void setLocality(String locality) {
-		this.locality = locality;
 	}
 
 	public void setPostalCode(String postalCode) {

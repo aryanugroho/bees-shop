@@ -1,0 +1,145 @@
+/* Layout styles */
+.article .grid, .article .table {margin:0 5px 1em; padding:15px 0 0; position:relative }
+.article .grid > li {display:inline-block; padding:0 10px 20px; vertical-align:top; width:185px }
+.article .grid > li > a {display:inline-block; position:relative }
+.article .table > li {display:inline-block; padding:0 10px 20px; vertical-align:top; width:33.3333% }
+
+/* Message Styles */
+.article .message {font-weight:600; margin:1.5em auto; padding:10px; text-align:center; width:80%}
+.article .accountMessage{background:#f9f9f3; border:2px solid #9c9; color:#474}
+
+/* Album Styles */
+.article .album a{margin:auto; height:160px; position: relative}
+.article .album .image {display: block; margin: auto;position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
+#albumWrap {display:none; position:absolute; left:0; top:0; height:100%; width:100%; z-index:1000}
+#albumWrap .close {background:url('/assets/styles/images/styles.png') 0 -30px  no-repeat; cursor:pointer; position:absolute; top:0; right:0; width:46px; height:42px; opacity:0.8}
+#albumWrap .close:hover {opacity:1}
+#albumCont {max-height:80%; max-width:80%; margin:auto; position:absolute; left:0; right:0; top:0; bottom:50px; transition:0.8s; height:100px; width:100px;}
+#albumCont img {box-shadow:0 0 15px 1px rgba(0,0,0,0.4); margin:auto; position:absolute; left:0; right:0; top:0; bottom:0;  max-width:100%; max-height:100%}
+#albumWrap .overlay {background:rgba(0,0,0,0.5) url('/assets/styles/images/loader.gif') center center no-repeat; height:100%;}
+#albumThumbs {position:fixed; bottom:0; left:0; right:0; margin:0 auto 15px; text-align:center; width:60%}
+#albumThumbs li {display:inline-block;}
+#albumThumbs img {border:1px solid #111; max-height:55px; opacity:0.4}
+#albumThumbs .current img {opacity:1}
+
+/* Article Styles */
+.article .articles li, .article .newsArticle {margin-bottom:1em; overflow:hidden;}
+.article .articles .title {display:block; font-size:1.4em;}
+.article .articles .image, .article .newsArticle .image {float:right; margin:0 0 10px 10px}
+.article .newsArticle .date{margin:0}
+
+/* Contact Form Styles */
+.article .contact .button {margin-left:120px; width:240px}
+.article .contactMap {width:100%; height:340px}
+
+/* Page Form Styles */
+.article .form {clear:both; max-width:730px; margin:20px auto  }
+.article .form ol > li {clear:both; display:block; margin:0 auto 10px; width:360px }
+.article .form ol .title {float:left; font-weight:600; padding:5px 35px; text-align:center; text-transform:uppercase; width:auto }
+.article label{cursor:pointer}
+.article .form .label {float:left; padding-right:20px; text-align:right; width:120px }
+.article .form .input {width:240px }
+.article .form .select{width:360px}
+.article .form .section {clear:both; margin:0 0 20px; overflow:hidden }
+.article .formSelect{clear:none; cursor:pointer; float:left; line-height:20px; position:relative}
+.article .formSelect input {display:none}
+.article .formSelect input ~ label {padding:0 0 0 25px;}
+.article .formSelect label:before{background:url('/assets/styles/images/styles.png') -120px 0 no-repeat;content:'';display: block;position: absolute;left: 0;top: 0;height:20px;width:20px}
+.article .formSelect input:checked + label:before{background-position:-140px 0;}
+
+/* Advanced Search Styles */
+.article .advancedSearch{ padding:20px 0 0}
+.article .advancedSearch .button{margin-left:120px}
+
+/* Account Section Styles */
+.article .accountLogin {float:left; margin:0 0 15px; width:50% }
+.article .accountLogin h2{margin-bottom:2em}
+.article .accountLogin ol {margin:auto; width:320px}
+.article .accountLogin li {margin:0 0 10px; overflow:hidden}
+.article .accountLogin li a {float:right; font-style:italic; padding:0 5px }
+.article .accountLogin .input {width:200px }
+.article .accountLogin .label {float:left; width:120px }
+.article .accountLogin .button {margin:20px 0 0 120px; width:200px }
+.article .accountLinks{margin-bottom:2em}
+.article .accountLinks li{display:inline-block; line-height:35px; margin:0 0.25% 0.5%; text-align:center; width:24.5%}
+.article .accountLinks li a{display:block}
+.article .addressList {margin-bottom:2.5em}
+.article .addressList li div{display:block; min-height:200px; position:relative;}
+.article .addressList li span{display:block}
+.article .addressList li .update{position:absolute; left:15px; bottom:15px}
+.article .addressList li .remove{position:absolute; right:15px; bottom:15px}
+.article .addressList li .button{background:none;border:none;padding:0;}
+.article .accountOrders{border-collapse:collapse; margin-bottom:3em; text-align:center; width:100%}
+.article .accountOrders td{padding:6px 10px}
+.article .accountOrders .button{padding:3px 12px}
+.article .orderDetail {border:1px solid #ccc; border-bottom:none; line-height:30px; margin-top:2em;}
+.article .orderDetail li{display:block; border-bottom:1px solid #ccc;}
+.article .orderDetail strong{background:#f0f0f0; border-right:1px solid #ccc; display:inline-block; width:140px; margin:0 15px 0 0; padding:0 10px; text-align:right;}
+.article .orderAddress li div{background:#f5f5f5; border:1px solid #ddd; display:block; min-height:150px; position:relative; padding:15px}
+.article .orderAddress li h2{margin:0 0 1em}
+.article .orderAddress li span{display:block}
+.article .viewOrder{margin:1em 0 3em; overflow:hidden}
+.article .account .single{display:block}
+.article .account .button {margin:0 auto 3em; width:50% }
+
+/* Checkout Styles */
+.article .checkout .basket h2, .article .checkout .basket .row {margin:0; padding:10px}
+.article .checkout .formSelect{margin:0 20px 20px 0; padding:0}
+.article .checkout .basket .address{margin:10px 15px}
+.article .checkout .button {width:50% }
+
+/**
+***	Custom Styles Stylesheet for Beesden Websites
+**/
+
+/* Page Defaults */
+
+/* Promotional Category Styles */
+
+/* Category Styles */
+
+/* Product Styles */
+
+/* Article Styles */
+.article .articles {border-top:4px double #eee; padding:1em 0 0}
+.article .articles li, .article .newsArticle {border-bottom:4px double #eee; padding:0 0 1em}
+.article .articles small {color:#888}
+.article .articles img, .article .newsArticle .image {padding:2px; border:2px solid #eee}
+.article .newsArticle .date {color:#888}
+
+/* Pagination Styles */
+
+/* Account */
+.article .addressList li div {background:#f4f4f4; border:1px solid #eee; padding:15px}
+.article .accountOrders { border:1px solid #ccc; border-bottom:none}
+.article .accountOrders tr {border-bottom:1px solid #ddd}
+.article .accountOrders tr:nth-child(even) {background:#f4f4f4}
+.article .accountOrders th {background:#696; color:#fff; font-weight:600; padding:6px 10px }
+
+/* Form Styles */
+.article .form ol {background:#f4f4f4; border:1px solid #ddd; padding:0 0 10px }
+.article .formSelect { color:#369; font-weight:600; border-bottom:none}
+.article .contact ol .title {background:#469; color:#fff}
+.article .advancedSearch ol .title {background:#469; color:#fff}
+.article .account ol .title {background:#696; color:#fff}
+.article .checkout ol .title {background:#b43c3c; color:#fff}
+
+/* (Mini)Basket Styles */
+
+/* CMS Banner Styles */
+.article .banner {margin:0; position:relative; overflow: hidden}
+.article .banner .slides {height:300px; background:#f4f4f4; width:100%; margin:0; position:relative }
+.article .banner .slides li {display:inline-block; opacity:0}
+.article .banner .slides img {position:absolute; top:0; left:0 }
+.article .banner .slide_nav {margin:0; position:absolute; padding:20px; bottom:0; right:0 }
+.article .banner .slide_nav li {border-radius:21px; box-shadow:inset 2px 2px 2px rgba(0,0,0,0.3); cursor:pointer; float:left; height:20px; margin:0 0 0 10px; width:20px; line-height:20px; overflow:hidden; text-indent:-100%; background:#f4f4f4}
+.article .banner .slide_nav li.selected {background:#3cb43c }
+
+/* Social share icons */
+.article #socialShare {border-top:1px dashed #ddc}
+
+/* Printer Styles */
+@media print {
+	.button,.header, .menu, .footer{display:none}
+	.article section{width:100%; border:none}
+}

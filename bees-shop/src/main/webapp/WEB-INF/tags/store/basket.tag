@@ -7,26 +7,7 @@
 
 <%@ attribute name="basket" type="org.beesden.shop.model.Basket" required="true" %>
 <%@ attribute name="editable" type="java.lang.Boolean" %>
-<%@ attribute name="summary" type="java.lang.Boolean" %>
-
-<c:if test="${summary}">
-	<ul class="table orderAddress">
-		<li><div>
-			<h2><fmt:message key="bees.basket.delivery.address" /></h2>
-			<span><strong>${basket.deliveryAddress.firstname} ${basket.deliveryAddress.surname}</strong></span>
-			<store:address address="${basket.deliveryAddress}" type="span" />
-		</div></li>
-		<li><div>
-			<h2><fmt:message key="bees.basket.billing.address" /></h2>
-			<span><strong>${basket.paymentAddress.firstname} ${basket.paymentAddress.surname}</strong></span>
-			<store:address address="${basket.paymentAddress}" type="span" />
-		</div></li>
-		<li><div>
-			<h2><fmt:message key="bees.basket.payment.details" /></h2>
-			<span>Good Karma</span>
-		</div></li>
-	</ul>
-</c:if>
+<%@ attribute name="checkout" type="java.lang.Boolean" %>
 
 <ul class="items">
 	
@@ -37,7 +18,9 @@
 				<span class="total">
 					<fmt:formatNumber value="${item.price * item.quantity}" currencySymbol="&pound;" type="currency"/>
 				</span>
-				<span><a class="remove" href="/checkout/basket/update?productId=${fn:toLowerCase(item.variant.name)}&quantity=0" class="remove link"><fmt:message key="bees.basket.remove" /></a></span>
+				<c:if test="${editable}">
+					<span><a class="remove" href="/checkout/basket/update?productId=${fn:toLowerCase(item.variant.name)}&quantity=0" class="remove link"><fmt:message key="bees.basket.remove" /></a></span>
+				</c:if>
 			</div>
 						
 			<a class="image" href="/product/${util:url(item.variant.product.name)}">
@@ -73,31 +56,24 @@
 </ul>
 
 <c:if test="${fn:length(basket.items) > 0}">	
-	<ul class="totals">
-		<li class="row">
-			<span class="title"><fmt:message key="bees.basket.sub.total" /></span>
-			<span class="total"><fmt:formatNumber value="${basket.subTotal}" currencySymbol="&pound;" type="currency"/></span>
-		</li>
-		<c:if test="${!empty basket.deliveryCharge}">
-			<li class="row">
-				<span class="title">${basket.deliveryCharge.name}:</span>
-				<span class="total"><fmt:formatNumber value="${basket.deliveryCharge.charge}" currencySymbol="&pound;" type="currency"/></span>
-			</li>
-		</c:if>
-		<c:if test="${basket.subTotal != basket.total}">
-			<li class="row">
-				<span class="title"><fmt:message key="bees.basket.total" /></span>
-				<span class="total strong"><fmt:formatNumber value="${basket.total}" currencySymbol="&pound;" type="currency"/></span>
-			</li>
-		</c:if>
-	</ul>	
+	<dl class="totals">
+		<dt><fmt:message key="bees.basket.sub.total" /></dt>
+		<dd><fmt:formatNumber value="${basket.subTotal}" currencySymbol="&pound;" type="currency"/></dd>
 
-	<c:if test="${pageType == 'checkout-payment' && !empty basket.deliveryAddress}">
-		<div class="address">
-			<ul>
-				<li><strong><fmt:message key="bees.basket.delivery.address" /></strong>
-				<store:address address="${basket.deliveryAddress}" type="li" />
-			</ul>
-		</div>
-	</c:if>
+		<c:if test="${checkout}">
+			<dl class="totals">
+				<c:if test="${!empty basket.deliveryCharge}">
+					<dt>
+						<c:choose>
+							<c:when test="${!empty basket.orderPlaced}">${basket.deliveryCharge.name}:</c:when>
+							<c:otherwise><a class="edit" href="/checkout/delivery">${basket.deliveryCharge.name}</a></c:otherwise>
+						</c:choose>
+					</dt>
+					<dd><fmt:formatNumber value="${basket.deliveryCharge.charge}" currencySymbol="&pound;" type="currency"/></dd>
+				</c:if>
+				<dt><fmt:message key="bees.basket.total" /></dt>
+				<dd><fmt:formatNumber value="${basket.total}" currencySymbol="&pound;" type="currency"/></dd>
+			</dl>
+		</c:if>
+	</dl>	
 </c:if>

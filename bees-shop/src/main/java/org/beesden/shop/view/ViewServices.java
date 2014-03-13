@@ -6,9 +6,11 @@ import org.beesden.shop.service.BasketService;
 import org.beesden.shop.service.CategoryService;
 import org.beesden.shop.service.ConfigService;
 import org.beesden.shop.service.CustomerService;
+import org.beesden.shop.service.DeliveryChargeService;
 import org.beesden.shop.service.MenuService;
 import org.beesden.shop.service.PageService;
 import org.beesden.shop.service.ProductService;
+import org.beesden.shop.service.TenderService;
 import org.beesden.shop.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,6 +23,7 @@ public class ViewServices {
 
 	@Autowired
 	public BasketService basketService;
+
 	@Autowired
 	public CategoryService categoryService;
 
@@ -31,6 +34,9 @@ public class ViewServices {
 	public CustomerService customerService;
 
 	@Autowired
+	public DeliveryChargeService deliveryChargeService;
+
+	@Autowired
 	public MenuService menuService;
 
 	@Autowired
@@ -38,6 +44,9 @@ public class ViewServices {
 
 	@Autowired
 	public ProductService productService;
+
+	@Autowired
+	public TenderService tenderService;
 
 	@Autowired
 	public VariantService variantService;

@@ -28,6 +28,11 @@ public class View extends ViewServices {
 	@Autowired
 	protected Basket basket;
 
+	public List<String> addError(List<String> errors, String error) {
+		errors.add(error);
+		return errors;
+	}
+
 	public void customerAuth(Customer customer) {
 		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
 		authList.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
@@ -120,12 +125,22 @@ public class View extends ViewServices {
 		return redirect;
 	}
 
-	public String isCheckout(ModelMap model, HttpServletRequest request, String redirect, Map<String, Object> config, long time) {
+	public String isCheckout(ModelMap model, HttpServletRequest request, String redirect) {
+		// Get page defaults
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		List<String> errors = new ArrayList<String>();
 		// Prevent going anywhere in the checkout with an empty basket
 		if (basket.getItems() == null || basket.getItems().size() < 1) {
-			redirect = "redirect: checkout.basket";
+			errors = addError(errors, "basket.empty");
+			request.getSession().setAttribute("messages", errors);
+			return "redirect:/checkout/basket";
 		}
-		return isAjax(model, request, redirect, config, time);
+		// Get extra basket information
+		String dbQuery = deliveryChargeService.getQuery(null, null, 1, "id");
+		model.addAttribute("deliveryCharges", deliveryChargeService.findAll(dbQuery));
+		// model.addAttribute("countries", CountryList.countries());
+		return isAjax(model, request, redirect, config, start);
 	}
 
 	public ModelMap setTitle(ModelMap model, String pageType, String pageTitle) {
@@ -139,6 +154,16 @@ public class View extends ViewServices {
 		model.addAttribute("config", config);
 		// Add basket to page
 		model.addAttribute("basket", basket);
+		// Empty the basket after order is placed
+		if (basket.getOrderPlaced() != null) {
+			basket.setPaymentDetails(null);
+			basket.setDeliveryAddress(null);
+			basket.setItems(null);
+			basket.setOrderPlaced(null);
+		}
+		// Add any system messages
+		model.addAttribute("messages", request.getSession().getAttribute("messages"));
+		request.getSession().setAttribute("messages", null);
 		return model;
 	}
 
@@ -150,9 +175,6 @@ public class View extends ViewServices {
 		model.addAttribute("menu", menuService.findAll(dbQuery));
 		// Get customer information if logged in
 		model.addAttribute("customer", fetchCustomer());
-		// Add any system messages
-		model.addAttribute("messages", request.getSession().getAttribute("messages"));
-		request.getSession().setAttribute("messages", null);
 		return model;
 	}
 }

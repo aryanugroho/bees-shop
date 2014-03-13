@@ -1,0 +1,17 @@
+/* Promotional Category Styles */
+.promotion {overflow:hidden; position:relative;
+	/* Promotion slider layout */
+	.promoWrap {overflow:hidden}
+	ul {left:0; position:relative; white-space:nowrap;}
+	li {padding-bottom:10px; text-align:center;white-space:normal;  }
+	
+	/* Promotion slider item styles */
+	span {display:block }
+	.title {font-weight:600}
+
+	/* Promotion slider functionality */
+	.button {font-size:2.2em; padding:0 10px 3px; line-height:27px; margin:0; opacity:0.6; position:absolute; top:135px; z-index:5; width:auto }
+	.button:hover {opacity:1}
+	.left {left:$bees-gutter-medium }
+	.right {right:$bees-gutter-medium }
+}

@@ -1,0 +1,62 @@
+.header {background:$bees-brand-light; border:$bees-border-medium; border-left:none; border-right:none; margin:0 0 50px; 
+	&, section {height:88px; position:relative}
+
+	/* Site logo - variabilize */
+	.logo {background:url('/assets/styles/images/styles.png') 0 -77px no-repeat; float:left; margin:11px 0; text-indent:-100%; width:212px; height:66px }
+	
+	/* Account links */
+	.account {border-left:$bees-border-medium; float:right; margin:0 0 13px; padding:0; position:relative; bottom:1px;
+		> li {background:$bees-brand-background; border:$bees-border-medium; border-top:none; border-left:none; display:block; float:left; overflow:hidden;
+			> a, label {cursor:pointer; display:block; font-weight:600; padding:3px 9px 6px;
+				em {font-style:normal;}
+			}
+			> a:link, > a:visited {color:$bees-brand-default; }
+			> a:hover, > a:focus {text-decoration:underline }
+			> :before {font-family:$bees-font-icons; margin-right:4px;}
+		}
+		> .accountLink > a:before {content:$bees-icon-account}
+		> .searchLink > a:before {content:$bees-icon-search}
+		> .basketLink > a:before {content:$bees-icon-basket}
+		> .menuLink {display:none;
+			> label:before {content:$bees-icon-menu}
+		}
+	}
+
+	/* Minibasket dropdown */
+	.account .basket {background:$bees-brand-light; border:$bees-border-medium; box-shadow: -2px 2px 4px rgba(0,0,0,0.15); opacity:0; padding:$bees-gutter-medium $bees-gutter-medium 0; position:absolute; right:0; visibility:hidden; width:360px; z-index:500;
+		h1 {font-size:15px}
+		.items {display:none; max-height:280px; margin-left:-$bees-gutter-small - 1; margin-right:-$bees-gutter-small - 1; padding:0 $bees-gutter-small; overflow-y:auto}
+		.button {width:100% }
+	}
+	.account li:hover .basket, .account .preview .basket {opacity:1;  transition:opacity 0.4s; text-align:left; visibility:visible; 
+		ul {display:block}
+	} 
+}
+
+/* Mobile styles */
+@media all and (max-width: $bees-width-md - 1) {
+	.header {margin-bottom:$bees-gutter-medium;
+
+		.logo {display:block; float:none; margin:11px auto;}
+
+		.account {width:100%;
+			> li {background:$bees-brand-light; text-align:center; width:25%;
+				> a, >label {padding:$bees-gutter-small;
+					em {display:none}
+				}
+			}
+			> .menuLink {display:block;}
+		}
+	} 
+}
+/* Small mobile */
+@media all and (max-width: $bees-width-xs - 1) {
+	.header {margin-bottom:$bees-gutter-medium;
+
+		.account {width:100%;
+			> li > a, > li > label {font-size:20px;
+				span {display:none}
+			}
+		}
+	} 
+}

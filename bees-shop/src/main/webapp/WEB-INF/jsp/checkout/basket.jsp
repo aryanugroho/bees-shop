@@ -42,7 +42,7 @@
 				<a class="button return" href="/"><fmt:message key="bees.basket.return" /></a>
 			</c:when>
 			<c:otherwise>	
-				<a class="button advance" href="/checkout/delivery"><fmt:message key="bees.basket.checkout" /></a>
+				<a class="button advance" href="/checkout/shipping"><fmt:message key="bees.basket.checkout" /></a>
 			</c:otherwise>
 		</c:choose>
 	</li>

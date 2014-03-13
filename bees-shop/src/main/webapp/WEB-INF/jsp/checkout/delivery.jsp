@@ -4,25 +4,12 @@
 
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
+<c:set var="addressForm" value="${basket.deliveryAddress}" scope="request" />
+
 <form action="/checkout/delivery" method="POST">	
 
 	<jsp:include page="../forms/delivery.jsp" />
 
-	<c:if test="${!empty customer.addresses}">
-		<store:input cssClass="formSelect" name="selectAddress" type="radio" id="existingAddress" value="existingAddress" />
-		<jsp:include page="../forms/addresses.jsp" />
-		<button class="button advance jsHide"><fmt:message key="bees.delivery.continue" /></button>
-		<store:input cssClass="formSelect" name="selectAddress" type="radio" id="createAddress" value="createAddress" />
-	</c:if>
-
-	<jsp:include page="../forms/customer.jsp">
-		<jsp:param name="addressForm" value="${basket.deliveryAddress}" />
-	</jsp:include>
-
-	<jsp:include page="../forms/address.jsp">
-		<jsp:param name="addressForm" value="${basket.deliveryAddress}" />
-	</jsp:include>
-
-	<button class="button advance"><fmt:message key="bees.delivery.continue" /></button>
+	<button class="button advance"><fmt:message key="bees.checkout.continue" /></button>
 	
 </form>

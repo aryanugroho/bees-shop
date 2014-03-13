@@ -1,0 +1,59 @@
+/* (Mini)Basket Styles */
+.basket {
+	ul {clear:both; list-style:none; margin:0 0 $bees-gutter-small; padding:0; 
+		.row {border-bottom:$bees-border-light; padding:$bees-gutter-medium 0; overflow:hidden;
+			&:first-child {padding-top:0}
+		 }
+
+		/* Product image */
+		.image {float:left; margin:0 $bees-gutter-small 0 0; width:$bees-image-small; height:$bees-image-small;
+			img {width:$bees-image-small; height:$bees-image-small }
+		}
+		
+		/* Product info */
+		.productInfo {overflow:hidden;
+			span, a {color:$bees-brand-default;display:block; margin:0 0 5px }
+			.name {font-weight:600;}
+			.code {font-style:italic }
+			.input {margin:$bees-gutter-small 0; width:70px}
+			.link {font-size:11px; margin:0 0 0 $bees-gutter-small; vertical-align:middle}
+			.quantity {display:inline-block;
+				span, a {display:inline-block; margin:0; font-size:10px;text-align:center; vertical-align: middle }
+				.editable {border:$bees-border-faint; border-left:none; border-right:none; font-weight:600;  height:28px; line-height:28px; width:28px;  font-size:14px; }
+				a { height:28px; line-height:28px; width:28px; 
+					em {display:none}
+					&:hover {background:$bees-brand-highlight}
+					&.increase{border:$bees-border-faint;
+						&:before {content:$bees-icon-plus; font-family:$bees-font-icons}
+					}
+					&.decrease {border:$bees-border-faint;
+						&:before {content:$bees-icon-minus; font-family:$bees-font-icons}
+					}
+				}
+			}
+		}
+	}
+
+	/* Basket item info */
+	.itemInfo {float:right; margin:0 0 $bees-gutter-small $bees-gutter-medium; 
+		span {display:block; text-align:right}
+		.total {color:$bees-brand-primary; font-size:14px; font-weight:600; margin:0 0 $bees-gutter-small }
+		.link {margin:0 0 $bees-gutter-small; text-transform:lowercase; font-size:11px}
+	}
+
+	/* Basket totals */
+	.totals, .action {margin:0 0 $bees-gutter-medium auto; max-width:560px;
+		dt, dd {display:inline-block; padding:$bees-gutter-small 0; vertical-align:top; width:50%;}
+		dt {font-weight:600}
+		dd {color:$bees-brand-primary; font-size:14px; font-weight:600; text-align:right}
+		.button {display:block; margin:0; text-align:center; width:100%}
+		.alert {margin-bottom:$bees-gutter-medium}
+	}
+
+	h3 a {
+		float:right; font-size:11px; text-transform:lowercase;
+	}
+	address {margin:0 0 $bees-gutter-medium;
+		:first-child {display:block; font-weight:600}
+	}
+}

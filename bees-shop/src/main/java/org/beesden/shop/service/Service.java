@@ -87,23 +87,26 @@ public class Service<T> {
 		return " (" + s + ")";
 	}
 
-	public void objectCreate(T o) {
+	public T objectCreate(T o) {
 		// Create new object
 		Session session = sessionFactory.getCurrentSession();
-		session.save(o);
+		session.save(tableName, o);
 		session.flush();
+		return o;
 	}
 
-	public void objectRemove(T o) {
+	public T objectRemove(T o) {
 		// Delete existing object
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(o);
+		session.delete(tableName, o);
+		return o;
 	}
 
-	public void objectUpdate(T o) {
+	public T objectUpdate(T o) {
 		// Update existing object
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(o);
+		session.merge(tableName, o);
 		session.flush();
+		return o;
 	}
 }

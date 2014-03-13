@@ -1,0 +1,55 @@
+.department {
+	> li {text-align:center; text-transform:uppercase;
+		> a {border-bottom:$bees-border-light; display:block}
+		.title {display:block; margin:0 0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;  }
+	}
+}
+
+.category {border:$bees-border-light; border-left:none; border-right:none; padding:$bees-gutter-medium 0;
+	/* Category layout */
+	> li {		
+		> a {display:block; padding:$bees-gutter-small; 
+			/* Category styles */
+			span {margin-top:$bees-gutter-medium;}
+			.price {display:block; font-size:18px; text-align:right; }
+			.title {color:$bees-brand-default; min-height:48px; display:block; font-weight:600; text-align:left; }
+		}
+	}
+}
+
+/* Filter styles - need redoing! */
+.categoryFilters {float:left; width:158px; margin-right:32px; 
+ 	dl {margin:0 0 16px}
+ 	dt {font-size:13px; border-bottom:1px solid #ccc; padding:0 0 8px; color:$bees-brand-primary; font-weight:300; margin:0 0 8px}
+ 	dd, li {padding:2px 0}
+ 	dd a {color:$bees-brand-default; font:11px/16px $bees-font-primary}
+ 	dd a:hover {text-decoration:underline}
+ 	ul {list-style:none; margin:0; padding-left:16px}
+ 	span {font-weight:600}
+ 	dd:before, li:before {content:'(25)'; float:right; font:600 11px $bees-font-primary; margin-left:8px}
+ 	dd > a:before {content: ''; border:$bees-border-medium; line-height:13px; height:13px; width:13px; margin:2px 5px 0 0; display:inline-block; text-align:center; vertical-align:top;}
+ 	.active a {font-weight:600; font-family:$bees-font-icons;
+ 		&:before {content:$bees-icon-tick; color:$bees-brand-primary }
+ 		&:hover:before {content:$bees-icon-cross; color:#730 }
+ 	}
+ 	.hierarchy a:before {display:none}
+ 	ul {position:relative}
+ 	li span:before {content:'\21B5'; position:absolute; left:3px; top:1px; font-size:13px; -webkit-transform: rotate(90deg);}
+	
+}
+
+.categoryResults {float:right; width:742px}
+
+/* Large desktop view */
+@media all and (min-width: $bees-width-xl) {
+	.categoryResults {width:932px}
+ }
+/* Large tablet view */
+@media all and (max-width: $bees-width-lg - 1) {
+	.categoryFilters, .categoryResults {width:100%}
+	.categoryFilters dl {display:inline-block; vertical-align:top; width:$bees-width-grid}
+}
+/* Small mobile view */
+@media all and (max-width: $bees-width-xs - 1) {
+	.category li {text-align:left; width:100%;}
+}

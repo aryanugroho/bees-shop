@@ -1,0 +1,14 @@
+/* NEEDS TO BE REDONE AS THIS IS NAFF */
+
+/* Footer Styles */
+.footer dl {float:left; font-size:0.9em; width:25%; padding:5px 25px 20px }
+.footer dt {margin:10px 0 5px }
+.footer dd {margin:0 0 3px; line-height:1.6em; padding:2px 0 2px 18px; position:relative }
+.footer dd span{display:block}
+
+/* Footer Styles */
+.footer {margin:15px 0 0; border-top:1px solid #ddc; }
+.footer dt {color:#555; font-weight:600; text-transform:uppercase}
+.footer dd:before {background:url('/assets/styles/images/styles.png') -192px 0 no-repeat; content:''; width:8px; height:8px; display:block; position:absolute; top:0; left: 0; padding:0 6px 0 0; margin:5px 0 0 }
+.footer, .footer a:link, .footer a:visited {color:#888 }
+.footer a:hover, .footer a:focus {color:#222 }

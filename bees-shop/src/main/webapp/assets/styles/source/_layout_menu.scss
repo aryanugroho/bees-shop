@@ -1,0 +1,71 @@
+.header .menu {clear:both;
+
+	/* Search form */
+	.searchForm {border:$bees-border-medium; position:absolute; right:0; top:43px;
+		.search {margin:0}
+		fieldset{border-bottom:none; display:inline-block; margin:0; width:215px}
+		ol, li {margin:0}
+		legend, label {display:none}
+		.input, .button {background:none; border:none; line-height:15px; margin:3px 0; padding:4px $bees-gutter-medium; }
+		.input {border-right:$bees-border-medium;width:100%}
+		.input:focus {outline:none }
+		.button {width:auto; }
+	}
+
+	li a {display:block; padding:0 15px }
+
+	/* Top level links */
+	> ol {border-left:1px solid #ddc; margin:0; padding:0;
+		> li {border:$bees-border-medium; border-top:none; border-left:none; display:inline-block; line-height:34px;
+			> a {font-weight:600}
+			> a:link, > a:visited {background:$bees-brand-light }
+			> a:hover, > a:focus {background:$bees-brand-primary; color:$bees-brand-light }
+		}
+	}
+	
+	/* Second level links */
+	ul {border-top:1px solid #ddc; height:0; min-width:170px; opacity:0; list-style:none; padding:0; overflow:hidden; position:absolute; text-align:left; z-index:200;
+		li {border:1px solid #ddc; border-top:none;}
+		a:link, a:visited {background:#f4f4f4; color:#555 }
+		a:hover, a:focus {background:#fff; color:#000}
+	}
+	> ol > li:hover ul{height:auto; opacity:1; transition: opacity 0.25s}	
+
+}
+
+/* Repsonsive menu styles */
+.menuToggle {cursor:pointer; display:none}
+#menuOverlay {opacity:0; visibility:hidden; background:rgba(0,0,0,0.4); height:100%; width:100%; position:absolute; left:0; top:0; transition:0.3s all; z-index:95;}
+
+/* Mobile styles */
+@media all and (max-width: $bees-width-md - 1) {
+	.header .menu {background:$bees-brand-light; position:fixed; border-right:$bees-border-medium; left:-250px; width:250px; overflow-y:auto; top:0; height:100%; transition:0.6s all; z-index:100;
+
+		/* Search form */
+		.searchForm {background:$bees-brand-background; border:none; position:static;
+			fieldset {width:70%}
+			.button {width:30%}
+		}
+
+		/* Menu link and toggle styles */
+		> ol {border-top:$bees-border-medium;
+			> li {display:block; border:none; border-bottom:$bees-border-medium;}
+			a {line-height:20px; padding:$bees-gutter-small}
+		}
+
+		/* Responsive menu close button */
+		.menuToggle {font-weight:600; padding:$bees-gutter-small; border-bottom:$bees-border-medium; line-height:20px;
+			&:before {content:$bees-icon-cross; font-family:$bees-font-icons; margin-right:4px;}
+			&:hover {background:$bees-brand-highlight}
+		}
+	}
+
+	/* Responsive menu styles */
+	label.menuToggle {display:block;}
+	.menuToggle:checked + .menu, body.showMenu .header .menu {box-shadow:0 0 5px rgba(0,0,0,0.4); left:0}
+	.wrapper {position:relative; left:0; transition:0.6s left;}
+	body.showMenu {
+		.wrapper {left:250px; overflow:hidden;}
+		#menuOverlay {opacity:1; visibility:visible}
+	}
+}

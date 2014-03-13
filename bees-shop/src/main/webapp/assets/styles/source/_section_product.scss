@@ -1,0 +1,56 @@
+.product {margin:0 0 $bees-gutter-large; overflow:hidden;
+
+	.productInfo {float:right; width:560px}
+
+	/* Images layout */
+	.images {float:left; margin:0 0 $bees-gutter-medium; overflow:hidden; width:$bees-image-large;
+		.large {height:$bees-image-large; width:$bees-image-large; 
+			.preview {display:inline-block; width:$bees-image-large; height:$bees-image-large;}
+		}
+		.small {margin:$bees-gutter-medium 0 0; overflow-y:auto; white-space:nowrap;
+			a {display:inline-block; vertical-align: top}
+			img {display:block; width:$bees-image-small; margin-left:$bees-gutter-medium; height:$bees-image-small}
+			:first-child img {margin-left:0}
+		}
+	}
+
+	/* Product info */
+	.info, form {float:left; width:50%; margin:0 0 $bees-gutter-medium}
+	.info {padding-right:$bees-gutter-medium;}
+	form {background:$bees-brand-background; border:$bees-border-medium; padding:$bees-gutter-medium $bees-gutter-medium 0;
+		.price {color:$bees-brand-secondary; font-size:26px}
+		legend {display:none}
+		.product_confirm {display:block; height:0; opacity:0; overflow:hidden; transition:0.4s opacity; }
+		.product_confirm.alert {height:auto; opacity:1; margin:0 0 $bees-gutter-medium;}
+	}
+
+	/* Social Links */
+	.socialShare {border-top:$bees-border-medium; display:none; padding:$bees-gutter-medium 0; margin:$bees-gutter-medium 0 0; list-style:none;
+		li {display:inline-block; margin-right:$bees-gutter-small; vertical-align:middle}
+	}
+
+	/* Large desktop view */
+	@media all and (min-width: $bees-width-xl) {
+		.productInfo {width:742px}
+	}
+	/* Large tablet view */
+	@media all and (min-width: $bees-width-md) and (max-width: $bees-width-lg - 1) {
+		.productInfo {width:365px}
+	}
+	/* Mobile / tablet view */
+	@media all and (max-width: $bees-width-lg - 1) {
+		.productInfo {width:365px}
+		.info, form {width:100%;}
+	}
+	/* Large tablet view */
+	@media all and (max-width: $bees-width-md - 1) {
+		.productInfo {width:100%}
+		.images {float:none; margin:0 auto $bees-gutter-medium; }
+	}
+	/* Small mobile view */
+	@media all and (max-width: $bees-width-xs - 1) {
+		.images {width:100%;
+			.large {height:auto; width:100%}
+		}
+	}
+}

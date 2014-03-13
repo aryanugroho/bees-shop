@@ -1,0 +1,71 @@
+/* Generic Reset */
+* {box-sizing:border-box; -moz-box-sizing:border-box; margin:0; padding:0; }
+body {background:$bees-brand-background; color:$bees-brand-default; font:11px/16px 'Open Sans','Tahoma','Geneva',sans-serif; min-width:392px }
+.jsShow {display:none}
+body.js .jsShow {display:block}
+body.js .jsHide {display:none}
+
+/* Fonts */
+@font-face {
+	font-family: 'Open Sans'; src: url('/assets/client/fonts/OpenSans-Regular.eot'); src: url('/assets/fonts/OpenSans-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal }
+@font-face {
+	font-family: 'Open Sans'; src: url('/assets/client/fonts/OpenSans-Semibold.eot'); src: url('/assets/fonts/OpenSans-Semibold.ttf') format('truetype'); font-weight: 600; font-style: normal }
+@font-face {
+	font-family: 'Icons'; src: url('/assets/client/fonts/fontawesome.eot'); src: url('/assets/fonts/fontawesome.ttf') format('truetype'); font-weight: 600; font-style: normal }
+
+// Text styles
+h1,h2,h3,p,ul,ol {margin:0 0 $bees-gutter-medium}
+h1,h2, h3 {color:$bees-brand-primary; border-bottom:$bees-border-heavy; font-weight:400; padding:0 0 $bees-gutter-small; }
+h1 {font-size:18px; line-height:24px; }
+h2 {font-size:13px; text-transform:uppercase }
+h3 {font-size:13px}
+ul, ol {padding-left:20px;
+	ul, ol {margin:0}
+}
+strong {font-weight:600}
+em, address{font-style:italic}
+
+// Links and buttons
+a:link, a:visited, .link {color:$bees-brand-secondary; text-decoration:none }
+a:hover, a:focus, .link:hover, .link:focus {color:lighten($bees-brand-secondary, 15%); cursor:pointer; }
+a img {border:none; vertical-align:top}
+button.link {background:none; border:none; display:inline}
+
+.alert {border:$bees-border-light; text-align:center; font-weight:600; padding:$bees-gutter-medium}
+.alertSuccess {background:$bees-brand-success; color:shade($bees-brand-success, 50%)}
+.alertError {background:$bees-brand-error; color:shade($bees-brand-error, 50%)}
+.alertWarning {background:$bees-brand-warning; color:shade($bees-brand-warning, 50%)}
+
+/* Form styles */
+form {
+	/* Basic layout styles */
+	fieldset{border:none; border-bottom:$bees-border-light; margin:0 auto $bees-gutter-medium; max-width:560px;
+		legend {border:1px solid; display:inline-block; font-weight:600; padding:$bees-gutter-small $bees-gutter-large; text-transform:uppercase;}
+		legend, .formElement {margin:0 0 $bees-gutter-medium}
+
+		/* Label and input styles */
+		.label, .input, .error {display:inline-block; vertical-align:middle}
+		.label {font-weight:600; width:35%}
+		.input {font:inherit; padding:6px; background:#fafafa; border:1px solid #ddd; border-top-color:#b5b5b5; color:#555; width:65% }
+		.input[type=checkbox], .input[type=radio] {margin:0 $bees-gutter-medium 0 0; width:auto}
+	}
+
+	.formSelect {color:$bees-brand-secondary; font-weight:600; margin-bottom:$bees-gutter-medium; 
+		input {display:none}	
+		label {cursor:pointer;}
+		label:before{background:$bees-brand-background; border-radius:20px; border:2px solid $bees-brand-tertiary; content:''; display: inline-block; margin-right:$bees-gutter-medium; vertical-align:middle;height:16px; line-height:16px; text-align:center; width:16px}
+		input:checked + label:before{background-position:-140px 0; content:$bees-icon-tick; font:16px $bees-font-icons;}
+	} 
+}
+
+/* Button styles */
+.button {border:1px solid; border-radius:3px; cursor:pointer; font:inherit; margin:0 0 $bees-gutter-medium 35%; padding:9px 15px; text-transform:lowercase; width:65%}
+.button.advance {background:linear-gradient(to bottom, lighten($bees-brand-secondary, 20%), $bees-brand-secondary); color:$bees-brand-light }
+.button.advance:hover, .button.advance:focus {background:$bees-brand-secondary }
+.button.return {background:linear-gradient(to bottom, lighten($bees-brand-tertiary, 20%), $bees-brand-tertiary); border-color:#ddd; color:$bees-brand-default }
+.button.return:hover, .button.return:focus {background:$bees-brand-tertiary }
+
+@media all and (max-width: $bees-width-xs - 1) {
+	form fieldset .label, form fieldset .input, .button {width:100%;}
+	.button {margin-left:0}
+}

@@ -1,5 +1,8 @@
 package org.beesden.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +42,17 @@ public class Utils {
 
 		pageMap.put("uri", request.getRequestURI());
 		return pageMap;
+	}
+
+	public static Date isDate(String date, String pattern) {
+		Date d = new Date();
+		try {
+			d = new SimpleDateFormat(pattern).parse(date);
+			logger.debug(d + " is valid date");
+		} catch (ParseException nfe) {
+			return null;
+		}
+		return d;
 	}
 
 	public static boolean isNumeric(String str) {
