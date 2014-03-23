@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib prefix="util" uri="/WEB-INF/tags/beesden.tld" %>
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
@@ -25,7 +26,7 @@
 					<input type="radio" name="showMenu" id="menu_${menuItem.category.name}" class="menuChildToggle" />
 
 					<ul id="menu_${menuItem.category.name}">
-						<li><label for="menu_hideChildren"><fmt:message key="beesden.menu.hide" />Hide<label>
+						<li><label class="menuChildHide" for="menu_hideChildren"><fmt:message key="bees.menu.hide" /><label>
 						<c:forEach var="child" items="${menuItem.category.children}" varStatus="status">
 							<li><a href="/category/${util:url(child.name)}">${child.heading}</a></li>
 						</c:forEach>

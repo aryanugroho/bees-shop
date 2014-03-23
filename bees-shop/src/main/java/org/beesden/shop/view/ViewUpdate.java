@@ -31,7 +31,7 @@ public class ViewUpdate extends View {
 		address.setCity(request.getParameter("city"));
 		address.setRegion(request.getParameter("region"));
 		address.setPostalCode(request.getParameter("postalCode"));
-		String countryId = (request.getParameter("country"));
+		String countryId = request.getParameter("country");
 		if (countryId != null) {
 			address.setCountry(countryService.getCountry(countryId));
 		}

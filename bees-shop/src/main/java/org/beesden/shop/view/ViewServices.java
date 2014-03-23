@@ -27,12 +27,12 @@ public class ViewServices {
 
 	@Autowired
 	public CategoryService categoryService;
-	
-	@Autowired
-	public CountryService countryService;
 
 	@Autowired
 	public ConfigService configService;
+
+	@Autowired
+	public CountryService countryService;
 
 	@Autowired
 	public CustomerService customerService;

@@ -1,7 +1,6 @@
 package org.beesden.shop.service;
 
 import org.beesden.shop.model.Product;
-import org.beesden.shop.model.Variant;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

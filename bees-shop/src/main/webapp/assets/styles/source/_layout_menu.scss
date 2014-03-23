@@ -47,10 +47,12 @@
 
 		/* Menu link and toggle styles */
 		> ol, ul {border-top:$bees-border-medium; width:100%; position:relative;
-			> :first-child {display:block}
+			> :first-child {display:block;}
 			li {display:block; border:none; border-bottom:$bees-border-medium; 
-				> a, > label {line-height:20px; padding:$bees-gutter-small;}
-				> label:before {content:$bees-icon-cross; float:right; font-family:$bees-font-icons;}
+				> a, > label {line-height:20px; padding:$bees-gutter-small;
+					span {display:none}
+				}
+				> .menuChildHide:before {content:$bees-icon-arrow-left; font:20px $bees-font-icons; margin-right:8px; vertical-align: bottom;}
 			}
 		}
 

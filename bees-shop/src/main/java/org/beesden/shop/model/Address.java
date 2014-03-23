@@ -25,7 +25,7 @@ public class Address extends ModelContact {
 	private String city;
 
 	@OneToOne
-	@JoinColumn(name = "country", referencedColumnName = "iso3")	
+	@JoinColumn(name = "country", referencedColumnName = "iso3")
 	private Country country;
 
 	@ManyToOne

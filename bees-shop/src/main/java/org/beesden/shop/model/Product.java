@@ -34,9 +34,6 @@ public class Product extends ModelContent {
 	private Double maxPrice;
 
 	@Transient
-	private Integer stock;
-
-	@Transient
 	private Double minPrice;
 
 	@Column(name = "preOrderDate")
@@ -44,6 +41,9 @@ public class Product extends ModelContent {
 
 	@Column(name = "productCode", unique = true)
 	private String productCode;
+
+	@Transient
+	private Integer stock;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Variant> variants;
@@ -78,20 +78,20 @@ public class Product extends ModelContent {
 		return price;
 	}
 
-	public Integer getStock() {
-		Integer stock = 0;
-		for (Variant variant : this.getVariants()) {
-			stock = stock + (variant.getStock() > 0 ? variant.getStock() : variant.getStock());
-		}
-		return stock;
-	}
-
 	public Date getPreOrderDate() {
 		return preOrderDate;
 	}
 
 	public String getProductCode() {
 		return productCode;
+	}
+
+	public Integer getStock() {
+		Integer stock = 0;
+		for (Variant variant : this.getVariants()) {
+			stock = stock + (variant.getStock() > 0 ? variant.getStock() : variant.getStock());
+		}
+		return stock;
 	}
 
 	public List<Variant> getVariants() {
@@ -118,16 +118,16 @@ public class Product extends ModelContent {
 		this.minPrice = minPrice;
 	}
 
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-
 	public void setPreOrderDate(Date preOrderDate) {
 		this.preOrderDate = preOrderDate;
 	}
 
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
 	public void setVariants(List<Variant> variants) {

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.beesden.shop.model.BasketItem;
 import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Page;
 import org.beesden.shop.model.Product;

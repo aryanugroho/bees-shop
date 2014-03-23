@@ -27,7 +27,7 @@ public class Basket implements Serializable {
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "deliveryAddress")
 	private Address deliveryAddress;
 

@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 public class Tender extends ModelDefault {
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "addressId")
 	private Address address;
 
