@@ -15,7 +15,7 @@
 	<store:input name="postalCode" value="${addressForm.postalCode}" />
 	<store:input name="country" type="select">
 		<c:forEach var="country" items="${countries}">
-			<option label="${country.name}" value="${country.code}" />
+			<option label="${country.name}" value="${country.iso2}" />
 		</c:forEach>
 	</store:input>
 </fieldset>

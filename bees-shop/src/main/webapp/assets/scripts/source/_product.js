@@ -8,23 +8,32 @@ beesden.product = function(d) {
 	 * @param {Object} product Adds purchasable product to basket
 	*/
 	var addToBasket = function (product) {
-		var productForm = product.querySelectorAll('#basketItem')[0],
+		var productForm = product.querySelector('#productForm'),
 			updateConfirm = d.createElement('a'),
-			xmlhttp = new XMLHttpRequest(),
-			confirmClass = 'product_confirm';	
+			confirmClass = 'product_confirm',
+			button;	
+
+		if (!productForm) return;
 
 		updateConfirm.className = confirmClass;
 		updateConfirm.href = '/checkout/basket';
 		productForm.appendChild(updateConfirm);
 
 		productForm.onsubmit = function() {
+			button = productForm.querySelectorAll('button');
+			for (var i = 0; i < button.length; i++) {
+				button[i].disabled = true;
+			}
 			// Add new product to basket via AJAX
 			beesden.ajax(productForm.action, function(data) {
 				data = JSON.parse(data.response);
 				updateConfirm.innerHTML = data.message;
 				updateConfirm.className = confirmClass + ' update alert alert' + data.status;
 				beesden.store.minibasket();
-			}, beesden.serialize(productForm), 'POST');
+				for (var i = 0; i < button.length; i++) {
+					button[i].disabled = false;
+				}
+			}, null, beesden.serialize(productForm), 'POST');
 			return false;
 		}
 	}
@@ -36,10 +45,11 @@ beesden.product = function(d) {
 	* @param {Object} product The target product page
 	*/
 	var altImages = function (product) {
-		var productImage = product.querySelectorAll('#productImages .large')[0],
-			smallImages = product.querySelectorAll('#productImages .small')[0];
+		var productImage = product.querySelector('#productImages .large'),
+			smallImages = product.querySelector('#productImages .small');
 		for (i = 0; i < smallImages.childNodes.length; i++) {
 			smallImages.childNodes[i].onclick = function() {
+				this.firstChild.src = this.firstChild.src.replace('/small/', '/medium/');
 				productImage.appendChild(this);
 				smallImages.appendChild(productImage.firstChild);
 				altImages(product);
@@ -75,12 +85,12 @@ beesden.product = function(d) {
 	* @param {Object} product The target product page
 	*/
 	var zoom = function (product) {
-		var productImage = product.querySelectorAll('#productImages .large a')[0],
+		var productImage = product.querySelector('#productImages .large > a'),
 			zoomImage = d.createElement('img'),
 			topRatio,
 			leftRatio;
 		// Prevent multiple zoom images
-		if (productImage.querySelectorAll('.zoomImage').length) return;
+		if (!productImage && productImage.querySelector('.zoomImage')) return;
 		zoomImage.className = 'zoomImage';
 		zoomImage.src = productImage.href;
 		zoomImage.onload = function () {

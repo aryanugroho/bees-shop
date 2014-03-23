@@ -24,7 +24,7 @@
 			</div>
 						
 			<a class="image" href="/product/${util:url(item.variant.product.name)}">
-				<img src="/assets/client/product/small/${util:url(item.variant.product.name)}.jpg" alt="${object.heading}" />
+				<img src="/assets/client/products/small/${util:url(item.variant.product.name)}.jpg" alt="${object.heading}" />
 			</a>
 			<div class="productInfo">
 				<a href="/product/${util:url(item.variant.product.name)}" class="name">${item.variant.heading}</a>

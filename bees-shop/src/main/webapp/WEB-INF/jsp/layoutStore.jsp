@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
+<%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
+
 <!doctype html>
 <html lang="en">
 
@@ -29,7 +31,9 @@
 			<tiles:insertAttribute name="content" />
 		</div>
 		</section>	
-		<c:if test="${(!empty content.promotionList || !empty promotions) && !param.ajax}"><jsp:include page="template/promotions.jsp" /></c:if>
+		<c:if test="${(!empty content.promotionList || !empty promotions) && !param.ajax}">
+			<jsp:include page="template/promotions.jsp" />
+		</c:if>
 	</article>	
 
 	<jsp:include page="template/footer.jsp" />

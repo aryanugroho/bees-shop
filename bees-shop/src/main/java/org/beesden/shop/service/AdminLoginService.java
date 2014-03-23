@@ -36,7 +36,7 @@ public class AdminLoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 
-		logger.error("Chceking for admin user login");
+		logger.info("Checking for admin user login");
 
 		UserDetails user = null;
 

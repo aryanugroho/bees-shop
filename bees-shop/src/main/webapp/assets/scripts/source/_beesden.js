@@ -11,7 +11,7 @@ var beesden = (function(d) {
 		 * @param	{String} data - Serialized data to be sent as part of the ajax call
 		 * @param	{String} method - Ajax method type: ['POST', 'GET', 'PUT', 'DELETE']
 		*/
-		ajax: function(link, callback, data, method, responseType) {
+		ajax: function(link, callback, error, data, method, responseType) {
 			var xmlhttp = new XMLHttpRequest();	
 			method = method ? method : 'GET';
 			// Set ajax parameter to 'true' for all ajax submissions
@@ -19,10 +19,16 @@ var beesden = (function(d) {
 			link = link + (link.indexOf('?') > -1 ? '&' : '?') + 'ajax=true';
 			// submit ajax request function
 			xmlhttp.onreadystatechange = function () {
-				if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-					if (callback && typeof(callback) === "function") {
-					 callback(xmlhttp);
-				  }
+				if (xmlhttp.readyState === 4) {
+					if (xmlhttp.status === 200) {
+						if (callback && typeof(callback) === "function") {
+						 callback(xmlhttp);
+					  }
+					} else {
+						if (error && typeof(error) === "function") {
+						 error(xmlhttp);
+					  }
+					}
 				}
 			};
 			// ajax request settings

@@ -26,6 +26,11 @@ window.onload = function() {
 		beesden.forms.init();
 	}
 
+	// Generic javascript plugins e.g. CMS
+	if (beesden.plugins) {
+		beesden.plugins.init();
+	}
+
 	// Allow JS-specific css styles
 	document.body.className += ' js';	
 

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,8 +24,9 @@ public class Address extends ModelContact {
 	@Column(name = "city", length = 150)
 	private String city;
 
-	@Column(name = "country", length = 3)
-	private String country;
+	@OneToOne
+	@JoinColumn(name = "country", referencedColumnName = "iso3")	
+	private Country country;
 
 	@ManyToOne
 	@JoinColumn(name = "customerId")
@@ -60,7 +62,7 @@ public class Address extends ModelContact {
 		return city;
 	}
 
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
@@ -100,7 +102,7 @@ public class Address extends ModelContact {
 		this.city = city;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 

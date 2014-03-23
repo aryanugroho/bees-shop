@@ -3,7 +3,7 @@
 	/* Search form */
 	.searchForm {border:$bees-border-medium; position:absolute; right:0; top:43px;
 		.search {margin:0}
-		fieldset{border-bottom:none; display:inline-block; margin:0; width:215px}
+		fieldset{background:none; border:none; display:inline-block; margin:0; padding:0; width:215px}
 		ol, li {margin:0}
 		legend, label {display:none}
 		.input, .button {background:none; border:none; line-height:15px; margin:3px 0; padding:4px $bees-gutter-medium; }
@@ -12,24 +12,22 @@
 		.button {width:auto; }
 	}
 
-	li a {display:block; padding:0 15px }
-
 	/* Top level links */
-	> ol {border-left:1px solid #ddc; margin:0; padding:0;
-		> li {border:$bees-border-medium; border-top:none; border-left:none; display:inline-block; line-height:34px;
-			> a {font-weight:600}
-			> a:link, > a:visited {background:$bees-brand-light }
-			> a:hover, > a:focus {background:$bees-brand-primary; color:$bees-brand-light }
-		}
+	> ol {border-left:1px solid #ddc; margin:0; padding:0;}
+
+	li {border:$bees-border-medium; border-top:none; border-left:none; display:inline-block; line-height:34px;
+		> a, > label {display:block; padding:0 15px; font-weight:600}
+		> a:link, > a:visited, > label {background:$bees-brand-light; cursor:pointer; color:$bees-brand-secondary }
+		> a:hover, > a:focus, > label:hover {background:$bees-brand-primary; color:$bees-brand-light }
 	}
 	
 	/* Second level links */
 	ul {border-top:1px solid #ddc; height:0; min-width:170px; opacity:0; list-style:none; padding:0; overflow:hidden; position:absolute; text-align:left; z-index:200;
-		li {border:1px solid #ddc; border-top:none;}
-		a:link, a:visited {background:#f4f4f4; color:#555 }
-		a:hover, a:focus {background:#fff; color:#000}
+		> :first-child {display:none}
+		li {border:1px solid #ddc; border-top:none; display:block;}
 	}
 	> ol > li:hover ul{height:auto; opacity:1; transition: opacity 0.25s}	
+	.menuChild, .menuChildToggle {display:none;}
 
 }
 
@@ -39,7 +37,7 @@
 
 /* Mobile styles */
 @media all and (max-width: $bees-width-md - 1) {
-	.header .menu {background:$bees-brand-light; position:fixed; border-right:$bees-border-medium; left:-250px; width:250px; overflow-y:auto; top:0; height:100%; transition:0.6s all; z-index:100;
+	.header .menu {background:$bees-brand-light; position:fixed; border-right:$bees-border-medium; left:-250px; width:250px; overflow-y:auto; overflow-x:hidden; top:0; height:100%; transition:0.6s all; z-index:100;
 
 		/* Search form */
 		.searchForm {background:$bees-brand-background; border:none; position:static;
@@ -48,14 +46,24 @@
 		}
 
 		/* Menu link and toggle styles */
-		> ol {border-top:$bees-border-medium;
-			> li {display:block; border:none; border-bottom:$bees-border-medium;}
-			a {line-height:20px; padding:$bees-gutter-small}
+		> ol, ul {border-top:$bees-border-medium; width:100%; position:relative;
+			> :first-child {display:block}
+			li {display:block; border:none; border-bottom:$bees-border-medium; 
+				> a, > label {line-height:20px; padding:$bees-gutter-small;}
+				> label:before {content:$bees-icon-cross; float:right; font-family:$bees-font-icons;}
+			}
 		}
+
+		/* Responsive Menu child toggles */
+		.menuChild{background:$bees-brand-background; display:block; float:right;
+			&:before {content:$bees-icon-arrow-right; font:20px $bees-font-icons; vertical-align:middle;}
+		}
+		> ol > li:hover ul, ul {background:$bees-brand-light; display:block; height:auto; max-height:100%; opacity:1; position:absolute; top:0; transition:left 0.6s; left:250px;}
+		.menuChildToggle:checked + ul {left:0; height:auto; min-height:100%; max-height:initial; }
 
 		/* Responsive menu close button */
 		.menuToggle {font-weight:600; padding:$bees-gutter-small; border-bottom:$bees-border-medium; line-height:20px;
-			&:before {content:$bees-icon-cross; font-family:$bees-font-icons; margin-right:4px;}
+			&:before {content:$bees-icon-cross; float:right; font-family:$bees-font-icons; margin-right:4px;}
 			&:hover {background:$bees-brand-highlight}
 		}
 	}
@@ -64,7 +72,7 @@
 	label.menuToggle {display:block;}
 	.menuToggle:checked + .menu, body.showMenu .header .menu {box-shadow:0 0 5px rgba(0,0,0,0.4); left:0}
 	.wrapper {position:relative; left:0; transition:0.6s left;}
-	body.showMenu {
+	body.showMenu {overflow:hidden;
 		.wrapper {left:250px; overflow:hidden;}
 		#menuOverlay {opacity:1; visibility:visible}
 	}

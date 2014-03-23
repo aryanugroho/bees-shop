@@ -1,20 +1,19 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-<ul class="element accountLinks">
+<c:set var="step"><tiles:getAsString name="step" ignore="true"/></c:set>
 
-	<li><a class="button ${pageType eq 'account-home' ? 'advance' : 'return'}" href="/account/home">
-		<fmt:message key="bees.accountmenu.account.home" />
-	</a></li>
+<ul class="accountMenu">
+	<c:forTokens delims="," items="home,contact,password,payment,addresses,orders" var="accSection">
+		<li class="${step == accSection ? 'current' : ''}">
+			<a href="/account/${accSection}">
+				<fmt:message key="bees.accountmenu.account.${accSection}" />
+			</a>
+		</li>
+	</c:forTokens>
 	
-	<li><a class="button ${pageType eq 'account-address' ? 'advance' : 'return'}" href="/account/address">
-		<fmt:message key="bees.accountmenu.manage.addresses" />
-	</a></li>
-	
-	<li><a class="button ${pageType eq 'account-order' ? 'advance' : 'return'}" href="/account/orders">
-		<fmt:message key="bees.accountmenu.view.orders" />
-	</a></li>
-	
-	<li><a class="button return" href="/account/logout">
+	<li><a class="return" href="/account/logout">
 		<fmt:message key="bees.accountmenu.logout" />
 	</a></li>
 </ul>

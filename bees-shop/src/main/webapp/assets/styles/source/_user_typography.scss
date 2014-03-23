@@ -13,7 +13,7 @@ body.js .jsHide {display:none}
 @font-face {
 	font-family: 'Icons'; src: url('/assets/client/fonts/fontawesome.eot'); src: url('/assets/fonts/fontawesome.ttf') format('truetype'); font-weight: 600; font-style: normal }
 
-// Text styles
+/* Text styles */
 h1,h2,h3,p,ul,ol {margin:0 0 $bees-gutter-medium}
 h1,h2, h3 {color:$bees-brand-primary; border-bottom:$bees-border-heavy; font-weight:400; padding:0 0 $bees-gutter-small; }
 h1 {font-size:18px; line-height:24px; }
@@ -25,7 +25,7 @@ ul, ol {padding-left:20px;
 strong {font-weight:600}
 em, address{font-style:italic}
 
-// Links and buttons
+/* Links and buttons */
 a:link, a:visited, .link {color:$bees-brand-secondary; text-decoration:none }
 a:hover, a:focus, .link:hover, .link:focus {color:lighten($bees-brand-secondary, 15%); cursor:pointer; }
 a img {border:none; vertical-align:top}
@@ -39,33 +39,40 @@ button.link {background:none; border:none; display:inline}
 /* Form styles */
 form {
 	/* Basic layout styles */
-	fieldset{border:none; border-bottom:$bees-border-light; margin:0 auto $bees-gutter-medium; max-width:560px;
-		legend {border:1px solid; display:inline-block; font-weight:600; padding:$bees-gutter-small $bees-gutter-large; text-transform:uppercase;}
-		legend, .formElement {margin:0 0 $bees-gutter-medium}
+	fieldset{background: $bees-brand-background; border:$bees-border-medium; padding:$bees-gutter-medium $bees-gutter-medium 0; margin:0 0 $bees-gutter-medium; max-width:560px;
+		legend {border:none; display:inline-block; font-weight:600; color:$bees-brand-light; float:left; margin-top:-$bees-gutter-medium; margin-left:-$bees-gutter-medium; padding:$bees-gutter-small $bees-gutter-large; text-transform:uppercase;}
+		legend, .formElement {clear:both; margin-bottom:$bees-gutter-medium}
 
 		/* Label and input styles */
 		.label, .input, .error {display:inline-block; vertical-align:middle}
-		.label {font-weight:600; width:35%}
-		.input {font:inherit; padding:6px; background:#fafafa; border:1px solid #ddd; border-top-color:#b5b5b5; color:#555; width:65% }
+		.label {color:$bees-brand-secondary; width:25%}
+		.input {font:inherit; padding:6px; background:#fafafa; border:1px solid #ddd; border-top-color:#b5b5b5; color:#555; width:75% }
 		.input[type=checkbox], .input[type=radio] {margin:0 $bees-gutter-medium 0 0; width:auto}
+		.input[disabled] {background:none; border-color:transparent; font-weight:600; padding-left:0}
+		input, select {
+			 transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+			&:focus {box-shadow:0 0 5px $bees-brand-secondary; outline:none}
+		}
 	}
 
+	/* Toggle switchs for forms */
 	.formSelect {color:$bees-brand-secondary; font-weight:600; margin-bottom:$bees-gutter-medium; 
 		input {display:none}	
 		label {cursor:pointer;}
-		label:before{background:$bees-brand-background; border-radius:20px; border:2px solid $bees-brand-tertiary; content:''; display: inline-block; margin-right:$bees-gutter-medium; vertical-align:middle;height:16px; line-height:16px; text-align:center; width:16px}
+		label:before{background:$bees-brand-background; border-radius:20px; border:2px solid $bees-brand-soft; content:''; display: inline-block; margin-right:$bees-gutter-medium; vertical-align:middle;height:16px; line-height:16px; text-align:center; width:16px}
 		input:checked + label:before{background-position:-140px 0; content:$bees-icon-tick; font:16px $bees-font-icons;}
 	} 
 }
 
 /* Button styles */
-.button {border:1px solid; border-radius:3px; cursor:pointer; font:inherit; margin:0 0 $bees-gutter-medium 35%; padding:9px 15px; text-transform:lowercase; width:65%}
+.button {border:1px solid; border-radius:3px; cursor:pointer; font:inherit; margin:0 0 $bees-gutter-medium; max-width:560px; padding:9px 15px; text-transform:lowercase; width:100%}
 .button.advance {background:linear-gradient(to bottom, lighten($bees-brand-secondary, 20%), $bees-brand-secondary); color:$bees-brand-light }
 .button.advance:hover, .button.advance:focus {background:$bees-brand-secondary }
-.button.return {background:linear-gradient(to bottom, lighten($bees-brand-tertiary, 20%), $bees-brand-tertiary); border-color:#ddd; color:$bees-brand-default }
-.button.return:hover, .button.return:focus {background:$bees-brand-tertiary }
+.button.advance[disabled] {background:$bees-brand-tertiary; cursor:default; opacity:0.6; transition:0.3s;}
+.button.return {background:linear-gradient(to bottom, lighten($bees-brand-soft, 20%), $bees-brand-soft); border-color:#ddd; color:$bees-brand-default }
+.button.return:hover, .button.return:focus {background:$bees-brand-soft }
 
-@media all and (max-width: $bees-width-xs - 1) {
-	form fieldset .label, form fieldset .input, .button {width:100%;}
-	.button {margin-left:0}
+@media all and (max-width: $bees-width-sm - 1) {
+	form fieldset .label, form fieldset .input {width:100%;}
+	form fieldset .label {padding:0 0 $bees-gutter-small}
 }

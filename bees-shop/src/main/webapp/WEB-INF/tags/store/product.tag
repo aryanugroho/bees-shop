@@ -14,19 +14,26 @@
 		
 	<div class="images" id="productImages">
 		<div class="large">
-			<a href="/assets/client/product/large/${util:url(object.name)}.jpg">
-				<img class="preview" src="/assets/client/product/normal/${util:url(object.name)}.jpg" alt="${object.heading}" />
+			<a href="/assets/client/products/large/${util:url(object.name)}.jpg">
+				<img class="preview" src="/assets/client/products/medium/${util:url(object.name)}.jpg" alt="${object.heading}" />
 			</a>
 		</div>
 
 		<c:if test="${!param.ajax}">
 			<div class="small">
-				<a href="/assets/client/products/large/${util:url(object.name)}-1.jpg">
-					<img class="preview" src="/assets/client/product/normal/${util:url(object.name)}-1.jpg" alt="${object.heading}" />
-				</a>
-				<a href="/assets/client/products/large/${util:url(object.name)}-2.jpg">
-					<img class="preview" src="/assets/client/product/normal/${util:url(object.name)}-2.jpg" alt="${object.heading}" />
-				</a>
+				<c:forEach begin="1" end="10" var="s">
+					<c:set var="url" value="/assets/client/products/small/${util:url(object.name)}_${s}.jpg" />
+					<c:if test="${empty importError}">
+						<c:catch var="importError">
+							<c:import var="image" url="${url}" />
+						</c:catch>
+						<c:if test="${!empty image && empty importError}">
+							<a href="/assets/client/products/large/${util:url(object.name)}_${s}.jpg">
+								<img class="preview" src="/assets/client/products/small/${util:url(object.name)}_${s}.jpg" alt="${object.heading}" />
+							</a>
+						</c:if>
+					</c:if>
+				</c:forEach>
 			</div>
 		</c:if>
 	</div>
@@ -43,7 +50,7 @@
 					${object.description}
 				</div>
 			</c:if>
-			<c:if test="${!param.ajax}">
+			<c:if test="${config.showProductSocial && !param.ajax}">
 				<ul id="socialShare" class="socialShare">
 					<li><div id="fb-root"></div><div class="fb-like" data-width="450" data-layout="button_count" data-show-faces="false" data-send="false"></div></li>
 					<li><a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a></li>
@@ -53,51 +60,45 @@
 			</c:if>
 		</div>
 		
-		<form:form action="/checkout/basket/add" method="POST" cssClass="productSection" modelAttribute="basketItem">
+		<form action="/checkout/basket/add" id="productForm" method="POST" cssClass="productSection">
 		
 			<input type="hidden" name="productId" value="${object.id}" />
 			
-			<c:if test="${!empty object.availability}">
-				<p><strong><fmt:message key="bees.product.availablity.${object.availability}" /></strong></p>
-			</c:if>
-			
+			<%-- Product availability --%>
 			<p class="price">
 				<fmt:message key="bees.product.${object.minPrice < object.maxPrice ? 'from' : 'price' }">
 					<fmt:param><fmt:formatNumber value="${object.minPrice}" currencySymbol="&pound;" type="currency"/></fmt:param>
 					<fmt:param><fmt:formatNumber value="${object.maxPrice}" currencySymbol="&pound;" type="currency"/></fmt:param>
 				</fmt:message>
 			</p>
+			<p class="stock"><fmt:message key="bees.product.stock.${object.stock > 0}" /></p>
 
-			<fieldset>
-				<legend><fmt:message key="bees.product.form" /></legend>
-				<ol>
-					<li>
-						<label class="label" for="quantity" /><fmt:message key="bees.product.quantity" /></label>
-						<form:input id="quantity" class="input number" type="number" path="quantity" value="1" />
-					</li>
-				</ol>
-			</fieldset>
-			
-			<div class="variants">
-				<c:forEach var="variant" items="${object.variants}" varStatus="s">
+			<%-- Product action --%>
+			<c:if test="${config.paymentStatus}">
+				<fieldset>
+
+					<legend><fmt:message key="bees.product.form" /></legend>
+					<store:input type="number" name="quantity" minNumber="1" value="1" />
+
 					<c:choose>
 						<c:when test="${fn:length(object.variants) == 1}">
-							<input type="hidden" name="variantId" value="${variant.id}" />
+							<input type="hidden" name="variantId" value="${object.variants[0].id}" />
 						</c:when>
 						<c:otherwise>
-							<fmt:formatNumber var="variantPrice" value="${variant.price}" currencySymbol="&pound;" type="currency"/>
-							<h2 class="formSelect variant">
-								<input type="radio" name="variantId" id="variant-${s.index}" value="${variant.id}" />
-								<label for="variant-${s.index}">${variant.name} - ${variantPrice}</label>
-							</h2>
+							<store:input name="variantId" type="select">
+							<c:forEach var="variant" items="${object.variants}" varStatus="s">
+								<option value="${variant.id}">${variant.heading}</option>
+							</c:forEach>
+						</store:input>
 						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</div>
-			
-			<c:if test="${config.paymentStatus}"><button class="button advance"><fmt:message key="bees.product.add.to.basket" /></button></c:if>
+					</c:choose>			
 
-		</form:form>
+				</fieldset>
+
+				<button class="button advance"><fmt:message key="bees.product.add.to.basket" /></button>
+			</c:if>
+
+		</form>
 	</div>
 	
 </div>

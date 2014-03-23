@@ -9,14 +9,14 @@
 
 	<function>
 		<description>
-			Tests if an input string contains the specified substring.
+			Converts a string into a url friendly string
 		</description>
 		<name>url</name>
 		<function-class>org.beesden.utils.Utils</function-class>
 		<function-signature>boolean cleanUrl(java.lang.String)</function-signature>
 		<example>
-			&lt;a href="${store:url(name)}">
+			&lt;a href="${util:url(name)}"&gt;
 		</example>
-	</function> 
+	</function> 	
 
 </taglib>

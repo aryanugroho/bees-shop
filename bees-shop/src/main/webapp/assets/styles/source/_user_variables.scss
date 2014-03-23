@@ -1,7 +1,8 @@
 // Site colours
 $bees-brand-primary: #295 !default;
 $bees-brand-secondary: #259 !default;
-$bees-brand-tertiary: #ccc !default;
+$bees-brand-tertiary: #888 !default;
+$bees-brand-soft: #ccc !default;
 $bees-brand-default: #555 !default;
 $bees-brand-background: #f3f1ed !default;
 $bees-brand-light: #fff !default;
@@ -22,12 +23,13 @@ $bees-icon-account: '\f007' !default;
 $bees-icon-search: '\f002' !default;
 $bees-icon-menu: '\f0c9' !default;
 $bees-icon-basket: '\f07a' !default;
+$bees-icon-arrow-right: '\f107' !default;
 
 // Site borders 
 $bees-border-faint: 1px solid #eee !default;
-$bees-border-light: 1px dotted $bees-brand-tertiary !default;
+$bees-border-light: 1px dashed $bees-brand-highlight !default;
 $bees-border-medium: 1px solid $bees-brand-highlight !default;
-$bees-border-heavy: 1px solid $bees-brand-tertiary !default;
+$bees-border-heavy: 1px solid $bees-brand-soft !default;
 
 // Gutter spacing
 $bees-gutter-small: 8px !default;
@@ -35,12 +37,13 @@ $bees-gutter-medium: 16px !default;
 $bees-gutter-large: 24px !default;
 
 // Media breakpoints
-$bees-width-grid: 190px !default;
+$bees-width-grid: 192px !default;
+$bees-width-grid-image: $bees-width-grid - (2 * $bees-gutter-medium) !default;
 $bees-width-xs: 450px !default;
-$bees-width-sm: 640px !default;
-$bees-width-md: 830px !default;
-$bees-width-lg: 1020px !default;
-$bees-width-xl: 1200px !default;
+$bees-width-sm: 600px !default;
+$bees-width-md: 780px !default;
+$bees-width-lg: 980px !default;
+$bees-width-xl: 1180px !default;
 
 // Image sizes
 $bees-image-small: 100px !default;

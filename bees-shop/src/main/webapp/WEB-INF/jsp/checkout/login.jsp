@@ -1,7 +1,4 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-<%@ taglib prefix="store" tagdir="/WEB-INF/tags/store" %>
 
 <ol class="formSelect">
 	<li><a class="formSelect" href="#checkoutLogin"><fmt:message key="bees.login.log.in" /></a></li>
@@ -9,7 +6,7 @@
 </ol>
 
 <%-- Login form --%>
-<form id="checkoutLogin" method="POST" action="/account/login.do">
+<form id="checkoutLogin" method="POST" action="/customer/login.do">
 
 	<jsp:include page="../forms/login.jsp">
 		<jsp:param name="fieldClass" value="createCustomer" />
@@ -20,7 +17,7 @@
 </form>
 
 <%-- Register form --%>
-<form id="checkoutRegister" method="POST" action="/checkout/register">
+<form id="checkoutRegister" method="POST" action="/customer/register">
 
 	<jsp:include page="../forms/register.jsp">
 		<jsp:param name="fieldClass" value="createCustomer" />

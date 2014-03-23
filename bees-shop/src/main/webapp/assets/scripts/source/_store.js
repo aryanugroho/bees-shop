@@ -1,7 +1,7 @@
 beesden.store = function (d) {
 
 
-	var basketUpdate = function(update) {
+	var basketUpdate = function(update, load) {
 
 		var minibasket = d.getElementById('basketLink'),
 			basket = d.getElementById('basket');
@@ -52,7 +52,7 @@ beesden.store = function (d) {
 	return {
 		init: function() {
 			basketLinks();
-			basketUpdate();
+			basketLinks(d.getElementById('basketLink'))
 		},
 		minibasket: basketUpdate
 	};

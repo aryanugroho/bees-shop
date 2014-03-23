@@ -1,17 +1,25 @@
 package org.beesden.utils;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class Utils {
+public class Utils  extends TagSupport {
 
+	private static final long serialVersionUID = 2672133118924069568L;
+	
 	protected static Logger logger = Logger.getLogger("controller");
 
 	public static String cleanUrl(String s) {

@@ -45,22 +45,10 @@ public class CheckoutView extends ViewUpdate {
 		return isAjax(model, request, "checkout.confirmation", config, start);
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerCustomer(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to register new customer");
-		return registerCustomer(request) ? "redirect:/checkout/delivery" : "redirect:/checkout/login";
-	}
-
 	@RequestMapping(value = "/delivery", method = RequestMethod.GET)
 	public String showDeliveryOptions(HttpServletRequest request, ModelMap model) {
 		logger.info("Delivery options page requested");
 		return isCheckout(model, request, "checkout.delivery");
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLogin(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show checkout login page");
-		return isCheckout(model, request, "checkout.login");
 	}
 
 	@RequestMapping(value = "/confirmation", method = RequestMethod.GET)

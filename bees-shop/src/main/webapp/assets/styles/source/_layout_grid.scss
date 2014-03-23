@@ -1,26 +1,26 @@
 body {padding:$bees-gutter-medium 0 0}
 
-.grid {list-style:none; margin-left:-$bees-gutter-small - 1; margin-right:-$bees-gutter-small - 1; padding:0; min-width:100%;
-	> li {display:inline-block; margin:0 0 $bees-gutter-medium; padding:0 $bees-gutter-small; vertical-align:top; width:190px}	
-	.image {display:inline-block; margin:auto; height:140px}
-	.image > img {display:inline-block; margin:auto; max-height:140px; max-width:140px; }
+.grid {list-style:none; margin-left:-$bees-gutter-medium; margin-right:-$bees-gutter-medium; padding:0; min-width:100%;
+	> li {display:inline-block; margin:0 0 $bees-gutter-medium; padding:0 $bees-gutter-medium; text-align:center; vertical-align:top; width:$bees-width-grid}	
+	.image {display:inline-block; margin:auto; height:$bees-width-grid-image; line-height:$bees-width-grid-image}
+	.image > img {display:inline-block; margin:auto; max-height:100%; max-width:$bees-width-grid-image; vertical-align:middle}
 }
 
 .wrapper, .container {width:100%}
-.container > section {display:block; margin:auto; width:$bees-width-grid * 5 + $bees-gutter-medium; }
+.container > section {display:block; margin:auto; width:($bees-width-grid * 5) + 2}
 .article > section {background:#fff; border:1px solid #ddc; margin-bottom:$bees-gutter-medium; padding:$bees-gutter-medium $bees-gutter-medium 0; overflow:hidden}
 
 /* Large desktop view */
 @media all and (min-width: $bees-width-xl) {
-	.container > section {width:$bees-width-grid * 6 + $bees-gutter-medium }
+	.container > section {width:($bees-width-grid * 6) + 2}
  }
 /* Large tablet view */
 @media all and (min-width: $bees-width-md) and (max-width: $bees-width-lg - 1) {
-	.container > section {width:$bees-width-grid * 4 + $bees-gutter-medium }
+	.container > section {width:($bees-width-grid * 4) + 2}
 }
 /* Small tablet view */
 @media all and (min-width: $bees-width-sm) and (max-width: $bees-width-md - 1) {
-	.container > section {width:$bees-width-grid * 3 + $bees-gutter-medium }
+	.container > section {width:($bees-width-grid * 3) + 2}
 }
 /* Large mobile view */
 @media all and (max-width: $bees-width-sm - 1) {
@@ -30,5 +30,5 @@ body {padding:$bees-gutter-medium 0 0}
 }
 /* Small mobile view */
 @media all and (max-width: $bees-width-xs - 1) {
-	.grid > li {width:100%}
+	.grid > li {width:100%;}
 }

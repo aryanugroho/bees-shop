@@ -18,7 +18,9 @@
 				<fmt:param>${param.keywords}</fmt:param>
 			</fmt:message>
 			<div class="pageProducts" id="updateContent">
-				<store:category object="${content}" />
+				<store:pagination sortKey="products" pagination="${categoryPagination}" summary="true" />
+				<store:category object="${content.products}" />
+				<store:pagination sortKey="products" pagination="${categoryPagination}" />
 				<div id="overlay" class="overlay"></div>
 			</div>
 		</c:when>

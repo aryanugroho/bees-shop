@@ -34,6 +34,9 @@ public class Product extends ModelContent {
 	private Double maxPrice;
 
 	@Transient
+	private Integer stock;
+
+	@Transient
 	private Double minPrice;
 
 	@Column(name = "preOrderDate")
@@ -60,25 +63,27 @@ public class Product extends ModelContent {
 	}
 
 	public Double getMaxPrice() {
-		return this.getMaxPrice(this.getVariants(), new Double(0));
-	}
-
-	private Double getMaxPrice(List<Variant> variants, Double price) {
-		for (Variant variant : variants) {
+		Double price = new Double(0);
+		for (Variant variant : this.getVariants()) {
 			price = variant.getPrice() > price ? variant.getPrice() : price;
 		}
 		return price;
 	}
 
 	public Double getMinPrice() {
-		return this.getMinPrice(this.getVariants(), new Double(0));
-	}
-
-	private Double getMinPrice(List<Variant> variants, Double price) {
-		for (Variant variant : variants) {
+		Double price = new Double(0);
+		for (Variant variant : this.getVariants()) {
 			price = variant.getPrice() < price || price == 0 ? variant.getPrice() : price;
 		}
 		return price;
+	}
+
+	public Integer getStock() {
+		Integer stock = 0;
+		for (Variant variant : this.getVariants()) {
+			stock = stock + (variant.getStock() > 0 ? variant.getStock() : variant.getStock());
+		}
+		return stock;
 	}
 
 	public Date getPreOrderDate() {
@@ -111,6 +116,10 @@ public class Product extends ModelContent {
 
 	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
 	public void setPreOrderDate(Date preOrderDate) {

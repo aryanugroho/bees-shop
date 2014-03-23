@@ -2,6 +2,7 @@ package org.beesden.shop.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,7 +16,7 @@ import javax.persistence.Transient;
 public class Tender extends ModelDefault {
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "addressId")
 	private Address address;
 

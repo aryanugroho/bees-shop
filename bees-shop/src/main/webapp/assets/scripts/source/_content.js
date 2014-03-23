@@ -6,7 +6,8 @@ beesden.content = function(d) {
 	 * @desc	Paginate through results using AJAX instead of full page refreshes
 	*/	
 	pagination = function () {
-		var container = d.querySelectorAll('.resultsContainer'),
+		var category = d.getElementById('category'),
+			container = d.querySelectorAll('.resultsContainer'),
 			popped = ('state' in window.history && window.history.state !== null),
 			initialUrl = location.href,
 			linkList,
@@ -28,14 +29,38 @@ beesden.content = function(d) {
 		// Insert new content and reinitialise scripts
 		 insertContent
 
+		 // Iterate over the parents to calculate total distance from top
+		 function findPos(obj) {
+			var curtop = 0;
+			if (obj.offsetParent) {
+				do {
+					curtop += obj.offsetTop;
+				} while (obj = obj.offsetParent);
+				return curtop;
+			}
+		}
+
+    	// Scroll to the top whilst the ajax is loading
+	    function scrollTo(element, to, duration) {
+	        if (d.body.scrollTop <= to) return;
+	        var perTick = to / duration * 50;
+	       	d.body.scrollTop = d.body.scrollTop - perTick;	        
+	        setTimeout(function() {
+	            scrollTo(element, to, duration);
+	        }, 5);
+	    }
+
 		// Run ajax request for updated content
 		function updateContent(link) {
 			popped = true;
 			overlay.className += (' reveal');
+			scrollTo(overlay, findPos(contentOverlay) - 50, 700);
 			beesden.ajax(location.href, function(data) {
 				d.getElementById('info').innerHTML = data.responseText;
-				overlay.className.replace(' reveal', '');
 				pagination();			
+			}, function() {
+				console.log(overlay);
+				overlay.className = overlay.className.replace(' reveal', '');
 			});		
 		}
 
@@ -53,7 +78,7 @@ beesden.content = function(d) {
 			sortOrders = container[i].getElementsByTagName('select');
 			for (var j = 0; j < sortOrders.length; j++) {
 				sortOrders[j].onchange = function() {
-					link = this.parentNode.action + beesden.serialize(this.parentNode);
+					link = this.form.action + beesden.serialize(this.form);
 					window.history.pushState(null, document.title, link);	
 					updateContent(link);		
 				}

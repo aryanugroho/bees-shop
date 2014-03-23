@@ -1,5 +1,9 @@
 package org.beesden.shop.view;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,45 +73,22 @@ public class AccountView extends View {
 
 		return "redirect:/account/address";
 	}
-*/
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String getLoginPage(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show customer login page");
-		Long start = System.currentTimeMillis();
-		Map<String, Object> config = getConfig(request);
-		// Add customer model to page
-		model.addAttribute("newCustomer", new Customer());
-		return isAjax(model, request, "account.login", config, start);
-	}
 
-	@Autowired
-	public CustomerService customerService;
-	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerCustomer(HttpServletRequest request, @ModelAttribute("newCustomer") Customer customer) {
-		logger.info("Received request to register new customer");
+	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	public String showOrders(Model model, HttpServletRequest request) {
+		logger.info("Received request to show order section");
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode(customer.getPassword());
-		customer.setPassword(hashedPassword);
+		Customer customer = fetchCustomerInfo();
 
-		customerService.objectCreate(customer);
-		logger.info(customer.getEmail() + " registered");
+		String pageAttr = (String) request.getSession().getAttribute("page");
+		Integer page = Utils.isNumeric(pageAttr) ? Integer.parseInt(pageAttr) : 1;
 
-		logger.info("Logging new customer into their account");
-		customerAuth(customer);
-
-		return "redirect:/account/home";
-	}
-	/*
-
-	@RequestMapping(value = "/address", method = RequestMethod.GET)
-	public String showAddresses(Model model, HttpServletRequest request) {
-		logger.info("Received request to show address section");
+		List<Order> orders = orderService.getAll(page, 30, customer.getId());
+		model.addAttribute("orderList", orders);
 
 		model = storeTemplate(model, request);
-		model = setTitle(model, "account-address", "Your Addresses");
-		return "account.addresses";
+		model = setTitle(model, "account-order", "Your Orders");
+		return "account.orders";
 	}
 
 	@RequestMapping(value = "/address/manage", method = RequestMethod.GET)
@@ -125,15 +106,99 @@ public class AccountView extends View {
 		model = setTitle(model, "account-address", "View Address");
 		return "account.address";
 	}
+*/
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String showDashboard(Model model, HttpServletRequest request) {
-		logger.info("Received request to show account dashboard");
-
-		model = storeTemplate(model, request);
-		model = setTitle(model, "account-home", "Your Account");
-		return "account.home";
+	public String showDashboard(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer dashboard");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.home", config, start));
 	}
+
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String showContact(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer details");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.contact", config, start));
+	}
+
+	@RequestMapping(value = "/password", method = RequestMethod.GET)
+	public String showPassword(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer password form");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.password", config, start));
+	}
+
+	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	public String showOrders(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer orders");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.orders", config, start));
+	}
+
+	@RequestMapping(value = "/payment", method = RequestMethod.GET)
+	public String showPayment(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer payment options");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.payment", config, start));
+	}
+
+	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
+	public String showAddresses(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer addresses");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return (isAjax(model, request, "account.addresses", config, start));
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateCustomer(HttpServletRequest request) {
+		logger.info("Received request to update customer");
+		Customer customer = fetchCustomer();
+		List<String> errors = new ArrayList<String>();
+		
+		// Update email if provided
+		String newEmail = String.valueOf(request.getParameter("email"));
+		if (!newEmail.equals("")) {
+			String confirmEmail = String.valueOf(request.getParameter("email2"));
+			if (!newEmail.equals(confirmEmail)) {
+				errors = addError(errors, "emails.not.match");
+			} else {
+				customer.setEmail(newEmail);
+			}
+		}
+		
+		// Update customer details
+		if ( Boolean.valueOf(request.getParameter("updateCustomer"))) {
+			customer.setTitle(request.getParameter("title"));
+			customer.setFirstname(request.getParameter("firstname"));
+			customer.setSurname(request.getParameter("surname"));
+			customer.setTelephone(request.getParameter("telephone"));
+		}
+		
+		// Failed request returns to the specified layout
+		if (errors.size() > 0) {
+			request.getSession().setAttribute("messages", errors);
+			return String.valueOf(request.getParameter("onError"));
+		}
+
+		// Successful updates return to the same uri
+		String refererURI = "/account/home";		
+		try {
+			refererURI = new URI(request.getHeader("referer")).getPath();
+		} catch (URISyntaxException e) {
+			logger.error(e);
+		}
+		System.out.println(refererURI);
+		return "redirect:" + refererURI;
+	}
+	
+	/**
 
 	@RequestMapping(value = "/order/view", method = RequestMethod.GET)
 	public String showOrderManager(Model model, HttpServletRequest request) {

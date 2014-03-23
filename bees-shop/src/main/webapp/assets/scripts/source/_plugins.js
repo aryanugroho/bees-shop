@@ -11,13 +11,18 @@ beesden.plugins = function (d) {
 	*/
 	var carousel = function (carousel, move, speed, minlength) {
 		// collect the slides and the controls
-		var carousel = carousel || d.querySelectorAll('.promotion ul')[0],
-			carouselChildren = carousel.childNodes,
+		var carousel = carousel || d.querySelector('.promotion ul'),
+			move = move || 6,
+			speed = speed || 0.6,
+			carouselChildren,
 			prevButton = d.createElement("span"),
 			nextButton = d.createElement("span"),
 			slideEnable,
 			slideTarget,
 			count = 0;
+
+		if (!carousel || !carousel.childNodes) return;
+		carouselChildren = carousel.childNodes
 
 		function moveCarousel(count) {			
 			// Do not move by more carousel products than are visible
@@ -30,11 +35,15 @@ beesden.plugins = function (d) {
 				count = carouselChildren[0].offsetWidth * count < carousel.offsetWidth ? -Math.round(carousel.offsetWidth / carouselChildren[0].offsetWidth) : count;
 				reset();
 			}
+			console.log()
 			// Initialise carousel animation
-			slideEnable = false;	
+			slideEnable = !('transition' in d.body.style);	
 			slideTarget = carousel.offsetLeft < 0 ? 0 : count * carouselChildren[0].offsetWidth + 'px';
 			carousel.style.transition = 'left ' + speed + 's ease-in-out';
 			carousel.style.left = slideTarget;
+			if (slideEnable) {
+				reset(carousel.offsetLeft < 0 ? -Math.round(carousel.offsetWidth / carouselChildren[0].offsetWidth) : 0);
+			}
 		}
 		// Reset timer and positions to 0
 		function reset(count) {
@@ -158,6 +167,10 @@ beesden.plugins = function (d) {
 		showSlide(nextSlideIndex);
 	}
 	return {
+		init: function() {
+			carousel();
+			slider();
+		},
 		carousel: carousel,
 		slider: slider
 	};

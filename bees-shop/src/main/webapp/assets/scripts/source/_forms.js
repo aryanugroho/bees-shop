@@ -41,6 +41,7 @@ beesden.forms = function (d) {
 		Array.prototype.forEach.call(d.getElementsByClassName('formSelect'), function(el, i) {
 			// Get the input and assign the event
 			input = el.querySelector('input');
+			if (!input) return;
 			input.addEventListener('change', function() {
 				showHide(this);
 			});

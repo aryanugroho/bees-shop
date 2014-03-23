@@ -1,6 +1,7 @@
 package org.beesden.shop.service;
 
 import org.beesden.shop.model.Product;
+import org.beesden.shop.model.Variant;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +14,14 @@ public class ProductService extends Service<Product> {
 	}
 
 	public String getQuerySearch(String keywords, String sort) {
-		String dbQuery = " WHERE (";
+		String dbQuery = " JOIN p.variants v WHERE (";
 		String[] searches = keywords.split("[ _-]");
 		for (int i = 0; i < searches.length; i++) {
-			dbQuery += (i == 0 ? "" : " OR ") + "heading LIKE '%" + searches[i] + "%'";
+			dbQuery += (i == 0 ? "" : " OR ") + "p.heading LIKE '%" + searches[i] + "%' OR v.name LIKE '%" + searches[i] + "%'";
 		}
 		dbQuery += ") AND " + getStatus("p", 1);
 		if (sort != null && !sort.isEmpty()) {
-			dbQuery += " ORDER BY p." + sort.replaceAll("_", " ");
+			dbQuery += " ORDER BY " + (sort.startsWith("price") ? "v." : "p.") + sort.replaceAll("_", " ");
 		}
 		return dbQuery;
 	}

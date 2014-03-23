@@ -5,6 +5,7 @@ import org.beesden.shop.service.AddressService;
 import org.beesden.shop.service.BasketService;
 import org.beesden.shop.service.CategoryService;
 import org.beesden.shop.service.ConfigService;
+import org.beesden.shop.service.CountryService;
 import org.beesden.shop.service.CustomerService;
 import org.beesden.shop.service.DeliveryChargeService;
 import org.beesden.shop.service.MenuService;
@@ -26,6 +27,9 @@ public class ViewServices {
 
 	@Autowired
 	public CategoryService categoryService;
+	
+	@Autowired
+	public CountryService countryService;
 
 	@Autowired
 	public ConfigService configService;

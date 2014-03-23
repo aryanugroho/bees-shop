@@ -167,7 +167,7 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- Misc --> 
+        <!-- Misc -->
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>

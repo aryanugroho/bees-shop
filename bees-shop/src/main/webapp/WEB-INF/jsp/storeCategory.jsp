@@ -29,7 +29,9 @@
 					<store:department object="${content}" />
 				</c:when>
 				<c:otherwise>
-					<store:category object="${content}" />			
+					<store:pagination sortKey="products" pagination="${categoryPagination}" summary="true" />
+					<store:category object="${content.products}" />
+					<store:pagination sortKey="products" pagination="${categoryPagination}" />
 				</c:otherwise>
 			</c:choose>
 			<div id="contentOverlay" class="contentOverlay"></div>

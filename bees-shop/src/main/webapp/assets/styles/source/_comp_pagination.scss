@@ -6,20 +6,30 @@
 .resultsContainer {margin:$bees-gutter-small 0; overflow:hidden;
 	
 	/* Result summary */
-	.summary {clear:left; float:left; line-height:26px; margin:0 10px 10px 0}
+	.summary {clear:left; float:left; line-height:19px; margin:0 $bees-gutter-small $bees-gutter-small 0; padding:6px 0;}
 
 	/* Pagination link styles */
-	.pagination{border-left:$bees-border-medium; float:left; list-style:none; margin:0 10px 10px 0; padding:0;
+	.pagination{border-left:$bees-border-medium; float:left; list-style:none; margin:0 $bees-gutter-small $bees-gutter-small 0; padding:0;
 		li {border:$bees-border-medium; border-left:none; float:left; line-height:29px; text-align:center}
 		span {background:$bees-brand-background; color:$bees-brand-default}
 		em {font-style:normal}
 		span, a, em {display:block; padding:0 10px;}
 	}
 
-	.sortOrder {float:right; margin:0 0 10px 10px;
+	.sortOrder {float:right; margin:0 0 $bees-gutter-small $bees-gutter-small;
+		fieldset {background:none; border:none; padding:0}
 		fieldset, ol, li {margin:0; border-bottom:none;}
 		legend, label {display:none}
-		.input{width:auto}
+		.formElement{margin-bottom:0;}
+		.input{width:100%}
 		.button {line-height:26px; margin:0 0 0 3px; padding:0 10px}
 	}
+}
+
+/* Large tablet view */
+@media all and (max-width: $bees-width-sm - 1) {
+	.resultsContainer {text-align:center;
+		.pagination, .sortOrder, .summary {float:none; display:inline-block;}
+		.sortOrder {display:block; margin:0 auto $bees-gutter-small; width:250px}
+	} 
 }

@@ -23,7 +23,11 @@
 				<li class="searchLink"><a href="/search"><span><fmt:message key="bees.header.search" /></span></a></li>
 			</c:if>
 			<c:if test="${config.paymentStatus}">
-				<li class="basketLink" id="basketLink"><a class="viewBasket" href="/checkout/basket"><span><fmt:message key="bees.header.my.basket" /> (${basketSize})</span></a></li>
+				<li class="basketLink" id="basketLink">
+					<jsp:include page="../checkout/basket.jsp">
+						<jsp:param name="minibasket" value="true" />
+					</jsp:include>
+				</li>
 			</c:if>
 		</ul>
 		
@@ -46,8 +50,9 @@
 						<c:forEach var="child" items="${parent.children}" varStatus="status">	
 							<store:menu menuItem="${child}" maxLevel="${config.enableDropDown}" type="li" />
 						</c:forEach>
+						<input type="radio" name="showMenu" id="menu_hideChildren" class="menuChildToggle" />
 					</c:if>
-				</c:forEach>
+				</c:forEach>			
 			</ol>
 		</nav>
 	</section>

@@ -25,7 +25,7 @@ public class CustomerLoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 
-		logger.error("Checking for customer login");
+		logger.info("Checking for customer login");
 
 		UserDetails user = null;
 

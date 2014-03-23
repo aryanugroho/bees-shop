@@ -25,16 +25,19 @@ public class BasketView extends View {
 	protected Basket basket;
 
 	@RequestMapping(value = "/checkout/basket/add", method = RequestMethod.POST)
-	public String addToBasket(HttpServletRequest request, @ModelAttribute("basketItem") BasketItem basketItem, ModelMap model) {
+	public String addToBasket(HttpServletRequest request, ModelMap model) {
 		logger.info("Updating shopping basket");
 		Long start = System.currentTimeMillis();
 		Map<String, Object> config = getConfig(request);
 		// Create a new basket item
+		BasketItem basketItem = new BasketItem();
 		String variantId = request.getParameter("variantId");
+		String quantity = request.getParameter("quantity");
 		String dbQuery = variantService.getQuery(variantId, null, 1, null);
 		Variant addItem = variantService.findOne(dbQuery);
 		// Add item to the basket
 		if (addItem != null) {
+			basketItem.setQuantity(Utils.isNumeric(quantity) && Integer.parseInt(quantity) > 0 ? Integer.parseInt(quantity) : 1);
 			basketItem.setVariant(addItem);
 			basket = basketService.addProduct(request, basket, basketItem);
 		}
@@ -48,7 +51,7 @@ public class BasketView extends View {
 		Map<String, Object> config = getConfig(request);
 		// Add basket and cross sale items to model
 		String crossSale = config.get("crossSaleId").toString();
-		if (Utils.isNumeric(crossSale)) {
+		if (!Boolean.parseBoolean(request.getParameter("ajax")) && Utils.isNumeric(crossSale)) {
 			String dbQuery = categoryService.getQuery(crossSale, null, 1, null);
 			Category promotions = categoryService.findOne(dbQuery);
 			model = getPromos(model, promotions);

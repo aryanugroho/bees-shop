@@ -62,14 +62,12 @@
 			
 			<fieldset>
 				<legend><fmt:message key="bees.pagination.sort" /></legend>
-				<ol>
-					<store:input name="sort" type="select">
-						<option value=""><fmt:message key="bees.pagination.sort" /></option>			
-						<c:forEach var="sort" items="${config.sortOrders[sortKey]}">
-							<option ${param.sort == sort.value ? 'selected="selected" ' : ''}value="${sort.value}">${sort.key}</option>
-						</c:forEach>
-					</store:input>
-				</ol>
+				<store:input name="sort" type="select">
+					<option value=""><fmt:message key="bees.pagination.sort" /></option>			
+					<c:forEach var="sort" items="${config.sortOrders[sortKey]}">						
+						<option ${param.sort == sort.value ? 'selected="selected" ' : ''}value="${sort.value}">${sort.key}</option>
+					</c:forEach>
+				</store:input>
 			</fieldset>	 
 			<button class="button return jsHide">&raquo;</button>
 		</form>
@@ -80,7 +78,7 @@
 			<fmt:message key="bees.pagination.summary.${pagination.size > 1 ? 'results' : 'empty'}${pagination.pages > 1 ? '.paginate' : ''}">
 				<fmt:param value="${pagination.page}" />
 				<fmt:param value="${pagination.pages}" />
-				<fmt:param value="${pagination.first}" />
+				<fmt:param value="${pagination.first + 1}" />
 				<fmt:param value="${pagination.last}" />
 				<fmt:param value="${pagination.size}" />
 			</fmt:message>

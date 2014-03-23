@@ -2,6 +2,7 @@ package org.beesden.shop.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.beesden.shop.model.Basket;
 import org.beesden.shop.model.Category;
 import org.beesden.shop.model.Config;
 import org.beesden.shop.model.Customer;
+import org.beesden.shop.model.Product;
 import org.beesden.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -83,10 +85,10 @@ public class View extends ViewServices {
 		String resultsAttr = request.getParameter("results");
 		results = Utils.isNumeric(resultsAttr) ? Integer.parseInt(resultsAttr) : results;
 		// Calculate pagination
-		Integer first = (page - 1) * results + 1;
-		first = first < 1 ? 1 : first;
+		Integer first = (page - 1) * results;
+		first = first < 0 ? 0 : first;
 		first = first > size ? 1 : first;
-		Integer last = first + results - 1;
+		Integer last = first + results;
 		last = last > size ? size : last;
 		Integer pages = (int) Math.ceil((double) size / (double) results);
 		// Add information to map
@@ -104,7 +106,9 @@ public class View extends ViewServices {
 		if (promotion != null) {
 			String sort = promotion.getSortOrder() != null && !promotion.getSortOrder().isEmpty() ? promotion.getSortOrder() : "heading";
 			String dbQuery = productService.getQueryPaged("categories", promotion.getId().toString(), 1, sort);
-			model.addAttribute("promotions", productService.findAll(dbQuery));
+			List<Product> promotions = productService.findAll(dbQuery);
+			Collections.shuffle(promotions);
+			model.addAttribute("promotions", promotions);
 		}
 		return model;
 	}
@@ -139,7 +143,8 @@ public class View extends ViewServices {
 		// Get extra basket information
 		String dbQuery = deliveryChargeService.getQuery(null, null, 1, "id");
 		model.addAttribute("deliveryCharges", deliveryChargeService.findAll(dbQuery));
-		// model.addAttribute("countries", CountryList.countries());
+		dbQuery = countryService.getQuery(null, null, 1, "name");
+		model.addAttribute("countries", countryService.findAll(""));
 		return isAjax(model, request, redirect, config, start);
 	}
 
@@ -161,6 +166,8 @@ public class View extends ViewServices {
 			basket.setItems(null);
 			basket.setOrderPlaced(null);
 		}
+		// Add the currently signed in customer
+		model.addAttribute("customer", fetchCustomer());
 		// Add any system messages
 		model.addAttribute("messages", request.getSession().getAttribute("messages"));
 		request.getSession().setAttribute("messages", null);

@@ -77,8 +77,6 @@ public class ContentView extends View {
 			model.addAttribute("content", product);
 			model = setTitle(model, "content-product", product.getName());
 			model = getPromos(model, product.getPromotionList());
-			// Add basket item to allow form submission
-			model.addAttribute("basketItem", new BasketItem());
 		}
 		return isAjax(model, request, "product", config, start);
 	}

@@ -48,7 +48,7 @@ public class Service<T> {
 	public List<T> findPaged(String dbQuery, Map<String, Integer> pagination) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("FROM " + tableName + " p " + dbQuery);
-		return query.setFirstResult(pagination.get("first") - 1).setMaxResults(pagination.get("results") - 1).list();
+		return query.setFirstResult(pagination.get("first")).setMaxResults(pagination.get("results")).list();
 	}
 
 	public String getQuery(String id, String name, Integer status, String sort) {

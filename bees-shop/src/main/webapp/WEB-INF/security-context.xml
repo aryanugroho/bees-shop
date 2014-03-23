@@ -12,26 +12,16 @@
 		
 		<security:form-login login-page="/admin/login" login-processing-url="/admin/login.do" authentication-failure-url="/admin/login" default-target-url="/admin/home"/>
 		<security:logout invalidate-session="true" logout-success-url="/admin/login" logout-url="/admin/logout"/>
-	</security:http>	
-
-	<security:http pattern="/account/" auto-config="true" use-expressions="true" access-denied-page="/account/login" >
-		<security:intercept-url pattern="/account/login" access="permitAll"/>
-		<security:intercept-url pattern="/account/register" access="permitAll"/>
-		<security:intercept-url pattern="/account/**" access="hasRole('ROLE_CUSTOMER')"/>
-		
-		<security:form-login login-page="/account/login" login-processing-url="/account/login.do" authentication-failure-url="/account/login" default-target-url="/account/home"/>
-		<security:logout invalidate-session="true" logout-success-url="/account/login" logout-url="/account/logout"/>
 	</security:http>
-	
-	<security:http auto-config="true" use-expressions="true" access-denied-page="/checkout/login" >
+
+	<security:http auto-config="true" use-expressions="true" access-denied-page="/customer/login" >
 		<security:intercept-url pattern="/checkout/basket" access="permitAll"/>
 		<security:intercept-url pattern="/checkout/basket/**" access="permitAll"/>
-		<security:intercept-url pattern="/checkout/login" access="permitAll"/>
-		<security:intercept-url pattern="/checkout/register" access="permitAll"/>
 		<security:intercept-url pattern="/checkout/**" access="hasRole('ROLE_CUSTOMER')"/>
+		<security:intercept-url pattern="/account/**" access="hasRole('ROLE_CUSTOMER')"/>
 		
-		<security:form-login login-page="/checkout/login" login-processing-url="/account/login.do" authentication-failure-url="/checkout/login" default-target-url="/checkout/basket"/>
-		<security:logout invalidate-session="true" logout-success-url="/account/login" logout-url="/account/logout"/>
+		<security:form-login login-page="/customer/login" login-processing-url="/customer/login.do" authentication-failure-url="/customer/loginfailed" default-target-url="/account/home"/>
+		<security:logout invalidate-session="true" logout-success-url="/" logout-url="/customer/logout"/>
 	</security:http>
 
 	<security:authentication-manager>
