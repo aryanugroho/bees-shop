@@ -1,6 +1,7 @@
 /* Generic Reset */
 * {box-sizing:border-box; -moz-box-sizing:border-box; margin:0; padding:0; }
 body {background:$bees-brand-background; color:$bees-brand-default; font:11px/16px 'Open Sans','Tahoma','Geneva',sans-serif; min-width:392px }
+#info {position:relative}
 .jsShow {display:none}
 body.js .jsShow {display:block}
 body.js .jsHide {display:none}
@@ -40,7 +41,7 @@ button.link {background:none; border:none; display:inline}
 form {
 	/* Basic layout styles */
 	fieldset{background: $bees-brand-background; border:$bees-border-medium; padding:$bees-gutter-medium $bees-gutter-medium 0; margin:0 0 $bees-gutter-medium; max-width:560px;
-		legend {border:none; display:inline-block; font-weight:600; color:$bees-brand-light; float:left; margin-top:-$bees-gutter-medium; margin-left:-$bees-gutter-medium; padding:$bees-gutter-small $bees-gutter-large; text-transform:uppercase;}
+		legend {background:$bees-brand-secondary;border:none; display:inline-block; font-weight:600; color:$bees-brand-light; float:left; margin-top:-$bees-gutter-medium; margin-left:-$bees-gutter-medium; padding:$bees-gutter-small $bees-gutter-large; text-transform:uppercase;}
 		legend, .formElement {clear:both; margin-bottom:$bees-gutter-medium}
 
 		/* Label and input styles */
@@ -50,8 +51,8 @@ form {
 		.input[type=checkbox], .input[type=radio] {margin:0 $bees-gutter-medium 0 0; width:auto}
 		.input[disabled] {background:none; border-color:transparent; font-weight:600; padding-left:0}
 		input, select {
-			 transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-			&:focus {box-shadow:0 0 5px $bees-brand-secondary; outline:none}
+			 transition: outline ease-in-out .15s;
+			&:focus {outline:1px solid $bees-brand-highlight}
 		}
 	}
 

@@ -56,7 +56,7 @@ beesden.content = function(d) {
 			overlay.className += (' reveal');
 			scrollTo(overlay, findPos(contentOverlay) - 50, 700);
 			beesden.ajax(location.href, function(data) {
-				d.getElementById('info').innerHTML = data.responseText;
+				d.getElementById('pagination').innerHTML = data.responseText;
 				pagination();			
 			}, function() {
 				console.log(overlay);

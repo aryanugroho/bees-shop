@@ -9,6 +9,4 @@
 	</c:choose>
 </c:set>
 
-<p><fmt:message key="bees.account.welcome"><fmt:param>${customerName}</fmt:param></fmt:message></p>	
-<p><fmt:message key="bees.account.update.details" /></p>
-<p><fmt:message key="bees.account.login.details" /></p>
+<p><fmt:message key="bees.account.welcome"><fmt:param>${customerName}</fmt:param></fmt:message></p>

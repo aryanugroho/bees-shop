@@ -19,6 +19,10 @@ public class Customer extends ModelContact {
 	@OrderBy("id")
 	private Set<Address> addresses;
 
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	@OrderBy("orderPlaced")
+	private Set<Basket> orders;
+
 	@Column(name = "password", length = 150)
 	private String password;
 
@@ -32,6 +36,10 @@ public class Customer extends ModelContact {
 		return addresses;
 	}
 
+	public Set<Basket> getOrders() {
+		return orders;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -42,6 +50,10 @@ public class Customer extends ModelContact {
 
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
+	}
+
+	public void setOrders(Set<Basket> orders) {
+		this.orders = orders;
 	}
 
 	public void setPassword(String password) {

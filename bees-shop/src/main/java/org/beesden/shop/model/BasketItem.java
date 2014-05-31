@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bees_basket_item")
 public class BasketItem implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -31,22 +31,36 @@
 
 /* Filter styles - need redoing! */
 .categoryFilters {float:left; width:$bees-width-grid; margin-left:-$bees-gutter-medium; margin-right:-$bees-gutter-medium;
+	/* Shared filter styles */
  	dl {margin:0 0 16px; padding:0 $bees-gutter-medium}
- 	dt {font-size:13px; border-bottom:1px solid #ccc; padding:0 0 8px; color:$bees-brand-primary; font-weight:300; margin:0 0 8px}
- 	dd, li {padding:2px 0}
- 	dd a {color:$bees-brand-default; font:11px/16px $bees-font-primary}
- 	dd a:hover {text-decoration:underline}
- 	ul {list-style:none; margin:0; padding-left:16px}
- 	span {font-weight:600}
- 	dd:before, li:before {content:'(25)'; float:right; font:600 11px $bees-font-primary; margin-left:8px}
- 	dd > a:before {content: ''; border:$bees-border-medium; line-height:13px; height:13px; width:13px; margin:2px 5px 0 0; display:inline-block; text-align:center; vertical-align:top;}
- 	.active a {font-weight:600; font-family:$bees-font-icons;
- 		&:before {content:$bees-icon-tick; color:$bees-brand-primary }
- 		&:hover:before {content:$bees-icon-cross; color:#730 }
+ 	dt {font-size:13px; border-bottom:1px solid #ccc; padding:0 0 8px; color:$bees-brand-primary; font-weight:300; margin:0}
+ 	dd, li {padding:6px 0 0;
+ 		span {color:$bees-brand-secondary; font-weight:600;}
+ 		a {color:$bees-brand-default; font:11px/16px $bees-font-primary}
+ 		a:hover {text-decoration:underline}
+ 		&:before {content:'(25)'; float:right; color:$bees-brand-tertiary; font-weight:600; font-size:11px; margin-left:$bees-gutter-small}
  	}
- 	.hierarchy a:before {display:none}
- 	ul {position:relative}
- 	li span:before {content:'\21B5'; position:absolute; left:3px; top:1px; font-size:13px; -webkit-transform: rotate(90deg);}
+
+ 	/* Toggle filter styles */
+ 	.filterToggle {
+		a:before {content: ''; border:$bees-border-medium; line-height:13px; height:13px; width:13px; margin:2px 5px 0 0; display:inline-block; text-align:center; vertical-align:top;}
+		.active a {font-weight:600; font-family:$bees-font-icons;
+	 		&:before {content:$bees-icon-tick; color:$bees-brand-primary }
+	 		&:hover:before {content:$bees-icon-cross; color:#730 }
+	 	}
+ 	}
+
+ 	/* Hierarchical filter styles */
+ 	.filterHierarchy {
+	 	ul {list-style:none; margin:0; padding:0 0 0 $bees-gutter-small;; position:relative;
+	 		span:before, a:before {font-family:$bees-font-icons; content:$bees-icon-arrow-right; margin-right:4px; }
+	 	}
+ 	}
+
+ 	.filterPrice {
+ 		label {font-weight:600;}
+ 		input {width:100%;}
+ 	}
 	
 }
 
@@ -72,4 +86,9 @@
 	}
 
 	.category.grid .info {text-align:center}
+	.categoryFilters dl {width:50%;}
+}
+/* Small mobile view */
+@media all and (max-width: $bees-width-xs - 1) {
+	.categoryFilters dl {width:100%;}
 }

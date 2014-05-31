@@ -35,24 +35,4 @@
 <div class="checkoutSummary basket">
 	<h2><fmt:message key="bees.payment.review.your.order" /></h2>
 	<store:basket basket="${basket}" checkout="true" editable="false" />
-
-	<c:if test="${!empty basket.deliveryAddress}">
-		<h3>
-			<fmt:message key="bees.basket.delivery.address" />
-			<c:if test="${!empty basket.orderPlaced}"><a class="edit" href="/checkout/shipping"><fmt:message key="bees.checkout.edit" /></a></c:if>
-		</h3>
-		<address>
-			<store:address address="${basket.deliveryAddress}" type="span" />
-		</address>
-	</c:if>	
-
-	<c:if test="${!empty basket.paymentDetails && !empty basket.paymentDetails.address}">
-		<h3>
-			<fmt:message key="bees.basket.payment.address" />
-			<c:if test="${!empty basket.orderPlaced}"><a class="edit" href="/checkout/payment"><fmt:message key="bees.checkout.edit" /></a></c:if>
-		</h3>
-		<address>
-			<store:address address="${basket.paymentDetails.address}" type="span" />
-		</address>
-	</c:if>
 </div>

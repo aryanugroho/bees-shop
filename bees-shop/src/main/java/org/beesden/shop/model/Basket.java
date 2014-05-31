@@ -27,7 +27,7 @@ public class Basket implements Serializable {
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "deliveryAddress")
 	private Address deliveryAddress;
 
@@ -58,7 +58,7 @@ public class Basket implements Serializable {
 	@Column(name = "orderStatus", length = 150)
 	private String orderStatus;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "paymentDetails")
 	private Tender paymentDetails;
 

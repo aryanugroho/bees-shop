@@ -4,8 +4,11 @@
 
 <c:set var="step"><tiles:getAsString name="step" ignore="true"/></c:set>
 
+<input class="accountMenuToggle" id="accountMenuToggle" type="checkbox" />
+<label class="accountMenuLabel" for="accountMenuToggle"><fmt:message key="bees.accountmenu.toggle" /></label>
+
 <ul class="accountMenu">
-	<c:forTokens delims="," items="home,contact,password,payment,addresses,orders" var="accSection">
+	<c:forTokens delims="," items="home,contact,password,payment,address,order" var="accSection">
 		<li class="${step == accSection ? 'current' : ''}">
 			<a href="/account/${accSection}">
 				<fmt:message key="bees.accountmenu.account.${accSection}" />
@@ -13,7 +16,7 @@
 		</li>
 	</c:forTokens>
 	
-	<li><a class="return" href="/account/logout">
+	<li><a class="return" href="/customer/logout">
 		<fmt:message key="bees.accountmenu.logout" />
 	</a></li>
 </ul>

@@ -3,117 +3,51 @@ package org.beesden.shop.view;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.beesden.shop.model.Address;
+import org.beesden.shop.model.Basket;
 import org.beesden.shop.model.Customer;
-import org.beesden.shop.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.beesden.shop.model.Tender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/account/")
-public class AccountView extends View {
-/**
-	@RequestMapping(value = "/address/remove", method = RequestMethod.POST)
-	public String addressRemove(HttpServletRequest request) {
-		logger.info("Removing customer address");
+public class AccountView extends ViewUpdate {
 
-		List<String> messages = new ArrayList<String>();
-		String addressId = request.getParameter("addressId");
-		Customer customer = new Customer();
-
-		if (customer != null && Utils.isNumeric(addressId)) {
-			logger.debug("Checking the address belongs to the customer");
-			Address checkAddress = addressService.get(customer.getId(), Integer.parseInt(addressId));
-			if (checkAddress != null) {
-				addressService.objectRemove(checkAddress);
-				messages.add("Your address has been successfully removed.");
-			} else {
-				messages.add("An error has occured whilst trying to remove your address");
-			}
-		}
-		request.getSession().setAttribute("messages", messages);
-
-		return "redirect:/account/address";
-	}
-
-	@RequestMapping(value = "/address/update", method = RequestMethod.POST)
-	public String addressUpdate(HttpServletRequest request, @ModelAttribute("address") Address updateAddress) {
-		logger.info("Updating customer address");
-
-		List<String> messages = new ArrayList<String>();
-		Customer customer = fetchCustomerInfo();
-		updateAddress.setAddressLink(customer.getId());
-
-		if (customer != null && updateAddress.getId() != null) {
-			logger.debug("Checking the address belongs to the customer");
-			Address checkAddress = addressService.get(customer.getId(), updateAddress.getId());
-			if (checkAddress == null) {
-				updateAddress.setId(null);
-				messages.add("We are unable to update your address. We have created a new address instead.");
-			}
-		}
-
-		if (updateAddress.getId() == null) {
-			addressService.objectCreate(updateAddress);
-			messages.add("A new address has been added to your account.");
-		} else {
-			addressService.objectUpdate(updateAddress);
-			messages.add("Your address has been updated.");
-		}
-		request.getSession().setAttribute("messages", messages);
-
-		return "redirect:/account/address";
-	}
-
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
-	public String showOrders(Model model, HttpServletRequest request) {
-		logger.info("Received request to show order section");
-
-		Customer customer = fetchCustomerInfo();
-
-		String pageAttr = (String) request.getSession().getAttribute("page");
-		Integer page = Utils.isNumeric(pageAttr) ? Integer.parseInt(pageAttr) : 1;
-
-		List<Order> orders = orderService.getAll(page, 30, customer.getId());
-		model.addAttribute("orderList", orders);
-
-		model = storeTemplate(model, request);
-		model = setTitle(model, "account-order", "Your Orders");
-		return "account.orders";
-	}
-
-	@RequestMapping(value = "/address/manage", method = RequestMethod.GET)
-	public String showAddressManager(Model model, HttpServletRequest request) {
-		logger.info("Received request to manage an address");
-
-		String addressId = request.getParameter("id");
-		Customer customer = fetchCustomerInfo();
-		Address address = addressId == null ? new Address() : addressService.get(customer.getId(), Integer.parseInt(addressId));
-		address = address == null ? new Address() : address;
-		model.addAttribute("address", address);
-		model.addAttribute("countries", CountryList.countries());
-
-		model = storeTemplate(model, request);
-		model = setTitle(model, "account-address", "View Address");
-		return "account.address";
-	}
-*/
-
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String showDashboard(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show customer dashboard");
+	@RequestMapping(value = "/address", method = RequestMethod.GET)
+	public String showAddressList(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer addresses");
 		Long start = System.currentTimeMillis();
 		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.home", config, start));
+		return isAjax(model, request, "account.address", config, start);
+	}
+
+	@RequestMapping(value = "/address/update", method = RequestMethod.GET)
+	public String showAddressView(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer address form");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		Customer customer = fetchCustomer();
+		String addressId = (String) request.getParameter("id");
+		if (addressId != null) {
+			String dbQuery = addressService.getQueryCustomer(addressId, customer.getId().toString(), null);
+			Address address = addressService.findOne(dbQuery);
+			model.addAttribute("addressForm", address);
+		}
+		model.addAttribute("countries", countryService.findAll(""));
+		return isAjax(model, request, "account.address.view", config, start);
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
@@ -121,7 +55,47 @@ public class AccountView extends View {
 		logger.info("Received request to show customer details");
 		Long start = System.currentTimeMillis();
 		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.contact", config, start));
+		return isAjax(model, request, "account.contact", config, start);
+	}
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String showDashboard(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer dashboard");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		return isAjax(model, request, "account.home", config, start);
+	}
+
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	public String showOrderList(ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer orders");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		String sort = request.getParameter("sort");
+		sort = sort == null || sort.equals("") ? "orderPlaced_desc" : sort;
+		String dbQuery = basketService.getQueryCustomer(null, fetchCustomer().getId().toString(), sort);
+		Map<String, Integer> pagination = getPagination(request, basketService.count(dbQuery).intValue(), (Integer) config.get("ordersDefaultSize"));
+		model.addAttribute("orderList", basketService.findPaged(dbQuery, pagination));
+		model.addAttribute("orderPagination", pagination);		
+		return isAjax(model, request, "account.order", config, start);
+	}
+
+	@RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+	public String showOrderView(@PathVariable("id") String id, ModelMap model, HttpServletRequest request) {
+		logger.info("Received request to show customer order view");
+		Long start = System.currentTimeMillis();
+		Map<String, Object> config = getConfig(request);
+		Customer customer = fetchCustomer();
+		String dbQuery = basketService.getQueryCustomer(id, customer.getId().toString(), null);
+		Basket order = basketService.findOne(dbQuery);
+		if (order == null) {
+			List<String> errors = new ArrayList<String>();
+			errors.add("invalid.order.id");
+			request.getSession().setAttribute("messages", errors);
+			return "redirect:/account/order";
+		}
+		model.addAttribute("order", order);
+		return isAjax(model, request, "account.order.view", config, start);
 	}
 
 	@RequestMapping(value = "/password", method = RequestMethod.GET)
@@ -129,15 +103,7 @@ public class AccountView extends View {
 		logger.info("Received request to show customer password form");
 		Long start = System.currentTimeMillis();
 		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.password", config, start));
-	}
-
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
-	public String showOrders(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show customer orders");
-		Long start = System.currentTimeMillis();
-		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.orders", config, start));
+		return isAjax(model, request, "account.password", config, start);
 	}
 
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
@@ -145,50 +111,131 @@ public class AccountView extends View {
 		logger.info("Received request to show customer payment options");
 		Long start = System.currentTimeMillis();
 		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.payment", config, start));
+		return isAjax(model, request, "account.payment", config, start);
 	}
 
-	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
-	public String showAddresses(ModelMap model, HttpServletRequest request) {
-		logger.info("Received request to show customer addresses");
-		Long start = System.currentTimeMillis();
-		Map<String, Object> config = getConfig(request);
-		return (isAjax(model, request, "account.addresses", config, start));
-	}
-	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateCustomer(HttpServletRequest request) {
 		logger.info("Received request to update customer");
 		Customer customer = fetchCustomer();
 		List<String> errors = new ArrayList<String>();
-		
+		String dbQuery = "";
+
 		// Update email if provided
 		String newEmail = String.valueOf(request.getParameter("email"));
 		if (!newEmail.equals("")) {
 			String confirmEmail = String.valueOf(request.getParameter("email2"));
+			// Check email not already in use
+			dbQuery = customerService.getQuery(null, newEmail, null, null);
 			if (!newEmail.equals(confirmEmail)) {
 				errors = addError(errors, "emails.not.match");
+			} else if (customerService.count(dbQuery) > 0) {
+				errors = addError(errors, "email.already.in.use");
 			} else {
 				customer.setEmail(newEmail);
 			}
 		}
-		
+
+		// Update password if provided
+		String newPassword = String.valueOf(request.getParameter("password"));
+		if (!newEmail.equals("")) {
+			// Get the old password to test against current password
+			String oldPassword = String.valueOf(request.getParameter("oldPassword"));
+			if (oldPassword.equals("")) {
+				errors = addError(errors, "passwords.not.match");
+			} else {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				oldPassword = passwordEncoder.encode(oldPassword);
+			}
+			// Test the old password and password confirm
+			String confirmPassword = String.valueOf(request.getParameter("password2"));
+			if (!customer.getPassword().equals(oldPassword)) {
+				errors = addError(errors, "password.invalid");
+			} else if (!newPassword.equals(confirmPassword)) {
+				errors = addError(errors, "passwords.not.match");
+			} else {
+				customer.setPassword(newPassword);
+			}
+		}
+
 		// Update customer details
-		if ( Boolean.valueOf(request.getParameter("updateCustomer"))) {
+		if (Boolean.valueOf(request.getParameter("updateCustomer"))) {
 			customer.setTitle(request.getParameter("title"));
 			customer.setFirstname(request.getParameter("firstname"));
 			customer.setSurname(request.getParameter("surname"));
 			customer.setTelephone(request.getParameter("telephone"));
 		}
-		
+
+		// Update saved address
+		Boolean createAddress = Boolean.valueOf(request.getParameter("createAddress"));
+		Integer updateAddress = Integer.parseInt(request.getParameter("updateAddress"));
+		if (updateAddress > 0 || createAddress) {
+			Set<Address> customerAddresses = new HashSet<Address>();
+			for (Address address : customer.getAddresses()) {
+				if (address.getId() == updateAddress) {
+					address = createAddress(request, address, true);
+					address.setLastEdited(new Date());
+					address.setLastEditedBy(customer.getName());
+				}
+				customerAddresses.add(address);
+			}
+			if (createAddress) {
+				Address address = new Address();
+				address = createAddress(request, address, true);
+				customerAddresses.add(address);
+				address.setDateCreated(new Date());
+				address.setCreatedBy(customer.getName());
+				address.setLastEdited(new Date());
+				address.setLastEditedBy(customer.getName());
+			}
+			customer.setAddresses(customerAddresses);
+		}
+
+		// Remove saved address
+		Integer removeAddress = Integer.parseInt(request.getParameter("removeAddress"));
+		if (removeAddress > 0) {
+			Set<Address> customerAddresses = new HashSet<Address>();
+			for (Address address : customer.getAddresses()) {
+				if (address.getId() == removeAddress) {
+					address.setStatus(3);
+					address.setLastEdited(new Date());
+					address.setLastEditedBy(customer.getName());
+				}
+				customerAddresses.add(address);
+			}
+			customer.setAddresses(customerAddresses);
+		}
+
+		// Remove saved card
+		Integer removeCard = Integer.parseInt(request.getParameter("removeCard"));
+		if (removeCard > 0) {
+			Set<Tender> customerCards = new HashSet<Tender>();
+			for (Tender tender : customer.getTenders()) {
+				if (tender.getId() == removeCard) {
+					tender.setStatus(3);
+					tender.setLastEdited(new Date());
+					tender.setLastEditedBy(customer.getName());
+				}
+				customerCards.add(tender);
+			}
+			customer.setTenders(customerCards);
+		}
+
 		// Failed request returns to the specified layout
 		if (errors.size() > 0) {
 			request.getSession().setAttribute("messages", errors);
 			return String.valueOf(request.getParameter("onError"));
 		}
+		
+		// Update and persist the customer into the db and session
+		customer.setLastEdited(new Date());
+		customer.setLastEditedBy(customer.getName());
+		customerService.objectUpdate(customer);
+		customerAuth(customer);
 
 		// Successful updates return to the same uri
-		String refererURI = "/account/home";		
+		// This is not nice, especially after a failed form submission
+		String refererURI = "/account/home";
 		try {
 			refererURI = new URI(request.getHeader("referer")).getPath();
 		} catch (URISyntaxException e) {
@@ -197,97 +244,4 @@ public class AccountView extends View {
 		System.out.println(refererURI);
 		return "redirect:" + refererURI;
 	}
-	
-	/**
-
-	@RequestMapping(value = "/order/view", method = RequestMethod.GET)
-	public String showOrderManager(Model model, HttpServletRequest request) {
-		logger.info("Received request to view a specific order order");
-
-		List<String> messages = new ArrayList<String>();
-		String orderId = request.getParameter("id");
-		Boolean success = false;
-		if (Utils.isNumeric(orderId)) {
-			Customer customer = fetchCustomerInfo();
-			Order order = orderService.get(Integer.parseInt(orderId), customer.getId());
-			if (order != null) {
-				model.addAttribute("customerOrder", order);
-				success = true;
-			}
-		}
-
-		if (!success) {
-			messages.add("There has been an error in fetching your order.");
-			return "redirect:/account/orders";
-		}
-
-		request.getSession().setAttribute("messages", messages);
-		model = storeTemplate(model, request);
-		model = setTitle(model, "account-order", "View Order");
-		return "account.order";
-	}
-
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
-	public String showOrders(Model model, HttpServletRequest request) {
-		logger.info("Received request to show order section");
-
-		Customer customer = fetchCustomerInfo();
-
-		String pageAttr = (String) request.getSession().getAttribute("page");
-		Integer page = Utils.isNumeric(pageAttr) ? Integer.parseInt(pageAttr) : 1;
-
-		List<Order> orders = orderService.getAll(page, 30, customer.getId());
-		model.addAttribute("orderList", orders);
-
-		model = storeTemplate(model, request);
-		model = setTitle(model, "account-order", "Your Orders");
-		return "account.orders";
-	}
-
-	@RequestMapping(value = "/options/update", method = RequestMethod.POST)
-	public String updateAccount(HttpServletRequest request, @ModelAttribute("customer") Customer update) {
-		logger.info("Updating customer options");
-
-		List<String> messages = new ArrayList<String>();
-
-		Customer customer = fetchCustomerInfo();
-		customer.setFirstname(update.getFirstname());
-		customer.setSurname(update.getSurname());
-		customer.setTelephone(update.getTelephone());
-		customer.setEmail(update.getEmail());
-		customerService.objectUpdate(customer);
-
-		customerAuth(customer);
-		messages.add("Your account has been successfully updated");
-		request.getSession().setAttribute("messages", messages);
-
-		return "redirect:/account/options";
-	}
-
-	@RequestMapping(value = "/password/update", method = RequestMethod.POST)
-	public String updatePassword(HttpServletRequest request) {
-		logger.info("Updating customer password");
-
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		Customer customer = fetchCustomerInfo();
-		String newPass = request.getParameter("newPassword");
-		List<String> messages = new ArrayList<String>();
-
-		if (passwordEncoder.matches(request.getParameter("currentPassword"), customer.getPassword())) {
-			if (newPass.equals(request.getParameter("verifyPassword"))) {
-				newPass = passwordEncoder.encode(newPass);
-				customer.setPassword(newPass);
-				customerService.objectUpdate(customer);
-				messages.add("Your password has been successfully updated");
-			} else {
-				messages.add("Entered passwords do not match");
-			}
-		} else {
-			messages.add("Your current password is incorrect, please check and re-try");
-		}
-
-		request.getSession().setAttribute("messages", messages);
-		return "redirect:/account/options";
-	}
-	*/
 }

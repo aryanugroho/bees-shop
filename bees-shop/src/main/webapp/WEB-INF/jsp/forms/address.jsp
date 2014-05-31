@@ -15,7 +15,8 @@
 	<store:input name="postalCode" value="${addressForm.postalCode}" />
 	<store:input name="country" type="select">
 		<c:forEach var="country" items="${countries}">
-			<option label="${country.name}" value="${country.iso2}" />
+			<c:set var="selected" value="${country.iso2 == addressForm.country.iso2 || (empty addressForm.country.id && country.iso2 == 'GB') ? 'selected' : ''}" />
+			<option ${selected} label="${country.name}" value="${country.iso2}" />
 		</c:forEach>
 	</store:input>
 </fieldset>

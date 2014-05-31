@@ -9,7 +9,7 @@
 			.preview {display:inline-block; max-width:$bees-image-large; max-height:$bees-image-large;}
 			.zoomImage {opacity:0; position:absolute; transition:opacity 1s;}
 		}
-		.small {margin:$bees-gutter-medium 0 0; overflow-x:auto; overflow-y:visible; white-space:nowrap;
+		.small {margin:$bees-gutter-medium 0 0; overflow-x:auto; overflow-y:hidden; white-space:nowrap;
 			a {display:inline-block; vertical-align: middle}
 			img {display:block; max-width:$bees-image-small; margin-left:$bees-gutter-medium; max-height:$bees-image-small}
 			:first-child img {margin-left:0}
@@ -22,7 +22,7 @@
 	.info {padding-right:$bees-gutter-medium;}
 	form {background:$bees-brand-background; border:$bees-border-medium; padding:$bees-gutter-medium $bees-gutter-medium 0;
 		.price {color:$bees-brand-secondary; font-size:26px}
-		.stock {color:$bees-brand-tertiary; font-size:15px; text-transform:uppercase}
+		.stock {color:$bees-brand-tertiary; font-size:13px; text-transform:uppercase}
 		fieldset {padding:0; border:none}
 		legend {display:none}
 		.product_confirm {display:block; height:0; opacity:0; overflow:hidden; transition:0.4s opacity; }

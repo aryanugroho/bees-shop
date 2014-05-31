@@ -115,4 +115,16 @@ public class BasketService extends Service<Basket> {
 		order.setTotal(basket.getTotal());
 		return order;
 	}
+
+	public String getQueryCustomer(String orderId, String customerId, String sort) {
+		// Generate dbQuery string
+		String dbQuery = " WHERE p.customer.id = " + customerId;
+		if (orderId != null && !orderId.isEmpty()) {
+			dbQuery += " AND p.id = '" + orderId + "'";
+		}
+		if (sort != null && !sort.isEmpty()) {
+			dbQuery += " ORDER BY p." + sort.replaceAll("_", " ");
+		}
+		return dbQuery;
+	}
 }

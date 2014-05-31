@@ -61,22 +61,25 @@
 		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/payment.jsp" />
 		<put-attribute name="step" cascade="true" value="payment" />
 	</definition>
-	<definition name="account.addresses" extends="account">
-		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/addresses.jsp" />
-		<put-attribute name="step" cascade="true" value="address" />
-	</definition>
 	<definition name="account.address" extends="account">
-		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/address.jsp" />
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/addressList.jsp" />
 		<put-attribute name="step" cascade="true" value="address" />
 	</definition>
-	<definition name="account.orders" extends="account">
-		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/orders.jsp" />
-		<put-attribute name="step" cascade="true" value="order" />
+	<definition name="account.address.view" extends="account">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/addressView.jsp" />
+		<put-attribute name="step" cascade="true" value="address" />
 	</definition>
 	<definition name="account.order" extends="account">
-		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/order.jsp" />
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/orderList.jsp" />
 		<put-attribute name="step" cascade="true" value="order" />
 	</definition>
+	<definition name="account.order.view" extends="account">
+		<put-attribute name="subject" cascade="true" value="/WEB-INF/jsp/account/orderView.jsp" />
+		<put-attribute name="step" cascade="true" value="order" />
+	</definition>
+	
+	<!--  Ajax Checkout Pages -->
+	<definition name="ajax.account.order" template="/WEB-INF/jsp/account/orderList.jsp" />
 	
 	<!--  Basket Pages -->	
 	<definition name="checkout.basket" extends="store">

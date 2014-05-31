@@ -114,6 +114,8 @@ public class CheckoutView extends ViewUpdate {
 				address = createAddress(request, address, true);
 				address.setCreatedBy(customer.getName());
 				address.setDateCreated(new Date());
+				address.setLastEditedBy(customer.getName());
+				address.setLastEdited(new Date());
 				// Link the address to the customer
 				address.setCustomer(customer);
 				addressService.objectUpdate(address);

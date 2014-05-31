@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -60,20 +60,38 @@
 		<dt><fmt:message key="bees.basket.sub.total" /></dt>
 		<dd><fmt:formatNumber value="${basket.subTotal}" currencySymbol="&pound;" type="currency"/></dd>
 
-		<c:if test="${checkout}">
-			<dl class="totals">
-				<c:if test="${!empty basket.deliveryCharge}">
-					<dt>
-						<c:choose>
-							<c:when test="${!empty basket.orderPlaced}">${basket.deliveryCharge.name}:</c:when>
-							<c:otherwise><a class="edit" href="/checkout/delivery">${basket.deliveryCharge.name}</a></c:otherwise>
-						</c:choose>
-					</dt>
-					<dd><fmt:formatNumber value="${basket.deliveryCharge.charge}" currencySymbol="&pound;" type="currency"/></dd>
-				</c:if>
-				<dt><fmt:message key="bees.basket.total" /></dt>
-				<dd><fmt:formatNumber value="${basket.total}" currencySymbol="&pound;" type="currency"/></dd>
-			</dl>
+		<c:if test="${checkout || !empty basket.orderPlaced}">
+			<c:if test="${!empty basket.deliveryChargePrice}">
+				<dt>
+					<c:choose>
+						<c:when test="${!empty basket.orderPlaced}">${basket.deliveryChargeName}:</c:when>
+						<c:otherwise><a class="edit" href="/checkout/delivery">${basket.deliveryCharge.name}</a></c:otherwise>
+					</c:choose>
+				</dt>
+				<dd><fmt:formatNumber value="${basket.deliveryChargePrice}" currencySymbol="&pound;" type="currency"/></dd>
+			</c:if>
+			<dt><fmt:message key="bees.basket.total" /></dt>
+			<dd><fmt:formatNumber value="${basket.total}" currencySymbol="&pound;" type="currency"/></dd>
 		</c:if>
 	</dl>	
+</c:if>
+
+<c:if test="${!empty basket.deliveryAddress}">
+	<h3>
+		<fmt:message key="bees.basket.delivery.address" />
+		<c:if test="${empty basket.orderPlaced}"><a class="edit" href="/checkout/shipping"><fmt:message key="bees.checkout.edit" /></a></c:if>
+	</h3>
+	<address>
+		<store:address address="${basket.deliveryAddress}" type="span" />
+	</address>
+</c:if>	
+
+<c:if test="${!empty basket.paymentDetails && !empty basket.paymentDetails.address}">
+	<h3>
+		<fmt:message key="bees.basket.payment.address" />
+		<c:if test="${empty basket.orderPlaced}"><a class="edit" href="/checkout/payment"><fmt:message key="bees.checkout.edit" /></a></c:if>
+	</h3>
+	<address>
+		<store:address address="${basket.paymentDetails.address}" type="span" />
+	</address>
 </c:if>
