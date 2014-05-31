@@ -1,0 +1,74 @@
+.accountMenu {float:left; list-style:none; margin:0 $bees-gutter-large $bees-gutter-medium 0; padding:0; width:200px;
+	li {border-top:$bees-border-light;
+		&:first-child {border-top:none}
+	}
+	.current {background:$bees-brand-background}
+	a {color:$bees-brand-default;display:block;padding:$bees-gutter-small;}
+	a:hover, a:focus {text-decoration: underline}
+}
+
+.accountMenuLabel {background:$bees-brand-background; border:$bees-border-medium; cursor:pointer; display:none; margin:0 0 $bees-gutter-large; padding:$bees-gutter-small; 
+	&:before {font-family:$bees-font-icons; content:$bees-icon-menu; margin-right:4px; }
+}
+.accountMenuToggle {display:none}
+
+.accountGrid {margin:0; margin-left:-$bees-gutter-small; margin-right:-$bees-gutter-small; padding:0;
+	> li {display:inline-block; padding:0 $bees-gutter-small; margin:0 0 $bees-gutter-medium; vertical-align: top; width:33.333%}
+}
+
+.accountSection {overflow:hidden; margin-bottom:60px;
+
+	.accountTender {list-style:none; overflow:hidden; padding:0;
+		> li {border-bottom:$bees-border-medium; margin:0 0 $bees-gutter-medium; padding:0 0 $bees-gutter-small; overflow:hidden;}
+		p {margin:0 0 $bees-gutter-small;
+			> strong {clear:both; float:left; font-weight:600; padding:0 $bees-gutter-medium 0 0; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; width:120px;}
+			> span {display:block; overflow:hidden;}
+		} 
+	}
+
+	.accountAddress {
+		div {border-bottom:$bees-border-light; padding:0 0 $bees-gutter-medium;
+			span {display:block;
+				&:first-child {font-weight:600}
+			}
+		}
+	}
+
+	.accountOrder {
+		div {border:$bees-border-light; padding:$bees-gutter-medium $bees-gutter-small;
+			p {margin:0 0 $bees-gutter-small;
+				> strong {display:block;}
+			}
+			.price {padding-top:$bees-gutter-small; color:$bees-brand-primary; font-size:18px;}
+		}
+	}
+
+	.accountActions {padding:$bees-gutter-small 0 0; list-style:none; text-align:right;
+		li {margin:$bees-gutter-small 0 0;}
+		a:before {font-family:$bees-font-icons; margin-right:4px;}
+		.create {display:inline-block; width:auto;
+			&:before {content:$bees-icon-plus;}
+		}
+		.edit:before {content:$bees-icon-edit;}
+		.remove:before {content:$bees-icon-cross;}
+		.view:before {content:$bees-icon-view;}
+	}
+}
+
+/* Large tablet view */
+@media all and (max-width: $bees-width-lg - 1) {
+	.accountGrid > li {width:50%}
+}
+
+/* Large tablet view */
+@media all and (max-width: $bees-width-md - 1) {
+	.accountMenu {display:none; float:none; margin:0 0 $bees-gutter-large; width:100%}
+	.accountMenuLabel {display:inline-block}
+	.accountMenuToggle:checked ~ .accountMenu {border:$bees-border-heavy; display:block}
+	.accountMenuToggle:checked + .accountMenuLabel {background:$bees-brand-highlight; border:$bees-border-heavy; border-bottom:none; margin:0; }
+}
+
+/* Large tablet view */
+@media all and (max-width: $bees-width-sm - 1) {
+	.accountGrid > li {width:100%}
+}
